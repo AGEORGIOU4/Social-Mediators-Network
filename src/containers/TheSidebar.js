@@ -23,11 +23,10 @@ const TheSidebar = () => {
   return (
     <CSidebar
       show={show}
-      unfoldable
-      onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
+      onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
+        {/* <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
           height={35}
@@ -36,7 +35,16 @@ const TheSidebar = () => {
           className="c-sidebar-brand-minimized"
           name="sygnet"
           height={35}
-        />
+        /> */}
+
+        <img
+          className="c-sidebar-brand-full"
+          src='iclaim-logo-landscape.png'
+          width={100} />
+        <img
+          className="c-sidebar-brand-minimized"
+          src='iclaim-logo-square.png'
+          width={30} />
       </CSidebarBrand>
       <CSidebarNav>
 
@@ -48,10 +56,10 @@ const TheSidebar = () => {
             CSidebarNavItem,
             CSidebarNavTitle
           }}
-          />
+        />
 
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarMinimizer className="c-d-md-down-none" />
     </CSidebar>
   )
 }

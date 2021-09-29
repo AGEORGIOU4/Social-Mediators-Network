@@ -4,6 +4,7 @@ import TheFooter from './TheFooter'
 import TheHeader from './TheHeader'
 import TheLayout from './TheLayout'
 import TheSidebar from './TheSidebar'
+import TheHeaderDropdown from './TheHeaderDropdown'
 
 export {
   TheAside,
@@ -11,5 +12,6 @@ export {
   TheFooter,
   TheHeader,
   TheLayout,
-  TheSidebar
+  TheSidebar,
+  TheHeaderDropdown
 }

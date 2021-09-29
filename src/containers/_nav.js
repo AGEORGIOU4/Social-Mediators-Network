@@ -1,14 +1,25 @@
+import React from 'react'
+import CIcon from '@coreui/icons-react'
+import { } from '@coreui/icons'
+import { cilHome, cilSpeedometer, cilNotes } from '@coreui/icons-pro'
+
 const _nav = [
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Home',
+    to: '/home',
+    icon: <CIcon content={cilHome} customClasses="c-sidebar-nav-icon" />,
+    badge: {
+      color: 'success',
+      text: 'NEW',
+    }
+  },
   {
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
     to: '/dashboard',
-    icon: 'cil-speedometer',
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    }
-  },
+    icon: <CIcon content={cilSpeedometer} customClasses="c-sidebar-nav-icon" />,
+  }
 ]
 
 export default _nav

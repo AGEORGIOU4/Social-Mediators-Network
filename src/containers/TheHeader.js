@@ -11,7 +11,7 @@ import {
   CBreadcrumbRouter,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-
+import { TheHeaderDropdown } from '.'
 // routes config
 import routes from '../routes'
 
@@ -23,12 +23,12 @@ const TheHeader = () => {
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-    dispatch({type: 'set', sidebarShow: val})
+    dispatch({ type: 'set', sidebarShow: val })
   }
 
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-    dispatch({type: 'set', sidebarShow: val})
+    dispatch({ type: 'set', sidebarShow: val })
   }
 
   return (
@@ -44,12 +44,16 @@ const TheHeader = () => {
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo"/>
+        {/* <CIcon name="logo" height="48" alt="Logo"/> */}
+        <img
+          className="c-sidebar-brand-full"
+          src='iclaim-logo-landscape.png'
+          width={100} />
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3" >
-          <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
+          <CHeaderNavLink to="/home">Home</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 
@@ -57,7 +61,7 @@ const TheHeader = () => {
         <CToggler
           inHeader
           className="ml-3 d-md-down-none c-d-legacy-none"
-          onClick={() => dispatch({type: 'set', darkMode: !darkMode})}
+          onClick={() => dispatch({ type: 'set', darkMode: !darkMode })}
           title="Toggle Light/Dark Mode"
         >
           <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
@@ -66,10 +70,12 @@ const TheHeader = () => {
         <CToggler
           inHeader
           className="d-md-down-none"
-          onClick={() => dispatch({type: 'set', asideShow: !asideShow})}
+          onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
         >
           <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
         </CToggler>
+
+        <TheHeaderDropdown />
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">
