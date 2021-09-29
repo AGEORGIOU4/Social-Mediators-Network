@@ -1,5 +1,5 @@
 import React from 'react'
-import Logout from 'src/views/logout/Logout'
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   CBadge,
@@ -10,10 +10,18 @@ import {
   CImg,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilAccountLogout, cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
+import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
 import { cilCommentSquare } from '@coreui/icons-pro'
 
 const TheHeaderDropdown = () => {
+  let avatar = 'avatar.png';
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isAuthenticated) {
+    avatar = user.picture
+  }
+
   return (
     <CDropdown
       inNav
@@ -23,7 +31,7 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={'avatar.png'}
+            src={avatar}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
