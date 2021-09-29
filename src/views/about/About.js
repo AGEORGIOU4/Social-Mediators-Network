@@ -1,18 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-
-class About extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
+class About extends Component {
   render() {
     return (
-      <h1>
-        About
-      </h1>
-    )
+      <h1>About</h1>
+    );
   }
 }
 

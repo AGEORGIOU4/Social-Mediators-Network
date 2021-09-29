@@ -29,7 +29,7 @@ export const LoginCard = () => {
                     <CCol xs="6" style={{ textAlign: 'end' }}>
                       <CButton color="primary" className="px-4" onClick={() => loginWithRedirect()}>Login</CButton>
                     </CCol>
-                    <CCol xs="6" href="/">
+                    <CCol xs="6">
                       <CButton href="/" color="secondary" className="px-4">Guest</CButton>
                     </CCol>
                   </CRow>

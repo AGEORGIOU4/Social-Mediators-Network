@@ -9,9 +9,9 @@ import {
   CCarouselInner,
   CCarouselItem,
   CCol,
-  CRow
+  CRow, CProgress
 } from '@coreui/react'
-
+import CIcon from '@coreui/icons-react'
 const Home = () => {
 
   const slides = [
@@ -21,8 +21,8 @@ const Home = () => {
   ]
 
   return (
-    <CRow xs="6">
-      <CCol xs="12" xl="12">
+    <CRow >
+      <CCol xs="12">
         <CCard>
 
           <CCardHeader>
@@ -56,7 +56,9 @@ const Home = () => {
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow>
+      <CCol xs="12">
+      </CCol>
+    </CRow >
   )
 }
 

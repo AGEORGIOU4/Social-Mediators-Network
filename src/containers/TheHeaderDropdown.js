@@ -20,6 +20,7 @@ import { cilLockLocked, cilNoteAdd, cilNotes } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
 import { cilColumns, cilCommentSquare } from '@coreui/icons-pro'
 
+// Check if Admin
 var isAdmin = false;
 var admins = [];
 
@@ -118,20 +119,8 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem to="/settings" style={isAdmin ? { display: 'block' } : { display: 'none' }}>
-          <CIcon content={cilSettings} className="mfe-2" />
+          <CIcon content={cilLockLocked} className="mfe-2" />
           Admin Settings
-        </CDropdownItem>
-
-        <CDropdownItem style={isAdmin ? { display: 'block' } : { display: 'none' }} >
-          <CLabel style={{ marginBottom: '0', marginRight: '5px' }}><CIcon content={cilLockLocked} /> Admin Mode</CLabel>
-          <CSwitch
-            style={{ marginTop: '8px' }}
-            color='primary'
-            variant='3d'
-            shape='pill'
-            defaultChecked
-          >
-          </CSwitch>
         </CDropdownItem>
 
       </CDropdownMenu>

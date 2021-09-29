@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CSwitch } from '@coreui/react'
 import { EditBtn, RemoveBtn, getBadge } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,8 +18,9 @@ const postFields = [
   { key: 'username' },
   { key: 'photo' },
   { key: 'content' },
-  { key: 'createdOn', label: "Created on", _style: { width: '10%' } },
+  { key: 'createdOn', label: "Created on" },
   { key: 'status', label: "Created on", _style: { width: '10%' } },
+  { key: 'visibility', _style: { width: '0%' } },
   { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
@@ -155,6 +156,12 @@ class Settings extends React.Component {
                         <CBadge color={getBadge(item.status)}>
                           {item.status}
                         </CBadge>
+                      </td>
+                    ),
+                  'visibility':
+                    (item) => (
+                      <td>
+                        <CSwitch variant="3d"></CSwitch>
                       </td>
                     ),
                   'edit':
