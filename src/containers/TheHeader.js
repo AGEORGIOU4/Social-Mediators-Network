@@ -67,7 +67,7 @@ const TheHeader = () => {
 
         <CToggler
           inHeader
-          className="d-md-down-none"
+          // className="ml-md-3 d-lg-none"
           onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
         >
           <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
