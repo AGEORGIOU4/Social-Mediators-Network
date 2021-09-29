@@ -16,7 +16,7 @@ import { cilCommentSquare } from '@coreui/icons-pro'
 const TheHeaderDropdown = () => {
   let avatar = 'avatar.png';
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   if (isAuthenticated) {
     avatar = user.picture
@@ -33,7 +33,7 @@ const TheHeaderDropdown = () => {
           <CImg
             src={avatar}
             className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
+            alt="iclaim-avatar"
           />
         </div>
       </CDropdownToggle>

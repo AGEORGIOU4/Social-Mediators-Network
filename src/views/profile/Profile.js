@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CButton, CCardBody, CCardFooter, CCardHeader, CLabel, CRow, CCard, CCol } from "@coreui/react";
+import { CButton, CCardBody, CCardFooter, CCardHeader, CRow, CCard, CCol } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
@@ -34,7 +34,10 @@ const Profile = () => {
                 </p>
               </div>
               <div>
-                <img src={user.picture} width={100} />
+                <img
+                  alt="iclaim-user"
+                  src={user.picture}
+                  width={100} />
               </div>
             </CCardBody>
             <CCardFooter>

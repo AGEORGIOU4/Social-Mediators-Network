@@ -25,6 +25,7 @@ const Login = () => {
 
                   <div style={{ textAlign: 'center' }}>
                     <img
+                      alt="iclaim-logo"
                       className="c-sidebar-brand-full"
                       src='iclaim-logo-landscape.png'
                       width={200} />
