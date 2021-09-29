@@ -1,14 +1,16 @@
 import React from 'react'
+import Logout from 'src/views/logout/Logout'
+
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
+  CImg,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilAccountLogout, cilSettings, cilUser } from '@coreui/icons'
+import { cilAccountLogout, cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
 import { cilCommentSquare } from '@coreui/icons-pro'
 
 const TheHeaderDropdown = () => {
@@ -37,16 +39,14 @@ const TheHeaderDropdown = () => {
           <strong>Account</strong>
         </CDropdownItem>
 
-        <CDropdownItem>
+        <CDropdownItem to="/profile">
           <CIcon content={cilUser} className="mfe-2" />
           Profile
-          <CBadge color="info" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
-        <CDropdownItem>
+        <CDropdownItem to="/settings">
           <CIcon content={cilSettings} className="mfe-2" />
           Settings
-          <CBadge color="success" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
         <CDropdownItem
@@ -65,8 +65,14 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem divider />
-        <CDropdownItem>
-          <CIcon content={cilAccountLogout} className="mfe-2" />
+
+        <CDropdownItem href="#/login">
+          <CIcon content={cilArrowCircleRight} className="mfe-2" />
+          Login
+        </CDropdownItem>
+
+        <CDropdownItem href="#/logout">
+          <CIcon content={cilArrowCircleLeft} className="mfe-2" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>

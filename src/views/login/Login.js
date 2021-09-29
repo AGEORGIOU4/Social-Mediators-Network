@@ -1,22 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
   CButton,
   CCard,
   CCardBody,
-  CCardGroup,
   CCol,
   CContainer,
   CForm,
-  CInput,
-  CInputGroup,
-  CInputGroupPrepend,
-  CInputGroupText,
   CRow
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -37,7 +34,7 @@ const Login = () => {
                   <br />
                   <CRow>
                     <CCol xs="6" style={{ textAlign: 'end' }}>
-                      <CButton color="primary" className="px-4">Login</CButton>
+                      <CButton color="primary" className="px-4" onClick={() => loginWithRedirect()}>Login</CButton>
                     </CCol>
                     <CCol xs="6">
                       <CButton color="secondary" className="px-4">Guest</CButton>
