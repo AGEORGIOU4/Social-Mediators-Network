@@ -4,6 +4,7 @@ import { CButton, CCardBody, CCardFooter, CCardHeader, CRow, CCard, CCol } from 
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
+import { LoginCard } from "src/containers/common";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -13,10 +14,8 @@ const Profile = () => {
     return <div style={{ textAlign: 'center' }}> <CSpinner color='primary' grow /></div>
   }
 
-
-  return (
-
-    isAuthenticated && (
+  if (isAuthenticated) {
+    return (
       <CRow>
         <CCol>
           <CCard>
@@ -49,7 +48,13 @@ const Profile = () => {
         </CCol>
       </CRow>
     )
-  );
+  }
+
+  else {
+    return (
+      <LoginCard />
+    )
+  }
 }
 
 export default Profile

@@ -74,12 +74,12 @@ const TheHeaderDropdown = () => {
 
         <CDropdownItem divider />
 
-        <CDropdownItem href="#/login">
+        <CDropdownItem href="#/login" id="loginItem" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
           <CIcon content={cilArrowCircleRight} className="mfe-2" />
           Login
         </CDropdownItem>
 
-        <CDropdownItem href="#/logout">
+        <CDropdownItem href="#/logout" id="logoutItem" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
           <CIcon content={cilArrowCircleLeft} className="mfe-2" />
           Logout
         </CDropdownItem>
