@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import App from './App';
+import { Auth0Provider } from "@auth0/auth0-react";
 import * as serviceWorker from './serviceWorker';
 
 import store from './store'
@@ -15,9 +16,16 @@ import { icons } from './assets/icons'
 React.icons = icons
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App/>
-  </Provider>,
+  <Auth0Provider
+    domain="dev-iclaim.eu.auth0.com"
+    clientId="K8fuRdHKgwcf2vRF8wMl32O8uimtUCuD"
+    redirectUri={window.location.origin}
+  >
+
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

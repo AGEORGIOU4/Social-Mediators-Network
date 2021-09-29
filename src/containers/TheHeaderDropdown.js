@@ -1,17 +1,27 @@
 import React from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
+
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
+  CImg,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilAccountLogout, cilSettings, cilUser } from '@coreui/icons'
+import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
 import { cilCommentSquare } from '@coreui/icons-pro'
 
 const TheHeaderDropdown = () => {
+  let avatar = 'avatar.png';
+
+  const { user, isAuthenticated } = useAuth0();
+
+  if (isAuthenticated) {
+    avatar = user.picture
+  }
+
   return (
     <CDropdown
       inNav
@@ -21,9 +31,9 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={'avatar.png'}
+            src={avatar}
             className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
+            alt="iclaim-avatar"
           />
         </div>
       </CDropdownToggle>
@@ -37,16 +47,14 @@ const TheHeaderDropdown = () => {
           <strong>Account</strong>
         </CDropdownItem>
 
-        <CDropdownItem>
+        <CDropdownItem to="/profile">
           <CIcon content={cilUser} className="mfe-2" />
           Profile
-          <CBadge color="info" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
-        <CDropdownItem>
+        <CDropdownItem to="/settings">
           <CIcon content={cilSettings} className="mfe-2" />
           Settings
-          <CBadge color="success" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
         <CDropdownItem
@@ -65,8 +73,14 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem divider />
-        <CDropdownItem>
-          <CIcon content={cilAccountLogout} className="mfe-2" />
+
+        <CDropdownItem href="#/login" id="loginItem" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
+          <CIcon content={cilArrowCircleRight} className="mfe-2" />
+          Login
+        </CDropdownItem>
+
+        <CDropdownItem href="#/logout" id="logoutItem" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
+          <CIcon content={cilArrowCircleLeft} className="mfe-2" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>

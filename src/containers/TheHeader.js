@@ -46,6 +46,7 @@ const TheHeader = () => {
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
         {/* <CIcon name="logo" height="48" alt="Logo"/> */}
         <img
+          alt='iclaim-logo'
           className="c-sidebar-brand-full"
           src='iclaim-logo-landscape.png'
           width={100} />

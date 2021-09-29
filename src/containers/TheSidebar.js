@@ -11,7 +11,6 @@ import {
   CSidebarNavDropdown,
   CSidebarNavItem,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
 import navigation from './_nav'
@@ -38,10 +37,12 @@ const TheSidebar = () => {
         /> */}
 
         <img
+          alt='iclaim-logo-full'
           className="c-sidebar-brand-full"
           src='iclaim-logo-landscape.png'
           width={100} />
         <img
+          alt='iclaim-logo-minimized'
           className="c-sidebar-brand-minimized"
           src='iclaim-logo-square.png'
           width={30} />
