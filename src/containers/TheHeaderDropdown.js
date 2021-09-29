@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
+
+// Firebase
+import { collection, getDocs } from 'firebase/firestore';
+import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
   CBadge,
@@ -8,19 +12,44 @@ import {
   CDropdownMenu,
   CDropdownToggle,
   CImg,
+  CLabel,
+  CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { cilLockLocked, cilNoteAdd, cilNotes } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
-import { cilCommentSquare } from '@coreui/icons-pro'
+import { cilColumns, cilCommentSquare } from '@coreui/icons-pro'
+
+var isAdmin = false;
+var admins = [];
 
 const TheHeaderDropdown = () => {
   let avatar = 'avatar.png';
 
   const { user, isAuthenticated } = useAuth0();
 
+
   if (isAuthenticated) {
-    avatar = user.picture
+    avatar = user.picture;
+
+    const getAdmins = async (db) => {
+      const adminCol = collection(db, 'admins');
+      const adminSnapshot = await getDocs(adminCol);
+      const adminList = adminSnapshot.docs.map(doc => doc.data());
+      admins = adminList;
+
+      admins.forEach(admin => {
+        if (admin.email == user.email) {
+          isAdmin = true;
+          console.log(isAdmin)
+        }
+      }
+      )
+    }
+    getAdmins(firebaseDB);
   }
+
+
 
   return (
     <CDropdown
@@ -52,11 +81,6 @@ const TheHeaderDropdown = () => {
           Profile
         </CDropdownItem>
 
-        <CDropdownItem to="/settings">
-          <CIcon content={cilSettings} className="mfe-2" />
-          Settings
-        </CDropdownItem>
-
         <CDropdownItem
           header
           tag="div"
@@ -67,24 +91,51 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem>
-          <CIcon content={cilCommentSquare} className="mfe-2" />
-          Comments
+          <CIcon content={cilNotes} className="mfe-2" />
+          Blog
           <CBadge color="warning" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
         <CDropdownItem divider />
 
-        <CDropdownItem href="#/login" id="loginItem" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
+        <CDropdownItem href="#/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
           <CIcon content={cilArrowCircleRight} className="mfe-2" />
           Login
         </CDropdownItem>
 
-        <CDropdownItem href="#/logout" id="logoutItem" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
+        <CDropdownItem href="#/logout" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
           <CIcon content={cilArrowCircleLeft} className="mfe-2" />
           Logout
         </CDropdownItem>
+
+        <CDropdownItem style={isAdmin ? { display: 'block' } : { display: 'none' }}
+          header
+          tag="div"
+          color="light"
+          className="text-center"
+        >
+          <strong>Admin</strong>
+        </CDropdownItem>
+
+        <CDropdownItem to="/settings" style={isAdmin ? { display: 'block' } : { display: 'none' }}>
+          <CIcon content={cilSettings} className="mfe-2" />
+          Admin Settings
+        </CDropdownItem>
+
+        <CDropdownItem style={isAdmin ? { display: 'block' } : { display: 'none' }} >
+          <CLabel style={{ marginBottom: '0', marginRight: '5px' }}><CIcon content={cilLockLocked} /> Admin Mode</CLabel>
+          <CSwitch
+            style={{ marginTop: '8px' }}
+            color='primary'
+            variant='3d'
+            shape='pill'
+            defaultChecked
+          >
+          </CSwitch>
+        </CDropdownItem>
+
       </CDropdownMenu>
-    </CDropdown>
+    </CDropdown >
   )
 }
 

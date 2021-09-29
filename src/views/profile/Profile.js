@@ -23,7 +23,7 @@ const Profile = () => {
             <CCardBody>
               <div>
                 <p>
-                  <span><strong>Name:</strong></span> {user.nickname}
+                  <span><strong>Username:</strong></span> {user.nickname}
                 </p>
               </div>
 
