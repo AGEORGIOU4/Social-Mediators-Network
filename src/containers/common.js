@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCol,
-  CContainer,
-  CForm,
-  CRow
-} from '@coreui/react'
+import { CButton, CCard, CCardBody, CCol, CContainer, CForm, CRow } from '@coreui/react'
 
 import { useAuth0 } from "@auth0/auth0-react";
 
