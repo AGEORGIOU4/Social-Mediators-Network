@@ -1,22 +1,31 @@
 // Here you can add other styles
 
-// .c-sidebar .c-sidebar-brand {
-//   color: #fff;
-//   background: #303c54;
-// }
+.c-sidebar .c-sidebar-brand {
+  color: #fff;
+  background: #000;
+}
 
-// ul.c-sidebar-nav.h-100.ps {
-//   background: #4e4e4e;
-// }
+.c-footer {
+  color: #fafafa;
+  background: #f55e45;
+}
 
-// .c-sidebar-minimized .c-sidebar-nav {
-//   background: #44262c;
-// }
+.c-footer a {
+  color: #603843;
+}
 
-// .c-sidebar .c-sidebar-minimizer {
-//   background-color: #44262c;
-// }
+ul.c-sidebar-nav.h-100.ps {
+  background: #000;
+}
 
-// #root {
-//   background: #ffffff;
-// }
+.c-sidebar-minimized .c-sidebar-nav {
+  background: #000;
+}
+
+.c-sidebar .c-sidebar-minimizer {
+  background: #000;
+}
+
+#homeCarousel {
+margin-bottom: 20px;
+}

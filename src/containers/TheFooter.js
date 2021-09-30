@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { CFooter, CLink, CToggler } from '@coreui/react'
+import { CFooter, CToggler } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
 const TheFooter = () => {
@@ -10,9 +10,9 @@ const TheFooter = () => {
   return (
     <CFooter fixed={false}>
       <div>
-        <CLink href="https://https://www.iclaimcentre.org/" target="_blank">
-          ICLAIM Centre
-        </CLink>
+
+        Copyright © 2021 ICLAIM | All Rights Reserved
+
       </div>
       <div className="mfs-auto">
         <span className="mr-1">Powered by</span>
@@ -20,7 +20,7 @@ const TheFooter = () => {
       </div>
 
 
-      <CToggler style={{ margin: "5px" }}
+      <CToggler style={{ marginLeft: "5px" }}
         onClick={() => dispatch({ type: 'set', darkMode: !darkMode })}
         title="Toggle Light/Dark Mode"
       >
