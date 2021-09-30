@@ -9,9 +9,10 @@ import {
   CCarouselInner,
   CCarouselItem,
   CCol,
-  CRow, CButton, CImg, CJumbotron
+  CRow, CButton, CImg
 } from '@coreui/react'
 import LinesEllipsis from 'react-lines-ellipsis'
+import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 
 const Home = () => {
 
@@ -144,7 +145,11 @@ const Home = () => {
         <h2><strong>Social Mediators</strong></h2>
       </CCol>
 
+      <SocialMediatorsBasicTable />
+
     </CRow >
+
+
   )
 }
 

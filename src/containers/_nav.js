@@ -9,10 +9,6 @@ const _nav = [
     name: 'Home',
     to: '/',
     icon: <CIcon content={cilHome} customClasses="c-sidebar-nav-icon" />,
-    badge: {
-      color: 'success',
-      text: 'NEW',
-    }
   },
   {
     _tag: 'CSidebarNavItem',
@@ -25,6 +21,10 @@ const _nav = [
     name: 'Blog',
     to: '/blog',
     icon: <CIcon content={cilNotes} customClasses="c-sidebar-nav-icon" />,
+    badge: {
+      color: 'success',
+      text: 'NEW',
+    }
   },
   {
     _tag: 'CSidebarNavItem',

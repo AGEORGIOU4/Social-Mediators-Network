@@ -3,6 +3,7 @@ import { CButton } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash } from '@coreui/icons'
 import { Route } from "react-router-dom";
+import { cisEye } from '@coreui/icons-pro';
 
 export const getBadge = status => {
   switch (status) {
@@ -12,6 +13,17 @@ export const getBadge = status => {
     case 'Banned': return 'danger'
     default: return 'primary'
   }
+}
+
+export const ViewBtn = (props) => {
+  return (
+    <Route render={({ history }) => (
+      <CButton
+        color="secondary"
+        variant="ghost"
+        size="sm" onClick={() => { history.push(props.ViewRoute) }}><CIcon content={cisEye} /></CButton>
+    )} />
+  )
 }
 
 export const EditBtn = (props) => {
