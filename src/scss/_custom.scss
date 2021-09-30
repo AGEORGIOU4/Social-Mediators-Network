@@ -2,5 +2,30 @@
 
 .c-sidebar .c-sidebar-brand {
   color: #fff;
-  background: #ebedef;
+  background: #000;
+}
+
+.c-footer {
+  color: #fafafa;
+  background: #f55e45;
+}
+
+.c-footer a {
+  color: #603843;
+}
+
+ul.c-sidebar-nav.h-100.ps {
+  background: #000;
+}
+
+.c-sidebar-minimized .c-sidebar-nav {
+  background: #000;
+}
+
+.c-sidebar .c-sidebar-minimizer {
+  background: #000;
+}
+
+#homeCarousel {
+margin-bottom: 20px;
 }

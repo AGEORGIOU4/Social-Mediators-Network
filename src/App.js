@@ -16,9 +16,9 @@ class App extends Component {
   render() {
     return (
       <HashRouter>
-          <React.Suspense fallback={loading}>
+        <React.Suspense fallback={loading}>
           <Switch>
-            <Route path="/" name="Home" render={props => <TheLayout {...props}/>} />
+            <Route path="/" name="Home" render={props => <TheLayout {...props} />} />
           </Switch>
         </React.Suspense>
       </HashRouter>
