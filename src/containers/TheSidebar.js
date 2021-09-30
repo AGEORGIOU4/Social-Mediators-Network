@@ -24,18 +24,19 @@ const TheSidebar = () => {
       show={show}
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/">
+      {/* <CSidebarBrand className="d-md-down-none" to="/">
         <img
           alt='iclaim-logo-full'
           className="c-sidebar-brand-full"
           src='iclaim-logo-landscape.png'
-          width={100} />
+          width={150}
+        />
         <img
           alt='iclaim-logo-minimized'
           className="c-sidebar-brand-minimized"
           src='iclaim-logo-square.png'
           width={30} />
-      </CSidebarBrand>
+      </CSidebarBrand> */}
       <CSidebarNav>
 
         <CCreateElement

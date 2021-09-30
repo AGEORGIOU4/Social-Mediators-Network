@@ -1,26 +1,26 @@
 import React from 'react'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CSwitch } from '@coreui/react'
-import { EditBtn, RemoveBtn, getBadge } from 'src/reusable/reusables';
-import { v4 as uuidv4 } from 'uuid';
+import CIcon from '@coreui/icons-react';
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput } from '@coreui/react'
+import { EditBtn, RemoveBtn, getBadge, FormatTimestamp } from 'src/reusable/reusables';
+import { v4 as uuidv4 } from 'uuid';
+import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
+
 const adminFields = [
-  { key: 'email', label: 'ID' },
-  { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
+  { key: 'email', _style: { width: '10%' }, label: 'Email' },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
 
 const postFields = [
-  { key: 'id', label: 'ID' },
   { key: 'username' },
-  { key: 'photo' },
-  { key: 'content' },
+  { key: 'content', _style: { width: '50%' } },
   { key: 'createdOn', label: "Created on" },
-  { key: 'status', label: "Created on", _style: { width: '10%' } },
-  { key: 'visibility', _style: { width: '0%' } },
+  { key: 'status', _style: { width: '10%' } },
+  { key: 'visibility', label: '', _style: { width: '0%' }, sorter: false, filter: false },
   { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
@@ -28,6 +28,10 @@ const postFields = [
 class Settings extends React.Component {
   constructor(props) {
     super(props);
+
+    // Check if Admin
+    var admins = [];
+    var checkIfAdmin = false;
 
     // Common state
     this.state = {
@@ -80,16 +84,10 @@ class Settings extends React.Component {
                 items={this.state.admins}
                 fields={adminFields}
                 loading={this.state.loading}
-                columnFilter
-                tableFilter
-                cleaner
-                itemsPerPageSelect
                 itemsPerPage={5}
                 hover
-                sorter
                 pagination
-                // loading
-                onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
+                // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
                 // onPageChange={(val) => console.log('new page:', val)}
                 // onPagesChange={(val) => console.log('new pages:', val)}
                 // onPaginationChange={(val) => console.log('new pagination:', val)}
@@ -98,12 +96,6 @@ class Settings extends React.Component {
                 // onTableFilterChange={(val) => console.log('new table filter:', val)}
                 // onColumnFilterChange={(val) => console.log('new column filter:', val)}
                 scopedSlots={{
-                  'edit':
-                    (item) => (
-                      <td>
-                        <EditBtn EditRoute="/customer-form" />
-                      </td>
-                    ),
                   'remove':
                     (item) => (
                       <td>
@@ -114,16 +106,24 @@ class Settings extends React.Component {
               />
             </CCardBody>
             <CCardFooter style={{ textAlign: 'right' }}>
-              <CButton color="primary">
-                Add Admin
-              </CButton>
+
+              <CRow>
+                <CCol xs="5">
+                  <CInput name="addAdmin" type="email" />
+                </CCol>
+
+                <CButton color="primary">
+                  Add Admin
+                </CButton>
+
+              </CRow>
 
             </CCardFooter>
           </CCard>
         </CCol>
 
         <CCol xs={12}>
-          <CCard id="table">
+          <CCard>
             <CCardHeader>
               <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
             </CCardHeader>
@@ -141,7 +141,7 @@ class Settings extends React.Component {
                 sorter
                 pagination
                 // loading
-                onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
+                // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
                 // onPageChange={(val) => console.log('new page:', val)}
                 // onPagesChange={(val) => console.log('new pages:', val)}
                 // onPaginationChange={(val) => console.log('new pagination:', val)}
@@ -150,6 +150,12 @@ class Settings extends React.Component {
                 // onTableFilterChange={(val) => console.log('new table filter:', val)}
                 // onColumnFilterChange={(val) => console.log('new column filter:', val)}
                 scopedSlots={{
+                  'createdOn':
+                    (item) => (
+                      <td>
+                        <FormatTimestamp seconds={(item.createdOn != null ? item.createdOn.seconds : "N/A")} />
+                      </td>
+                    ),
                   'status':
                     (item) => (
                       <td>
@@ -161,7 +167,10 @@ class Settings extends React.Component {
                   'visibility':
                     (item) => (
                       <td>
-                        <CSwitch variant="3d"></CSwitch>
+                        <CButton
+                          color="secondary"
+                          variant="outline"
+                          size="sm"><CIcon content={(item.status == "Active") ? cilEye : cilEyeSlash} /></CButton>
                       </td>
                     ),
                   'edit':

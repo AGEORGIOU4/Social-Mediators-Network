@@ -42,14 +42,26 @@ const TheHeader = () => {
         className="ml-3 d-md-down-none"
         onClick={toggleSidebar}
       />
-      <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        {/* <CIcon name="logo" height="48" alt="Logo"/> */}
+      <CHeaderNav>
+        <CHeaderBrand  >
+          <img styl
+            alt='iclaim-logo-full'
+            className="c-sidebar-brand-full"
+            src='iclaim-logo-landscape.png'
+            width={100}
+          />
+
+        </CHeaderBrand>
+      </CHeaderNav>
+
+      {/* <CHeaderBrand className="mx-auto d-lg-none" to="/">
+
         <img
           alt='iclaim-logo'
           className="c-sidebar-brand-full"
           src='iclaim-logo-landscape.png'
           width={100} />
-      </CHeaderBrand>
+      </CHeaderBrand> */}
 
       <CHeaderNav className="d-md-down-none mr-auto">
 
@@ -60,19 +72,22 @@ const TheHeader = () => {
       </CHeaderNav>
 
 
-      <CHeaderNav>
+      <div style={{ position: "fixed", right: 0 }}>
+        <CHeaderNav>
 
-        <CToggler
-          inHeader
-          // className="ml-md-3 d-lg-none"
-          onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
-        >
-          <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
-        </CToggler>
+          <CToggler
+            inHeader
+            // className="ml-md-3 d-lg-none"
+            onClick={() => dispatch({ type: 'set', asideShow: !asideShow })}
+          >
+            <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
+          </CToggler>
 
-        <TheHeaderDropdown />
+          <TheHeaderDropdown />
 
-      </CHeaderNav>
+        </CHeaderNav>
+      </div>
+
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter className="border-0 c-subheader-nav m-0 px-0 px-md-3" routes={routes} />
       </CSubheader>

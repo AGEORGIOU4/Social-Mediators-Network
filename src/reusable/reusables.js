@@ -48,10 +48,16 @@ export const RemoveBtn = () => {
 }
 
 export const FormatTimestamp = (props) => {
-  var seconds = props.seconds;
-  var dateObject = new Date(seconds * 1000);
-  var date = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit" }).format(dateObject);
-  var dateToString = date.toString();
+  var dateToString = "N/A";
+
+  if (props.seconds != "N/A") {
+
+    var seconds = props.seconds;
+    var dateObject = new Date(seconds * 1000);
+    var date = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(dateObject);
+    dateToString = date.toString();
+
+  }
 
   return (
     dateToString
