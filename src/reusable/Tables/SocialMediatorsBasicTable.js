@@ -10,7 +10,7 @@ import { ViewBtn } from '../reusables';
 export const socialMediatorFields = [
   { key: 'photo', label: "", sorter: false, filter: false },
   { key: 'firstName', label: "Name" },
-  { key: 'lastName', label: "Surname" },
+  { key: 'lastName', label: "Surname" }
 ]
 
 export class SocialMediatorsBasicTable extends React.Component {
@@ -61,7 +61,7 @@ export class SocialMediatorsBasicTable extends React.Component {
               'photo':
                 (item) => (
                   <td>
-                    <CImg src={item.photo}
+                    <CImg src={(item.photo != "") ? item.photo : "avatar.png"}
                       width="40" height="40"
                       shape="rounded-circle" />
                   </td>
