@@ -9,8 +9,10 @@ import {
   CCarouselInner,
   CCarouselItem,
   CCol,
-  CRow, CProgress
+  CRow, CButton, CCardFooter
 } from '@coreui/react'
+import LinesEllipsis from 'react-lines-ellipsis'
+import DocsLink from 'src/reusable/DocsLink'
 import CIcon from '@coreui/icons-react'
 const Home = () => {
 
@@ -54,9 +56,73 @@ const Home = () => {
 
             </CCarousel>
           </CCardBody>
+
         </CCard>
       </CCol>
-      <CCol xs="12">
+
+
+      <CCol xs="12" sm="6" md="4">
+        <CCard>
+          <CCardHeader>
+            News card
+          </CCardHeader>
+          <CCardBody>
+            <LinesEllipsis
+              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+              maxLine='2'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
+
+            <div style={{ textAlign: 'end', marginTop: '5px' }}><CButton color="primary">Read</CButton></div>
+          </CCardBody>
+
+        </CCard>
+      </CCol>
+
+      <CCol xs="12" sm="6" md="4">
+        <CCard>
+          <CCardHeader>
+            News card
+          </CCardHeader>
+          <CCardBody>
+            <LinesEllipsis
+              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+              maxLine='2'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
+            <div style={{ textAlign: 'end', marginTop: '5px' }}><CButton color="primary">Read</CButton></div>
+          </CCardBody>
+
+        </CCard>
+      </CCol>
+
+      <CCol xs="12" sm="6" md="4">
+        <CCard>
+          <CCardHeader>
+            News card
+          </CCardHeader>
+          <CCardBody>
+            <LinesEllipsis
+              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+              maxLine='2'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
+            <div style={{ textAlign: 'end', marginTop: '5px' }}><CButton color="primary">Read</CButton></div>
+          </CCardBody>
+
+        </CCard>
       </CCol>
     </CRow >
   )

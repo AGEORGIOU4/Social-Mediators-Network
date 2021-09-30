@@ -63,7 +63,6 @@ const TheHeader = () => {
 
 
       <CHeaderNav>
-        <TheHeaderDropdown />
 
         <CToggler
           inHeader
@@ -72,6 +71,8 @@ const TheHeader = () => {
         >
           <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
         </CToggler>
+
+        <TheHeaderDropdown />
 
       </CHeaderNav>
       <CSubheader className="px-3 justify-content-between">
