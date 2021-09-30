@@ -21,10 +21,11 @@ import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@
 import { cilColumns, cilCommentSquare } from '@coreui/icons-pro'
 
 // Check if Admin
-var isAdmin = false;
 var admins = [];
+var checked = false;
 
 const TheHeaderDropdown = () => {
+  const [isAdmin, setAdmin] = useState("");
   let avatar = 'avatar.png';
 
   const { user, isAuthenticated } = useAuth0();
@@ -33,21 +34,25 @@ const TheHeaderDropdown = () => {
   if (isAuthenticated) {
     avatar = user.picture;
 
-    const getAdmins = async (db) => {
-      const adminCol = collection(db, 'admins');
-      const adminSnapshot = await getDocs(adminCol);
-      const adminList = adminSnapshot.docs.map(doc => doc.data());
-      admins = adminList;
+    if (!checked) {
+      const getAdmins = async (db) => {
+        const adminCol = collection(db, 'admins');
+        const adminSnapshot = await getDocs(adminCol);
+        const adminList = adminSnapshot.docs.map(doc => doc.data());
+        admins = adminList;
 
-      admins.forEach(admin => {
-        if (admin.email == user.email) {
-          isAdmin = true;
-          console.log(isAdmin)
+        admins.forEach(admin => {
+          if (admin.email == user.email) {
+            setAdmin({ isAdmin: true });
+            console.log(checked)
+            checked = true;
+            console.log(checked)
+          }
         }
+        )
       }
-      )
+      getAdmins(firebaseDB);
     }
-    getAdmins(firebaseDB);
   }
 
 
