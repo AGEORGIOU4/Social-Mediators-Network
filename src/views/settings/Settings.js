@@ -2,10 +2,10 @@ import React from 'react'
 import CIcon from '@coreui/icons-react';
 
 // Firebase
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm } from '@coreui/react'
 import { EditBtn, RemoveBtn, getBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
@@ -29,15 +29,49 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
 
-    // Check if Admin
-    var admins = [];
-    var checkIfAdmin = false;
-
     // Common state
     this.state = {
       admins: [],
+      newAdminEmail: "",
       loading: false,
     };
+
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+  }
+
+  handleChangeEmail(event) {
+    this.setState({ newAdminEmail: event.target.value });
+  }
+
+  handleSubmit(event) {
+    var autoID = uuidv4();
+    console.log(autoID);
+
+    let isAdmin = false;
+    this.state.admins.forEach(admin => {
+      if (admin.email === this.state.newAdminEmail) {
+        alert('Admin ' + this.state.newAdminEmail + ' already exists');
+        isAdmin = true;
+      }
+    })
+
+    if (!isAdmin && this.state.newAdminEmail) {
+
+      const setAdmin = async (db) => {
+        const docRef = await addDoc(collection(db, "admins"), {
+          email: this.state.newAdminEmail,
+        });
+
+        console.log("Document written with ID: ", docRef.id);
+
+        console.log('A name was submitted: ' + this.state.newAdminEmail);
+        event.preventDefault();
+      }
+      setAdmin(firebaseDB);
+      this.componentDidMount();
+    }
   }
 
   componentDidMount() {
@@ -58,9 +92,6 @@ class Settings extends React.Component {
         const postSnapshot = await getDocs(postCol);
         const postList = postSnapshot.docs.map(doc => doc.data());
         this.setState({ posts: postList });
-
-        var autoID = uuidv4();
-        console.log(autoID);
 
         this.setState({ loading: false })
       };
@@ -85,16 +116,7 @@ class Settings extends React.Component {
                 fields={adminFields}
                 loading={this.state.loading}
                 itemsPerPage={5}
-                hover
                 pagination
-                // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
-                // onPageChange={(val) => console.log('new page:', val)}
-                // onPagesChange={(val) => console.log('new pages:', val)}
-                // onPaginationChange={(val) => console.log('new pagination:', val)}
-                // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-                // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-                // onTableFilterChange={(val) => console.log('new table filter:', val)}
-                // onColumnFilterChange={(val) => console.log('new column filter:', val)}
                 scopedSlots={{
                   'remove':
                     (item) => (
@@ -107,16 +129,21 @@ class Settings extends React.Component {
             </CCardBody>
             <CCardFooter style={{ textAlign: 'right' }}>
 
-              <CRow>
-                <CCol xs="5">
-                  <CInput name="addAdmin" type="email" />
-                </CCol>
+              <CForm>
+                <CRow>
 
-                <CButton color="primary">
-                  Add Admin
-                </CButton>
+                  <CCol xs="8">
+                    <CInput required type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                  </CCol>
 
-              </CRow>
+                  <CCol xs="4">
+                    <CButton color="primary" type="submit" value="Submit" onClick={this.handleSubmit}>
+                      Assign
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CForm>
+
 
             </CCardFooter>
           </CCard>
@@ -168,7 +195,7 @@ class Settings extends React.Component {
                     (item) => (
                       <td>
                         <CButton
-                          color="secondary"
+                          color="#4638c2"
                           variant="outline"
                           size="sm"><CIcon content={(item.status == "Active") ? cilEye : cilEyeSlash} /></CButton>
                       </td>

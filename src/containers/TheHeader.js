@@ -44,7 +44,7 @@ const TheHeader = () => {
       />
       <CHeaderNav>
         <CHeaderBrand  >
-          <img styl
+          <img
             alt='iclaim-logo-full'
             className="c-sidebar-brand-full"
             src='iclaim-logo-landscape.png'
@@ -88,7 +88,7 @@ const TheHeader = () => {
         </CHeaderNav>
       </div>
 
-      <CSubheader className="px-3 justify-content-between">
+      <CSubheader className="px-3 justify-content-between" style={{ position: "initial" }}>
         <CBreadcrumbRouter className="border-0 c-subheader-nav m-0 px-0 px-md-3" routes={routes} />
       </CSubheader>
     </CHeader >

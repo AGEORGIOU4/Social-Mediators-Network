@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg, CButton } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
@@ -73,7 +73,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                 'photo':
                   (item) => (
                     <td>
-                      <CImg src={item.photo}
+                      <CImg src={(item.photo !== "") ? item.photo : "avatar.png"}
                         width="40" height="40"
                         shape="rounded-circle" />
                     </td>

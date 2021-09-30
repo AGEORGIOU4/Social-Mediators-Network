@@ -1,11 +1,9 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CImg } from '@coreui/react'
+import { CDataTable, CCol, CCard, CImg, CCardBody } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-
-import { ViewBtn } from '../reusables';
 
 export const socialMediatorFields = [
   { key: 'photo', label: "", sorter: false, filter: false },
@@ -44,30 +42,32 @@ export class SocialMediatorsBasicTable extends React.Component {
     return (
       <CCol >
         <CCard>
-          <CDataTable
-            items={this.state.users}
-            fields={socialMediatorFields}
-            loading={this.state.loading}
-            clickableRows
-            onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
-            hover
-            striped
-            bordered
-            header={false}
-            size="sm"
-            itemsPerPage={10}
-            pagination
-            scopedSlots={{
-              'photo':
-                (item) => (
-                  <td>
-                    <CImg src={(item.photo != "") ? item.photo : "avatar.png"}
-                      width="40" height="40"
-                      shape="rounded-circle" />
-                  </td>
-                )
-            }}
-          />
+          <CCardBody>
+            <CDataTable
+              items={this.state.users}
+              fields={socialMediatorFields}
+              loading={this.state.loading}
+              clickableRows
+              onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
+              hover
+              striped
+              bordered
+              header={false}
+              size="sm"
+              itemsPerPage={10}
+              pagination
+              scopedSlots={{
+                'photo':
+                  (item) => (
+                    <td>
+                      <CImg src={(item.photo !== "") ? item.photo : "avatar.png"}
+                        width="40" height="40"
+                        shape="rounded-circle" />
+                    </td>
+                  )
+              }}
+            />
+          </CCardBody>
         </CCard>
       </CCol>
 

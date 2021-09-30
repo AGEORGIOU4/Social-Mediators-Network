@@ -50,7 +50,7 @@ export const RemoveBtn = () => {
 export const FormatTimestamp = (props) => {
   var dateToString = "N/A";
 
-  if (props.seconds != "N/A") {
+  if (props.seconds !== "N/A") {
 
     var seconds = props.seconds;
     var dateObject = new Date(seconds * 1000);
