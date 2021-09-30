@@ -1,10 +1,12 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
+import Swal from 'sweetalert2';
 
 // Firebase
-import { collection, addDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
+import { cilTrash } from '@coreui/icons';
 import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm } from '@coreui/react'
 import { EditBtn, RemoveBtn, getBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
@@ -37,7 +39,8 @@ class Settings extends React.Component {
     };
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeAdmin = this.removeAdmin.bind(this);
+    this.assignAdmin = this.assignAdmin.bind(this);
 
   }
 
@@ -45,14 +48,14 @@ class Settings extends React.Component {
     this.setState({ newAdminEmail: event.target.value });
   }
 
-  handleSubmit(event) {
+  assignAdmin(event) {
     var autoID = uuidv4();
     console.log(autoID);
 
     let isAdmin = false;
     this.state.admins.forEach(admin => {
       if (admin.email === this.state.newAdminEmail) {
-        alert('Admin ' + this.state.newAdminEmail + ' already exists');
+        alert('Admin ' + this.state.newAdminEmail + ' already exists!');
         isAdmin = true;
       }
     })
@@ -60,19 +63,62 @@ class Settings extends React.Component {
     if (!isAdmin && this.state.newAdminEmail) {
 
       const setAdmin = async (db) => {
-        const docRef = await addDoc(collection(db, "admins"), {
+        await setDoc(doc(db, "admins", autoID), {
+          id: autoID,
           email: this.state.newAdminEmail,
         });
-
-        console.log("Document written with ID: ", docRef.id);
-
-        console.log('A name was submitted: ' + this.state.newAdminEmail);
         event.preventDefault();
       }
       setAdmin(firebaseDB);
       this.componentDidMount();
+      this.setState({ newAdminEmail: "" })
     }
   }
+
+  removeAdmin(id, email) {
+    if (!email) {
+      email = "this";
+    }
+    Swal.fire({
+
+      text: 'Delete '.concat(email).concat(' from admin? '),
+      showCancelButton: true,
+      icon: 'error',
+      iconColor: '#e55353',
+      confirmButtonText: `Yes, delete it!`,
+      confirmButtonColor: '#e55353'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+        const deleteAdmin = async (db) => {
+          await deleteDoc(doc(db, "admins", id));
+        }
+
+        deleteAdmin(firebaseDB);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: false,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Deleted successfully'
+        })
+
+        this.componentDidMount();
+      }
+    })
+  }
+
 
   componentDidMount() {
     this.setState({ loading: true })
@@ -121,7 +167,17 @@ class Settings extends React.Component {
                   'remove':
                     (item) => (
                       <td>
-                        <RemoveBtn />
+                        {/* <RemoveBtn removeItem={this.removeAdmin} /> */}
+
+                        <CButton
+                          size="sm"
+                          color="danger"
+                          variant="outline"
+                          onClick={() => {
+                            this.removeAdmin(item.id, item.email)
+                          }}
+
+                        ><CIcon content={cilTrash} /></CButton>
                       </td>
                     )
                 }}
@@ -129,7 +185,7 @@ class Settings extends React.Component {
             </CCardBody>
             <CCardFooter style={{ textAlign: 'right' }}>
 
-              <CForm>
+              <CForm onSubmit={this.assignAdmin}>
                 <CRow>
 
                   <CCol xs="8">
@@ -137,7 +193,7 @@ class Settings extends React.Component {
                   </CCol>
 
                   <CCol xs="4">
-                    <CButton color="primary" type="submit" value="Submit" onClick={this.handleSubmit}>
+                    <CButton color="primary" type="submit">
                       Assign
                     </CButton>
                   </CCol>

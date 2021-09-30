@@ -37,12 +37,13 @@ export const EditBtn = (props) => {
   )
 }
 
-export const RemoveBtn = () => {
+export const RemoveBtn = (props) => {
   return (
     <CButton
       size="sm"
       color="danger"
       variant="outline"
+      onClick={props.removeItem}
     ><CIcon content={cilTrash} /></CButton>
   )
 }

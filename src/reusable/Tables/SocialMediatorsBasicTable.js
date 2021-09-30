@@ -42,7 +42,7 @@ export class SocialMediatorsBasicTable extends React.Component {
     return (
       <CCol >
         <CCard>
-          <CCardBody>
+          <CCardBody style={{ padding: '2rem' }}>
             <CDataTable
               items={this.state.users}
               fields={socialMediatorFields}
