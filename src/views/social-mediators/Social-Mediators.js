@@ -1,6 +1,5 @@
 import React from 'react'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg } from '@coreui/react'
-import { EditBtn, RemoveBtn } from 'src/reusable/reusables';
+import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';

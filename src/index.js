@@ -24,8 +24,10 @@ ReactDOM.render(
 
     <Provider store={store}>
       <App />
-    </Provider>,
+    </Provider>
+
   </Auth0Provider>,
+
   document.getElementById('root')
 );
 

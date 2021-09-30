@@ -4,10 +4,6 @@ import CIcon from '@coreui/icons-react'
 import { cilPencil, cilTrash } from '@coreui/icons'
 import { Route } from "react-router-dom";
 
-// Firebase
-import { collection, getDocs } from 'firebase/firestore';
-import { firebaseDB } from 'src/reusable/firebaseConfig';
-
 export const getBadge = status => {
   switch (status) {
     case 'Active': return 'success'

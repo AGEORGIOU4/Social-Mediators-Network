@@ -9,11 +9,10 @@ import {
   CCarouselInner,
   CCarouselItem,
   CCol,
-  CRow, CButton, CCardFooter
+  CRow, CButton
 } from '@coreui/react'
 import LinesEllipsis from 'react-lines-ellipsis'
-import DocsLink from 'src/reusable/DocsLink'
-import CIcon from '@coreui/icons-react'
+
 const Home = () => {
 
   const slides = [

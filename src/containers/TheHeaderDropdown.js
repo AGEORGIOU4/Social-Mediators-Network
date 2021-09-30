@@ -11,14 +11,11 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg,
-  CLabel,
-  CSwitch,
+  CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilNoteAdd, cilNotes } from '@coreui/icons';
-import { cilArrowCircleLeft, cilArrowCircleRight, cilSettings, cilUser } from '@coreui/icons'
-import { cilColumns, cilCommentSquare } from '@coreui/icons-pro'
+import { cilLockLocked, cilNotes } from '@coreui/icons';
+import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
 
 // Check if Admin
 var admins = [];
@@ -42,7 +39,7 @@ const TheHeaderDropdown = () => {
         admins = adminList;
 
         admins.forEach(admin => {
-          if (admin.email == user.email) {
+          if (admin.email === user.email) {
             setAdmin({ isAdmin: true });
             console.log(checked)
             checked = true;
@@ -96,7 +93,7 @@ const TheHeaderDropdown = () => {
           <strong>Social Mediator</strong>
         </CDropdownItem>
 
-        <CDropdownItem>
+        <CDropdownItem href="#/blog" >
           <CIcon content={cilNotes} className="mfe-2" />
           Blog
           <CBadge color="warning" className="mfs-auto">42</CBadge>

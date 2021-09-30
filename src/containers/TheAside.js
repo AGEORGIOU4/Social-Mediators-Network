@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {
   CSidebar,
-  CSidebarClose, CCo
+  CSidebarClose
 } from '@coreui/react'
 
 const TheAside = () => {
@@ -30,7 +30,7 @@ const TheAside = () => {
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ficlaimcentre%2F&tabs=timeline%2C%20events%2Cmessages&width=300&height=750&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+        <iframe title="fbFrame" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ficlaimcentre%2F&tabs=timeline%2C%20events%2Cmessages&width=300&height=750&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
           width="300" height="750"
           style={{ border: 'none', overflow: 'hidden' }}></iframe>
 

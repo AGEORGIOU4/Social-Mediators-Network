@@ -9,8 +9,6 @@ import {
   CSubheader,
   CToggler,
   CBreadcrumbRouter,
-  CSwitch,
-  CLabel
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { TheHeaderDropdown } from '.'

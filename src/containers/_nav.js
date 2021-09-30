@@ -30,7 +30,7 @@ const _nav = [
     _tag: 'CSidebarNavItem',
     name: 'Social Mediators',
     to: '/social-mediators',
-    icon: <CIcon content={cilPeople} customClasses="c-sidebar-nav-icon" />,
+    icon: <CIcon content={cilPeople} customClasses="c-sidebar-nav-icon" />
   }
 ]
 
