@@ -46,7 +46,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
       <CCol >
         <CCard id="table">
           <CCardHeader>
-            <h4 style={{ margin: '0' }}><strong>Social Mediators</strong></h4>
+            <h4 style={{ margin: '0' }}><strong>Meet the Social Mediators</strong></h4>
           </CCardHeader>
           <CCardBody>
             <CDataTable
@@ -54,6 +54,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
               fields={socialMediatorFields}
               loading={this.state.loading}
               tableFilter
+
               cleaner
               striped
               itemsPerPage={10}

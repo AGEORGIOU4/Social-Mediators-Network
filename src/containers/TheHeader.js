@@ -72,9 +72,8 @@ const TheHeader = () => {
       </CHeaderNav>
 
 
-      <div style={{ position: "fixed", right: 0 }}>
+      <div style={{ position: "absolute", right: 0 }}>
         <CHeaderNav>
-
           <CToggler
             inHeader
             // className="ml-md-3 d-lg-none"

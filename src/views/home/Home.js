@@ -14,18 +14,13 @@ import {
 import LinesEllipsis from 'react-lines-ellipsis'
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 
-import { useAuth0 } from "@auth0/auth0-react";
-
-
-
-
 const Home = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const { user, isAuthenticated, isLoading } = useAuth0();
 
-  console.log("Is authenticated:" + isAuthenticated);
-  if (isAuthenticated) {
-    console.log("User is:" + user.email);
-  }
+  // console.log("Is authenticated:" + isAuthenticated);
+  // if (isAuthenticated) {
+  //   console.log("User is:" + user.email);
+  // }
 
   const slides = [
     'iclaim-slide1.jpg',
@@ -35,6 +30,7 @@ const Home = () => {
 
   return (
     <CRow >
+
       <CCol xs="12" id="homeCarousel">
         <CCarousel animate autoSlide={3000}>
           <CCarouselIndicators style={{ color: 'grey' }} />
