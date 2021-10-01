@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
-import { firebaseApp, firebaseDB } from 'src/reusable/firebaseConfig';
+import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
   CCard,
@@ -19,59 +19,52 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 import { v4 as uuidv4 } from 'uuid';
 
-var fbCounter = 0;
-var authCounter = 0;
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-  if (fbCounter < 1) {
+  const [firebaseFlag, setFirebaseFlag] = useState(false);
+
+  // Check if user is logged in
+  if (isAuthenticated && !firebaseFlag) {
+    console.log("User " + user.email + " is authenticated: " + isAuthenticated);
+
+    // Get all firebase users
     const getUsers = async (db) => {
-      const userCol = collection(db, 'users');
-      const userSnapshot = await getDocs(userCol);
+      const userSnapshot = await getDocs(collection(db, "users"));
       const usersList = userSnapshot.docs.map(doc => doc.data());
-      setUsers(usersList);
-      console.log(users)
-      fbCounter++;
+      console.log("Users list done...");
 
-      if (authCounter < 1 && isAuthenticated) {
-
-        console.log("Is authenticated:" + isAuthenticated);
-        console.log("User" + user.email);
-
-        usersList.forEach(userm => {
-
-          if (userm.email === user.email && authCounter < 1) {
-            alert('Users ' + userm.email + ' already exists!');
-            authCounter++;
-          }
-        })
-
-        if (authCounter < 1 && isAuthenticated) {
-          var autoID = uuidv4();
-          console.log(autoID);
-          const setUser = async (db) => {
-            await setDoc(doc(db, "users", autoID), {
-              id: autoID,
-              email: user.email,
-              photo: "",
-              firstName: "Name",
-              lastName: "Surname"
-            });
-          }
-          authCounter++;
-          console.log("Added!")
-          setUser(firebaseDB);
+      var memberFlag = false;
+      // Check if logged in user is not in firestore
+      usersList.forEach(userInList => {
+        if (user.email === userInList.email) {
+          console.log('User ' + user.email + ' already exists!');
+          memberFlag = true;
         }
+      })
+      // Add member
+      if (!memberFlag) {
+        var autoID = uuidv4();
+        console.log(autoID);
 
-        authCounter++;
+        const addUser = async (db) => {
+          await setDoc(doc(db, "users", user.email), {
+            id: autoID,
+            email: user.email,
+            name: user.name,
+            picture: user.picture,
+            nickname: user.nickname,
+            createdAt: user.updated_at,
+          });
+        }
+        addUser(firebaseDB);
+        console.log("Added!");
       }
-    };
-
+    }
     getUsers(firebaseDB);
+    setFirebaseFlag(true);
   }
-
 
   const slides = [
     'iclaim-slide1.jpg',

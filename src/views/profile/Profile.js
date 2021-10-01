@@ -6,6 +6,9 @@ import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
 import { LoginCard } from "src/containers/common";
 
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { firebaseDB } from 'src/reusable/firebaseConfig';
+
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 

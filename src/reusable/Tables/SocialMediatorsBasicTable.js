@@ -6,9 +6,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 export const socialMediatorFields = [
-  { key: 'photo', label: "", sorter: false, filter: false },
-  { key: 'firstName', label: "Name" },
-  { key: 'lastName', label: "Surname" }
+  { key: 'picture', label: "", sorter: false, filter: false },
+  { key: 'email' }
 ]
 
 export class SocialMediatorsBasicTable extends React.Component {
@@ -52,15 +51,17 @@ export class SocialMediatorsBasicTable extends React.Component {
               hover
               striped
               bordered
+              tableFilter
               header={false}
               size="sm"
+              itemsPerPageSelect
               itemsPerPage={10}
               pagination
               scopedSlots={{
-                'photo':
+                'picture':
                   (item) => (
                     <td>
-                      <CImg src={(item.photo !== "") ? item.photo : "avatar.png"}
+                      <CImg src={(item.picture) ? item.picture : "avatar.png"}
                         width="40" height="40"
                         shape="rounded-circle" />
                     </td>
