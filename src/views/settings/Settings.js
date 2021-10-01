@@ -164,7 +164,7 @@ class Settings extends React.Component {
             <CCardBody>
               <CRow>
                 <CCol sm="5">
-                  <h4 id="traffic" className="card-title mb-0">Analytics</h4>
+                  <h4 id="traffic" className="card-title mb-0">Firebase Analytics</h4>
                   <div className="small text-muted">November 2017</div>
                 </CCol>
                 <CCol sm="7" className="d-none d-md-block">

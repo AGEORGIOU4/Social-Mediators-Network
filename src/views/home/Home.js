@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { firebaseApp, firebaseDB } from 'src/reusable/firebaseConfig';
+
 import {
   CCard,
   CCardBody,
@@ -13,14 +17,61 @@ import {
 } from '@coreui/react'
 import LinesEllipsis from 'react-lines-ellipsis'
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
+import { v4 as uuidv4 } from 'uuid';
+
+var fbCounter = 0;
+var authCounter = 0;
 
 const Home = () => {
-  // const { user, isAuthenticated, isLoading } = useAuth0();
+  const [users, setUsers] = useState([]);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
-  // console.log("Is authenticated:" + isAuthenticated);
-  // if (isAuthenticated) {
-  //   console.log("User is:" + user.email);
-  // }
+  if (fbCounter < 1) {
+    const getUsers = async (db) => {
+      const userCol = collection(db, 'users');
+      const userSnapshot = await getDocs(userCol);
+      const usersList = userSnapshot.docs.map(doc => doc.data());
+      setUsers(usersList);
+      console.log(users)
+      fbCounter++;
+
+      if (authCounter < 1 && isAuthenticated) {
+
+        console.log("Is authenticated:" + isAuthenticated);
+        console.log("User" + user.email);
+
+        usersList.forEach(userm => {
+
+          if (userm.email === user.email && authCounter < 1) {
+            alert('Users ' + userm.email + ' already exists!');
+            authCounter++;
+          }
+        })
+
+        if (authCounter < 1 && isAuthenticated) {
+          var autoID = uuidv4();
+          console.log(autoID);
+          const setUser = async (db) => {
+            await setDoc(doc(db, "users", autoID), {
+              id: autoID,
+              email: user.email,
+              photo: "",
+              firstName: "Name",
+              lastName: "Surname"
+            });
+          }
+          authCounter++;
+          console.log("Added!")
+          setUser(firebaseDB);
+        }
+
+        authCounter++;
+      }
+    };
+
+    getUsers(firebaseDB);
+  }
+
 
   const slides = [
     'iclaim-slide1.jpg',
