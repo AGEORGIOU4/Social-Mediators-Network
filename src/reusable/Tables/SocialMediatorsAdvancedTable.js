@@ -7,11 +7,11 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { ViewBtn } from '../reusables';
 
 export const socialMediatorFields = [
-  { key: 'photo', label: "", sorter: false, filter: false },
+  { key: 'picture', label: "", sorter: false, filter: false },
   { key: 'firstName' },
   { key: 'lastName' },
   { key: 'description', label: "About" },
-  { key: 'experiences' },
+  { key: 'interests' },
   { key: 'view', label: "", sorter: false, filter: false },
 ]
 
@@ -71,10 +71,10 @@ export class SocialMediatorsAdvancedTable extends React.Component {
               // onTableFilterChange={(val) => console.log('new table filter:', val)}
               // onColumnFilterChange={(val) => console.log('new column filter:', val)}
               scopedSlots={{
-                'photo':
+                'picture':
                   (item) => (
                     <td>
-                      <CImg src={(item.photo !== "") ? item.photo : "avatar.png"}
+                      <CImg src={(item.picture !== "") ? item.picture : "avatar.png"}
                         width="40" height="40"
                         shape="rounded-circle" />
                     </td>

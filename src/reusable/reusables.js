@@ -5,12 +5,22 @@ import { cilPencil, cilTrash } from '@coreui/icons'
 import { Route } from "react-router-dom";
 import { cisEye } from '@coreui/icons-pro';
 
-export const getBadge = status => {
+export const getStatusBadge = status => {
   switch (status) {
     case 'Active': return 'success'
     case 'Inactive': return 'secondary'
     case 'Pending': return 'warning'
     case 'Banned': return 'danger'
+    default: return 'primary'
+  }
+}
+
+export const getInterestsBadge = status => {
+  switch (status) {
+    case 'Computer Science': return 'success'
+    case 'Mathematics': return 'secondary'
+    case 'Physics': return 'warning'
+    case 'Law': return 'danger'
     default: return 'primary'
   }
 }

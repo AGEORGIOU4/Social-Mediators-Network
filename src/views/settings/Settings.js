@@ -11,7 +11,7 @@ import MainChartExample from '../charts/MainChartExample';
 import LinesEllipsis from 'react-lines-ellipsis'
 import { cilCloudDownload, cilTrash } from '@coreui/icons';
 import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm, CProgress, CButtonGroup } from '@coreui/react'
-import { EditBtn, RemoveBtn, getBadge, FormatTimestamp } from 'src/reusable/reusables';
+import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 
@@ -347,7 +347,7 @@ class Settings extends React.Component {
                   'status':
                     (item) => (
                       <td>
-                        <CBadge color={getBadge(item.status)}>
+                        <CBadge color={getStatusBadge(item.status)}>
                           {item.status}
                         </CBadge>
                       </td>

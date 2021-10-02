@@ -45,6 +45,9 @@ const Home = () => {
       })
       // Add member
       if (!memberFlag) {
+        const enteredFirstName = prompt('Please enter your first name:');
+        const enteredLastName = prompt('Please enter your last name:');
+
         var autoID = uuidv4();
         console.log(autoID);
 
@@ -52,10 +55,13 @@ const Home = () => {
           await setDoc(doc(db, "users", user.email), {
             id: autoID,
             email: user.email,
+            firstName: enteredFirstName,
+            lastName: enteredLastName,
             name: user.name,
             picture: user.picture,
             nickname: user.nickname,
             createdAt: user.updated_at,
+            loginTimes: 0,
           });
         }
         addUser(firebaseDB);
