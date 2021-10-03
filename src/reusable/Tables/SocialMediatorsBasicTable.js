@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
@@ -44,37 +44,21 @@ export class SocialMediatorsBasicTable extends React.Component {
   render() {
     return (
       <CCol >
-        {/* <CCard>
-          <CCardBody> */}
         <CDataTable
           items={this.state.users}
           fields={socialMediatorFields}
           loading={this.state.loading}
           onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
-          hover
+          clickableRows
+          header={false}
           tableFilter
           size="sm"
           itemsPerPage={5}
           pagination
           scopedSlots={{
-            // 'picture':
-            //   (item) => (
-            //     <td>
-            //       <CImg src={(item.picture) ? item.picture : "avatar.png"}
-            //         width="40" height="40"
-            //         shape="rounded-circle" />
-            //     </td>
-            //   ),
-            'firstName':
-              (item) => (
-                <td style={{ display: "none" }}>
-
-                </td>
-              ),
             'card':
               (item) => (
-
-                <CCol xs="12" style={{ marginTop: "20px" }}>
+                <td style={{ marginTop: "20px" }}>
                   <CCard style={{ padding: "0" }}>
                     <CCardHeader>
                       <CImg src={(item.picture) ? item.picture : "avatar.png"}
@@ -86,24 +70,23 @@ export class SocialMediatorsBasicTable extends React.Component {
                     <CCardBody>
                       <LinesEllipsis
                         text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
                         maxLine='2'
                         ellipsis='...'
                         trimRight
                         basedOn='letters'
                       />
-
-                      {/* <div style={{ textAlign: 'end', marginTop: '15px' }}>
-                        <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                          width="40" height="40"
-                          shape="rounded-circle" />
-                      </div> */}
                     </CCardBody>
 
                   </CCard>
-                </CCol>
+                </td>
+              ),
+            'firstName':
+              (item) => (
+                <td style={{ display: "none" }}>
 
+                </td>
               ),
             'interests':
               (item) => (
@@ -114,8 +97,6 @@ export class SocialMediatorsBasicTable extends React.Component {
               ),
           }}
         />
-        {/* </CCardBody>
-        </CCard> */}
       </CCol>
 
     )
