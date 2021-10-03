@@ -58,7 +58,7 @@ export class SocialMediatorsBasicTable extends React.Component {
           scopedSlots={{
             'card':
               (item) => (
-                <td style={{ marginTop: "20px" }}>
+                <td>
                   <CCard style={{ padding: "0" }}>
                     <CCardHeader>
                       <CImg src={(item.picture) ? item.picture : "avatar.png"}
@@ -69,16 +69,13 @@ export class SocialMediatorsBasicTable extends React.Component {
                     </CCardHeader>
                     <CCardBody>
                       <LinesEllipsis
-                        text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-            laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-            ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
+                        text={item.bio}
                         maxLine='2'
                         ellipsis='...'
                         trimRight
                         basedOn='letters'
                       />
                     </CCardBody>
-
                   </CCard>
                 </td>
               ),

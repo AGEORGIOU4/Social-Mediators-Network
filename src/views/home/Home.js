@@ -22,7 +22,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
   const [firebaseFlag, setFirebaseFlag] = useState(false);
 
   // Check if user is logged in
@@ -47,6 +46,8 @@ const Home = () => {
       if (!memberFlag) {
         const enteredFirstName = prompt('Please enter your first name:');
         const enteredLastName = prompt('Please enter your last name:');
+        const enteredBio = prompt('A few words about you...:');
+        const enteredInsterestsName = prompt('And lastly! What are your interests?:');
 
         var autoID = uuidv4();
         console.log(autoID);
@@ -57,9 +58,10 @@ const Home = () => {
             email: user.email,
             firstName: enteredFirstName,
             lastName: enteredLastName,
-            name: user.name,
-            picture: user.picture,
             nickname: user.nickname,
+            bio: enteredBio,
+            picture: user.picture,
+            interests: enteredInsterestsName,
             createdAt: user.updated_at,
             loginTimes: 0,
           });
