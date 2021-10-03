@@ -1,29 +1,36 @@
 import React from 'react'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CSwitch } from '@coreui/react'
-import { EditBtn, RemoveBtn, getBadge } from 'src/reusable/reusables';
-import { v4 as uuidv4 } from 'uuid';
+import CIcon from '@coreui/icons-react';
+import Swal from 'sweetalert2';
 
 // Firebase
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
+import MainChartExample from '../charts/MainChartExample';
+
+import LinesEllipsis from 'react-lines-ellipsis'
+import { cilCloudDownload, cilTrash } from '@coreui/icons';
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm, CProgress, CButtonGroup } from '@coreui/react'
+import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
+import { v4 as uuidv4 } from 'uuid';
+import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
+
 const adminFields = [
-  { key: 'email', label: 'ID' },
-  { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
+  { key: 'email', _style: { width: '10%' }, label: 'Email' },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
 
 const postFields = [
-  { key: 'id', label: 'ID' },
   { key: 'username' },
-  { key: 'photo' },
-  { key: 'content' },
+  { key: 'content', _style: { width: '50%' } },
   { key: 'createdOn', label: "Created on" },
-  { key: 'status', label: "Created on", _style: { width: '10%' } },
-  { key: 'visibility', _style: { width: '0%' } },
+  { key: 'status', _style: { width: '10%' } },
+  { key: 'visibility', label: '', _style: { width: '0%' }, sorter: false, filter: false },
   { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
+
+
 
 class Settings extends React.Component {
   constructor(props) {
@@ -32,9 +39,92 @@ class Settings extends React.Component {
     // Common state
     this.state = {
       admins: [],
+      newAdminEmail: "",
       loading: false,
     };
+
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.removeAdmin = this.removeAdmin.bind(this);
+    this.assignAdmin = this.assignAdmin.bind(this);
+
   }
+
+
+  handleChangeEmail(event) {
+    this.setState({ newAdminEmail: event.target.value });
+  }
+
+  assignAdmin(event) {
+    var autoID = uuidv4();
+    console.log(autoID);
+
+    let isAdmin = false;
+    this.state.admins.forEach(admin => {
+      if (admin.email === this.state.newAdminEmail) {
+        alert('Admin ' + this.state.newAdminEmail + ' already exists!');
+        isAdmin = true;
+      }
+    })
+
+    if (!isAdmin && this.state.newAdminEmail) {
+
+      const setAdmin = async (db) => {
+        await setDoc(doc(db, "admins", autoID), {
+          id: autoID,
+          email: this.state.newAdminEmail,
+        });
+        event.preventDefault();
+      }
+      setAdmin(firebaseDB);
+      this.componentDidMount();
+      this.setState({ newAdminEmail: "" })
+    }
+  }
+
+  removeAdmin(id, email) {
+    if (!email) {
+      email = "this";
+    }
+    Swal.fire({
+
+      text: 'Delete '.concat(email).concat(' from admin? '),
+      showCancelButton: true,
+      icon: 'error',
+      iconColor: '#e55353',
+      confirmButtonText: `Yes, delete it!`,
+      confirmButtonColor: '#e55353'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+        const deleteAdmin = async (db) => {
+          await deleteDoc(doc(db, "admins", id));
+        }
+
+        deleteAdmin(firebaseDB);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: false,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Deleted successfully'
+        })
+
+        this.componentDidMount();
+      }
+    })
+  }
+
 
   componentDidMount() {
     this.setState({ loading: true })
@@ -55,9 +145,6 @@ class Settings extends React.Component {
         const postList = postSnapshot.docs.map(doc => doc.data());
         this.setState({ posts: postList });
 
-        var autoID = uuidv4();
-        console.log(autoID);
-
         this.setState({ loading: false })
       };
 
@@ -69,7 +156,96 @@ class Settings extends React.Component {
 
   render() {
     return (
+
       <CRow>
+        {/* Analytics */}
+        <CCol xs="12">
+          <CCard>
+            <CCardBody>
+              <CRow>
+                <CCol sm="5">
+                  <h4 id="traffic" className="card-title mb-0">Firebase Analytics</h4>
+                  <div className="small text-muted">November 2017</div>
+                </CCol>
+                <CCol sm="7" className="d-none d-md-block">
+                  <CButton color="defaultBlue" className="float-right">
+                    <CIcon content={cilCloudDownload} />
+                  </CButton>
+                  <CButtonGroup className="float-right mr-3">
+                    {
+                      ['Day', 'Month', 'Year'].map(value => (
+                        <CButton
+                          color="outline-secondary"
+                          key={value}
+                          className="mx-0"
+                          active={value === 'Month'}
+                        >
+                          {value}
+                        </CButton>
+                      ))
+                    }
+                  </CButtonGroup>
+                </CCol>
+              </CRow>
+              <MainChartExample style={{ height: '300px', marginTop: '40px' }} />
+            </CCardBody>
+            <CCardFooter>
+              <CRow className="text-center">
+                <CCol md sm="12" className="mb-sm-2 mb-0">
+                  <div className="text-muted">Visits</div>
+                  <strong>29.703 Users (40%)</strong>
+                  <CProgress
+                    className="progress-xs mt-2"
+                    precision={1}
+                    color="success"
+                    value={40}
+                  />
+                </CCol>
+                <CCol md sm="12" className="mb-sm-2 mb-0 d-md-down-none">
+                  <div className="text-muted">Unique</div>
+                  <strong>24.093 Users (20%)</strong>
+                  <CProgress
+                    className="progress-xs mt-2"
+                    precision={1}
+                    color="info"
+                    value={40}
+                  />
+                </CCol>
+                <CCol md sm="12" className="mb-sm-2 mb-0">
+                  <div className="text-muted">Pageviews</div>
+                  <strong>78.706 Views (60%)</strong>
+                  <CProgress
+                    className="progress-xs mt-2"
+                    precision={1}
+                    color="warning"
+                    value={40}
+                  />
+                </CCol>
+                <CCol md sm="12" className="mb-sm-2 mb-0">
+                  <div className="text-muted">New Users</div>
+                  <strong>22.123 Users (80%)</strong>
+                  <CProgress
+                    className="progress-xs mt-2"
+                    precision={1}
+                    color="danger"
+                    value={40}
+                  />
+                </CCol>
+                <CCol md sm="12" className="mb-sm-2 mb-0 d-md-down-none">
+                  <div className="text-muted">Bounce Rate</div>
+                  <strong>Average Rate (40.15%)</strong>
+                  <CProgress
+                    className="progress-xs mt-2"
+                    precision={1}
+                    value={40}
+                  />
+                </CCol>
+              </CRow>
+            </CCardFooter>
+          </CCard>
+        </CCol>
+
+        {/* Admins */}
         <CCol xs={12}>
           <CCard id="table">
             <CCardHeader>
@@ -80,50 +256,50 @@ class Settings extends React.Component {
                 items={this.state.admins}
                 fields={adminFields}
                 loading={this.state.loading}
-                columnFilter
-                tableFilter
-                cleaner
-                itemsPerPageSelect
                 itemsPerPage={5}
-                hover
-                sorter
                 pagination
-                // loading
-                onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
-                // onPageChange={(val) => console.log('new page:', val)}
-                // onPagesChange={(val) => console.log('new pages:', val)}
-                // onPaginationChange={(val) => console.log('new pagination:', val)}
-                // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-                // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-                // onTableFilterChange={(val) => console.log('new table filter:', val)}
-                // onColumnFilterChange={(val) => console.log('new column filter:', val)}
                 scopedSlots={{
-                  'edit':
-                    (item) => (
-                      <td>
-                        <EditBtn EditRoute="/customer-form" />
-                      </td>
-                    ),
                   'remove':
                     (item) => (
                       <td>
-                        <RemoveBtn />
+                        <CButton
+                          size="sm"
+                          color="danger"
+                          variant="outline"
+                          onClick={() => {
+                            this.removeAdmin(item.id, item.email)
+                          }}
+
+                        ><CIcon content={cilTrash} /></CButton>
                       </td>
                     )
                 }}
               />
             </CCardBody>
             <CCardFooter style={{ textAlign: 'right' }}>
-              <CButton color="primary">
-                Add Admin
-              </CButton>
+
+              <CForm onSubmit={this.assignAdmin}>
+                <CRow>
+
+                  <CCol xs="8">
+                    <CInput required type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                  </CCol>
+
+                  <CCol xs="4">
+                    <CButton color="primary" type="submit">
+                      Assign
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CForm>
+
 
             </CCardFooter>
           </CCard>
         </CCol>
 
         <CCol xs={12}>
-          <CCard id="table">
+          <CCard>
             <CCardHeader>
               <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
             </CCardHeader>
@@ -140,8 +316,8 @@ class Settings extends React.Component {
                 hover
                 sorter
                 pagination
-                // loading
-                onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
+                clickableRows
+                // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
                 // onPageChange={(val) => console.log('new page:', val)}
                 // onPagesChange={(val) => console.log('new pages:', val)}
                 // onPaginationChange={(val) => console.log('new pagination:', val)}
@@ -150,10 +326,28 @@ class Settings extends React.Component {
                 // onTableFilterChange={(val) => console.log('new table filter:', val)}
                 // onColumnFilterChange={(val) => console.log('new column filter:', val)}
                 scopedSlots={{
+                  'content':
+                    (item) => (
+                      <td>
+                        <LinesEllipsis
+                          text={item.content}
+                          maxLine='2'
+                          ellipsis='...'
+                          trimRight
+                          basedOn='letters'
+                        />
+                      </td>
+                    ),
+                  'createdOn':
+                    (item) => (
+                      <td>
+                        <FormatTimestamp seconds={(item.createdOn != null ? item.createdOn.seconds : "N/A")} />
+                      </td>
+                    ),
                   'status':
                     (item) => (
                       <td>
-                        <CBadge color={getBadge(item.status)}>
+                        <CBadge color={getStatusBadge(item.status)}>
                           {item.status}
                         </CBadge>
                       </td>
@@ -161,7 +355,10 @@ class Settings extends React.Component {
                   'visibility':
                     (item) => (
                       <td>
-                        <CSwitch variant="3d"></CSwitch>
+                        <CButton
+                          color="#4638c2"
+                          variant="outline"
+                          size="sm"><CIcon content={(item.status === "Active") ? cilEye : cilEyeSlash} /></CButton>
                       </td>
                     ),
                   'edit':
@@ -187,7 +384,24 @@ class Settings extends React.Component {
             </CCardFooter>
           </CCard>
         </CCol>
-      </CRow>
+
+        <CCol xs={12}>
+          <CCard>
+            <CCardHeader>
+              <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
+            </CCardHeader>
+            <CCardBody>
+
+            </CCardBody>
+            <CCardFooter style={{ textAlign: 'right' }}>
+              <CButton color="primary">Create User
+              </CButton>
+
+            </CCardFooter>
+          </CCard>
+        </CCol>
+
+      </CRow >
     )
   }
 }

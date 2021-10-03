@@ -1,7 +1,5 @@
 // Here you can add other styles
-
-.c-sidebar .c-sidebar-brand {
-  color: #fff;
+.c-sidebar {
   background: #000;
 }
 
@@ -14,18 +12,11 @@
   color: #603843;
 }
 
-ul.c-sidebar-nav.h-100.ps {
-  background: #000;
-}
-
-.c-sidebar-minimized .c-sidebar-nav {
-  background: #000;
-}
-
-.c-sidebar .c-sidebar-minimizer {
-  background: #000;
-}
-
 #homeCarousel {
 margin-bottom: 20px;
+}
+
+.table th, .table td {
+  vertical-align: baseline;
+  padding: 0.5rem;
 }

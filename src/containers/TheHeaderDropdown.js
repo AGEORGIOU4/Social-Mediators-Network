@@ -19,7 +19,7 @@ import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
 
 // Check if Admin
 var admins = [];
-var checked = false;
+var checkIfAdmin = false;
 
 const TheHeaderDropdown = () => {
   const [isAdmin, setAdmin] = useState("");
@@ -31,7 +31,7 @@ const TheHeaderDropdown = () => {
   if (isAuthenticated) {
     avatar = user.picture;
 
-    if (!checked) {
+    if (!checkIfAdmin) {
       const getAdmins = async (db) => {
         const adminCol = collection(db, 'admins');
         const adminSnapshot = await getDocs(adminCol);
@@ -41,9 +41,7 @@ const TheHeaderDropdown = () => {
         admins.forEach(admin => {
           if (admin.email === user.email) {
             setAdmin({ isAdmin: true });
-            console.log(checked)
-            checked = true;
-            console.log(checked)
+            checkIfAdmin = true;
           }
         }
         )
@@ -51,7 +49,6 @@ const TheHeaderDropdown = () => {
       getAdmins(firebaseDB);
     }
   }
-
 
 
   return (

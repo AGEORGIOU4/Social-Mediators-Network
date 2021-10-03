@@ -1,6 +1,6 @@
 import React from 'react'
 import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter } from '@coreui/react'
-import { getBadge, EditBtn, RemoveBtn } from 'src/reusable/reusables';
+import { getStatusBadge, EditBtn, RemoveBtn } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 
 // Firebase
@@ -92,7 +92,7 @@ class Posts extends React.Component {
                 'status':
                   (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
+                      <CBadge color={getStatusBadge(item.status)}>
                         {item.status}
                       </CBadge>
                     </td>

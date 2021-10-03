@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { firebaseDB } from 'src/reusable/firebaseConfig';
+
 import {
   CCard,
   CCardBody,
@@ -9,11 +13,64 @@ import {
   CCarouselInner,
   CCarouselItem,
   CCol,
-  CRow, CButton, CImg, CJumbotron
+  CRow, CButton, CImg
 } from '@coreui/react'
 import LinesEllipsis from 'react-lines-ellipsis'
+import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Home = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const [firebaseFlag, setFirebaseFlag] = useState(false);
+
+  // Check if user is logged in
+  if (isAuthenticated && !firebaseFlag) {
+    console.log("User " + user.email + " is authenticated: " + isAuthenticated);
+
+    // Get all firebase users
+    const getUsers = async (db) => {
+      const userSnapshot = await getDocs(collection(db, "users"));
+      const usersList = userSnapshot.docs.map(doc => doc.data());
+      console.log("Users list done...");
+
+      var memberFlag = false;
+      // Check if logged in user is not in firestore
+      usersList.forEach(userInList => {
+        if (user.email === userInList.email) {
+          console.log('User ' + user.email + ' already exists!');
+          memberFlag = true;
+        }
+      })
+      // Add member
+      if (!memberFlag) {
+        const enteredFirstName = prompt('Please enter your first name:');
+        const enteredLastName = prompt('Please enter your last name:');
+
+        var autoID = uuidv4();
+        console.log(autoID);
+
+        const addUser = async (db) => {
+          await setDoc(doc(db, "users", user.email), {
+            id: autoID,
+            email: user.email,
+            firstName: enteredFirstName,
+            lastName: enteredLastName,
+            name: user.name,
+            picture: user.picture,
+            nickname: user.nickname,
+            createdAt: user.updated_at,
+            loginTimes: 0,
+          });
+        }
+        addUser(firebaseDB);
+        console.log("Added!");
+      }
+    }
+    getUsers(firebaseDB);
+    setFirebaseFlag(true);
+  }
 
   const slides = [
     'iclaim-slide1.jpg',
@@ -23,6 +80,7 @@ const Home = () => {
 
   return (
     <CRow >
+
       <CCol xs="12" id="homeCarousel">
         <CCarousel animate autoSlide={3000}>
           <CCarouselIndicators style={{ color: 'grey' }} />
@@ -144,7 +202,11 @@ const Home = () => {
         <h2><strong>Social Mediators</strong></h2>
       </CCol>
 
+      <SocialMediatorsBasicTable />
+
     </CRow >
+
+
   )
 }
 

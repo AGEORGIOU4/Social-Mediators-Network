@@ -18,13 +18,14 @@ React.icons = icons
 ReactDOM.render(
   <Auth0Provider
     domain="dev-iclaim.eu.auth0.com"
-    clientId="K8fuRdHKgwcf2vRF8wMl32O8uimtUCuD"
+    clientId="NEjR8ltverXxKQhRFE23KFwWS0P1IVhm"
     redirectUri={window.location.origin}
-  >
 
+  >
     <Provider store={store}>
       <App />
     </Provider>
+
 
   </Auth0Provider>,
 

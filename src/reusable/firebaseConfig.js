@@ -1,20 +1,23 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAllKF7nZnDeKqbOqvb3hIlHvn6OKG4KBE",
-  authDomain: "dev-iclaim.firebaseapp.com",
-  databaseURL: "https://dev-iclaim-default-rtdb.firebaseio.com",
-  projectId: "dev-iclaim",
-  storageBucket: "dev-iclaim.appspot.com",
-  messagingSenderId: "957478376950",
-  appId: "1:957478376950:web:58ce24bffe4c846726a3d7"
+  apiKey: "AIzaSyAmUQaKNNOG0N_20I8nh_o12EV3ouA94Z0",
+  authDomain: "iclaim-firebase.firebaseapp.com",
+  projectId: "iclaim-firebase",
+  storageBucket: "iclaim-firebase.appspot.com",
+  messagingSenderId: "93462340198",
+  appId: "1:93462340198:web:90cf7921b33cf1f58d83a7",
+  measurementId: "G-P38B3NMSV3"
 };
+
+
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseDB = getFirestore(firebaseApp);
+export const analytics = getAnalytics(firebaseApp);
