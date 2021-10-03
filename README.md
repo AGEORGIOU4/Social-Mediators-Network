@@ -28,24 +28,10 @@ CoreUI-React#v3.0.0
 
 ## Documentation
 
-The documentation for the CoreUI Admin Template is hosted at our website [CoreUI for React](https://coreui.io/react/)
-
-
-## Versioning
-
-
-## Creators
-
-***Łukasz Holeczek***
-* <https://twitter.com/lukaszholeczek>
-* <https://github.com/coreui>
-
-**CoreUI Team**
-* <https://github.com/orgs/coreui/people>
-
-## Community
-
-
-## Copyright and License
-copyright 2020 creativeLabs Łukasz Holeczek 
 # ICLAIM-WebApp
+
+To run the app:
+
+npm install
+npm start
+
