@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Home = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [firebaseFlag, setFirebaseFlag] = useState(false);
 
   // Check if user is logged in
@@ -133,7 +133,7 @@ const Home = () => {
         <h2><strong>News</strong></h2>
       </CCol>
 
-      <CCol xs="12" sm="6" md="4">
+      <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
             News card
@@ -155,7 +155,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" sm="6" md="4">
+      <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
             News card
@@ -176,7 +176,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" sm="6" md="4">
+      <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
             News card

@@ -41,7 +41,7 @@ const Profile = () => {
         <CCol>
           <CCard>
             <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
-            <CCardBody style={{ display: (firebaseLoading) ? "none" : "block" }}>
+            <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
               <div style={{ padding: "10px" }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
                   width="100" height="100"
@@ -70,7 +70,7 @@ const Profile = () => {
                   <span><strong>Interests:</strong></span> {userFirebase.interests}
                 </CCol>
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Bio:</strong></span> {userFirebase.bio}
+                  <span><strong>Few words about you:</strong></span> {userFirebase.bio}
                 </CCol>
               </div>
             </CCardBody>
