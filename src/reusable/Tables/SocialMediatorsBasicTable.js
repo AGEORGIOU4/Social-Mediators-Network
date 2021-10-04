@@ -1,13 +1,12 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-
-import { CButton } from '@coreui/react';
 import LinesEllipsis from 'react-lines-ellipsis';
-import { getInterestsBadge } from '../reusables';
+import CIcon from '@coreui/icons-react';
+import { cilMail } from '@coreui/icons-pro';
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },
   { key: 'card', label: "", sorter: false, filter: false },
@@ -61,11 +60,17 @@ export class SocialMediatorsBasicTable extends React.Component {
                 <td>
                   <CCard style={{ padding: "0" }}>
                     <CCardHeader>
-                      <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                        width="40" height="40"
-                        shape="rounded-circle" />
+                      <div style={{ width: "80%", float: "left" }}>
+                        <CImg src={(item.picture) ? item.picture : "avatar.png"}
+                          width="40" height="40"
+                          shape="rounded-circle" />
 
-                      <strong> {item.nickname}</strong>
+                        <strong> {item.nickname}</strong>
+                      </div>
+                      <div style={{ width: "20%", float: "left", textAlign: "end" }}>
+                        <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}></a></CButton>
+                      </div>
+
                     </CCardHeader>
                     <CCardBody>
                       <LinesEllipsis

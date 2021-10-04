@@ -1,28 +1,23 @@
 import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCarousel,
-  CCarouselControl,
-  CCarouselIndicators,
-  CCarouselInner,
-  CCarouselItem,
-  CCol,
-  CRow, CButton, CImg
-} from '@coreui/react'
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
+import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
-import { v4 as uuidv4 } from 'uuid';
 
+import Interests from 'src/reusable/interests';
+import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   const [firebaseFlag, setFirebaseFlag] = useState(false);
+
+  var enteredFirstName = "";
+  var enteredLastName = "";
+  var enteredBio = "";
+  var enteredQualifications = "";
+  var enteredInsterest = "";
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag) {
@@ -38,41 +33,177 @@ const Home = () => {
       // Check if logged in user is not in firestore
       usersList.forEach(userInList => {
         if (user.email === userInList.email) {
-          console.log('User ' + user.email + ' already exists!');
+          console.log('User ' + user.email + ' exists in Firebase!');
           memberFlag = true;
         }
       })
-      // Add member
+
+      // Add member (get values from prompt)
       if (!memberFlag) {
-        const enteredFirstName = prompt('Please enter your first name:');
-        const enteredLastName = prompt('Please enter your last name:');
-        const enteredBio = prompt('A few words about you...:');
-        const enteredInsterestsName = prompt('And lastly! What are your interests?:');
-
-        var autoID = uuidv4();
-        console.log(autoID);
-
-        const addUser = async (db) => {
-          await setDoc(doc(db, "users", user.email), {
-            id: autoID,
-            email: user.email,
-            firstName: enteredFirstName,
-            lastName: enteredLastName,
-            nickname: user.nickname,
-            bio: enteredBio,
-            picture: user.picture,
-            interests: enteredInsterestsName,
-            createdAt: user.updated_at,
-            loginTimes: 0,
-          });
-        }
-        addUser(firebaseDB);
-        console.log("Added!");
+        WelcomeAlert();
       }
     }
     getUsers(firebaseDB);
     setFirebaseFlag(true);
   }
+
+  const addUser = async (db) => {
+    await setDoc(doc(db, "users", user.email), {
+      email: user.email,
+      nickname: user.nickname,
+      picture: user.picture,
+      firstName: enteredFirstName,
+      lastName: enteredLastName,
+      bio: enteredBio,
+      qualifications: enteredQualifications,
+      interests: enteredInsterest,
+      createdAt: user.updated_at,
+      loginTimes: 0,
+    });
+  }
+
+  const WelcomeAlert = () => {
+
+    Swal.fire({
+      title: 'Welcome',
+      text: 'to ICLAIM social mediators platform',
+      imageUrl: 'https://www.iclaimcentre.org/wp-content/uploads/2018/06/logo-form.png',
+      imageWidth: 80,
+      imageAlt: 'ICLAIM logo',
+      showConfirmButton: true,
+      confirmButtonText: "Proceed",
+      confirmButtonColor: '#f55e45',
+      allowOutsideClick: false,
+      footer: 'Let`s create your profile...'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        GetName();
+      }
+    })
+  }
+
+  const GetName = () => {
+    Swal.fire({
+      title: "What's your name?",
+      input: "text",
+      inputPlaceholder: 'Enter your first name',
+      showConfirmButton: true,
+      confirmButtonText: `Next`,
+      confirmButtonColor: "#f55e45",
+      allowOutsideClick: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          enteredFirstName = value;
+
+          GetSurname();
+        }
+      }
+    })
+  }
+
+  const GetSurname = () => {
+    Swal.fire({
+      title: "What's your surname?",
+      input: "text",
+      inputPlaceholder: 'Enter your last name',
+      showConfirmButton: true,
+      confirmButtonText: `Next`,
+      confirmButtonColor: "#f55e45",
+      allowOutsideClick: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          enteredLastName = value;
+
+          GetQualifications();
+        }
+      }
+    })
+  }
+
+  const GetQualifications = () => {
+    Swal.fire({
+      title: "Any qualifications or experiences as a social mediator?",
+      input: "text",
+      inputPlaceholder: 'Enter qualifications',
+      showConfirmButton: true,
+      confirmButtonText: `Next`,
+      confirmButtonColor: "#f55e45",
+      allowOutsideClick: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          enteredQualifications = value;
+
+          GetBio();
+        }
+      }
+    })
+  }
+
+  const GetBio = () => {
+    Swal.fire({
+      title: "Tell us bit about yourself...",
+      input: "textarea",
+      inputPlaceholder: 'Few words about you',
+      showConfirmButton: true,
+      confirmButtonText: `Next`,
+      confirmButtonColor: "#f55e45",
+      allowOutsideClick: false,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          enteredBio = value;
+
+          GetInterest();
+        }
+      }
+    })
+  }
+
+  const GetInterest = () => {
+    Swal.fire({
+      title: "Lastly! Select an interest...",
+      input: "select",
+      inputPlaceholder: 'Select an interest',
+      showConfirmButton: true,
+      confirmButtonText: `Next`,
+      confirmButtonColor: "#f55e45",
+      allowOutsideClick: false,
+      inputOptions: { interests: Interests },
+      //   'Interests': {
+      //     CS: 'Computer Science',
+      //     Technology: 'Technology',
+      //     Law: 'Law',
+      //     Journalism: 'Journalism'
+      //   },
+      // },
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to select something!'
+        } else {
+          enteredInsterest = value;
+
+          addUser(firebaseDB);
+          console.log("User ".concat(user.nickname).concat(" is added!"));
+
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your are now a member!',
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      }
+    })
+  }
+
 
   const slides = [
     'iclaim-slide1.jpg',

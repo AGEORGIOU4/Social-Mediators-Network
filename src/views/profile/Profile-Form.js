@@ -8,14 +8,11 @@ import {
   CFormGroup,
   CLabel,
   CInput,
-  CTextarea
 } from '@coreui/react'
 
 import { CButton, CCardFooter, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
-import { CSpinner } from "@coreui/react";
-// React select
 import interests from './interests'
 import Select from 'react-select'
 import { useSelector } from 'react-redux';
@@ -74,7 +71,7 @@ const ProfileForm = () => {
                 name="bio"
                 rows="5" /> */}
 
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+              <textarea className="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
             </CFormGroup>
 
           </CCardBody>

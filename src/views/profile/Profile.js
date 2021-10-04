@@ -63,14 +63,21 @@ const Profile = () => {
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Username:</strong></span> {userFirebase.nickname}
                 </CCol>
+
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Email:</strong></span> {userFirebase.email}
                 </CCol>
+
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Interests:</strong></span> {userFirebase.interests}
                 </CCol>
+
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Few words about you:</strong></span> {userFirebase.bio}
+                  <span><strong>Qualifications/Experiences:</strong></span> {userFirebase.qualifications}
+                </CCol>
+
+                <CCol style={{ padding: "10px" }}>
+                  <span><strong>About:</strong></span> {userFirebase.bio}
                 </CCol>
               </div>
             </CCardBody>

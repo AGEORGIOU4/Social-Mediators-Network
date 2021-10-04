@@ -6,7 +6,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
@@ -18,7 +17,7 @@ import { cilLockLocked, cilNotes } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
 import { cilNote } from '@coreui/icons-pro';
 
-// Check if Admin
+// Check if Admin to display admin option
 var admins = [];
 var checkIfAdmin = false;
 

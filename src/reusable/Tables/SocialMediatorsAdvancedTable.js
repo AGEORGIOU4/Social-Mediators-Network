@@ -5,12 +5,15 @@ import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg } fr
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { ViewBtn } from '../reusables';
+import LinesEllipsis from 'react-lines-ellipsis'
 
 export const socialMediatorFields = [
   { key: 'picture', label: "", sorter: false, filter: false },
   { key: 'firstName' },
   { key: 'lastName' },
-  { key: 'description', label: "About" },
+  { key: 'nickname', label: "Username" },
+  { key: 'bio', label: "About" },
+  { key: 'qualifications' },
   { key: 'interests' },
   { key: 'view', label: "", sorter: false, filter: false },
 ]
@@ -19,7 +22,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
   constructor(props) {
     super(props);
 
-    // Common state
     this.state = {
       users: [],
       loading: false,
@@ -77,6 +79,18 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                       <CImg src={(item.picture !== "") ? item.picture : "avatar.png"}
                         width="40" height="40"
                         shape="rounded-circle" />
+                    </td>
+                  ),
+                'bio':
+                  (item) => (
+                    <td>
+                      <LinesEllipsis
+                        text={item.bio}
+                        maxLine='2'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                      />
                     </td>
                   ),
                 'view':
