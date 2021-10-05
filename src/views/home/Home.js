@@ -5,7 +5,6 @@ import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-
 import Interests from 'src/reusable/interests';
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 
@@ -19,8 +18,11 @@ const Home = () => {
   var enteredQualifications = "";
   var enteredInsterest = "";
 
+  console.log(getCookie("session"));
+
   // Check if user is logged in
-  if (isAuthenticated && !firebaseFlag) {
+  if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
+    document.cookie = "session=Established...";
     console.log("User " + user.email + " is authenticated: " + isAuthenticated);
 
     // Get all firebase users
@@ -45,6 +47,22 @@ const Home = () => {
     }
     getUsers(firebaseDB);
     setFirebaseFlag(true);
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
   }
 
   const addUser = async (db) => {
@@ -193,7 +211,7 @@ const Home = () => {
           console.log("User ".concat(user.nickname).concat(" is added!"));
 
           Swal.fire({
-            position: 'top-end',
+            position: 'center',
             icon: 'success',
             title: 'Your are now a member!',
             showConfirmButton: false,

@@ -3,6 +3,18 @@
   background: #000;
 }
 
+.c-sidebar .c-sidebar-nav-link.c-active, .c-sidebar .c-active.c-sidebar-nav-dropdown-toggle {
+
+
+  background: #f55e45 ;
+  border-radius: 10px;
+}
+
+.c-sidebar-nav-link {
+  margin: 20px;
+}
+
+
 .c-footer {
   color: #fafafa;
   background: #f55e45;
@@ -20,3 +32,4 @@ margin-bottom: 20px;
   vertical-align: baseline;
   padding: 0.5rem;
 }
+

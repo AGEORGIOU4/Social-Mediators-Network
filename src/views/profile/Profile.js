@@ -9,12 +9,17 @@ import { LoginCard } from "src/containers/common";
 import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-const Profile = () => {
+const Profile = props => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [userFirebase, setUserFirebase] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
+
+  const { email } =
+    (props.location && props.location.state) || {};
+
+  console.log(email);
 
   if (isAuthenticated) {
     if (!firebaseFlag) {
@@ -96,7 +101,10 @@ const Profile = () => {
     )
   } else {
     return (
-      <LoginCard />
+      <div>
+        <p> {email}</p>
+        <LoginCard />
+      </div>
     )
   }
 }
