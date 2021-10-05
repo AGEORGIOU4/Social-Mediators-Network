@@ -15,10 +15,10 @@ export const getStatusBadge = status => {
   }
 }
 
-export const getInterestsBadge = status => {
-  switch (status) {
-    case 'Computer Science': return 'success'
-    case 'Mathematics': return 'secondary'
+export const getInterestsBadge = interests => {
+  switch (interests) {
+    case 'Computers': return 'success'
+    case 'Technology': return 'info'
     case 'Physics': return 'warning'
     case 'Law': return 'danger'
     default: return 'primary'

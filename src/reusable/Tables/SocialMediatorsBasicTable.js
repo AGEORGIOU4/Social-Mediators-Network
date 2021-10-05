@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CCardFooter, CBadge } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
@@ -8,6 +8,7 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 import LinesEllipsis from 'react-lines-ellipsis';
 import CIcon from '@coreui/icons-react';
 import { cilMail } from '@coreui/icons-pro';
+import { getInterestsBadge } from '../reusables';
 
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },
@@ -90,6 +91,9 @@ export class SocialMediatorsBasicTable extends React.Component {
                           basedOn='letters'
                         />
                       </CCardBody>
+                      <CCardFooter>
+                        <CBadge color={getInterestsBadge(item.interests)}>{item.interests}</CBadge>
+                      </CCardFooter>
                     </CCard>
                   </td>
                 ),
