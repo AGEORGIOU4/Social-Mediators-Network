@@ -7,38 +7,38 @@ export const LoginCard = () => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <div className="c-app c-default-layout flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md="8">
-            <CCard className="p-4">
-              <CCardBody>
-                <CForm>
 
-                  <div style={{ textAlign: 'center' }}>
-                    <img
-                      alt="iclaim-logo"
-                      className="c-sidebar-brand-full"
-                      src='iclaim-logo-landscape.png'
-                      width={200} />
-                  </div>
+    <CContainer style={{ paddingTop: "4rem" }}>
+      <CRow className="justify-content-center">
+        <CCol md="8">
+          <CCard className="p-4">
+            <CCardBody>
+              <CForm>
 
-                  <br />
-                  <br />
-                  <CRow>
-                    <CCol xs="6" style={{ textAlign: 'end' }}>
-                      <CButton color="primary" className="px-4" onClick={() => loginWithRedirect()}>Login</CButton>
-                    </CCol>
-                    <CCol xs="6">
-                      <CButton href="/" color="secondary" className="px-4">Guest</CButton>
-                    </CCol>
-                  </CRow>
-                </CForm>
-              </CCardBody>
-            </CCard>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div >
+                <div style={{ textAlign: 'center' }}>
+                  <img
+                    alt="iclaim-logo"
+                    className="c-sidebar-brand-full"
+                    src='iclaim-logo-landscape.png'
+                    width={200} />
+                </div>
+
+                <br />
+                <br />
+                <CRow>
+                  <CCol xs="6" style={{ textAlign: 'end' }}>
+                    <CButton color="primary" className="px-4" onClick={() => loginWithRedirect()}>Login</CButton>
+                  </CCol>
+                  <CCol xs="6">
+                    <CButton href="/" color="secondary" className="px-4">Guest</CButton>
+                  </CCol>
+                </CRow>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </CContainer>
+
   )
 }

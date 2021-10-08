@@ -54,7 +54,7 @@ export class SocialMediatorsBasicTable extends React.Component {
             // onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
             onRowClick={(item, index, col, e) => {
               history.push({
-                pathname: "/profile",
+                pathname: "/users-profile",
                 state: item
               })
             }}
