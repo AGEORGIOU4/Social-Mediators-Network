@@ -110,12 +110,12 @@ const TheHeaderDropdown = () => {
           <strong>Authentication</strong>
         </CDropdownItem>
 
-        <CDropdownItem href="#/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
+        <CDropdownItem to="/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
           <CIcon content={cilArrowCircleRight} className="mfe-2" />
           Login
         </CDropdownItem>
 
-        <CDropdownItem href="#/logout" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
+        <CDropdownItem to="/logout" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
           <CIcon content={cilArrowCircleLeft} className="mfe-2" />
           Logout
         </CDropdownItem>

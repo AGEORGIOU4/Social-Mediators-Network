@@ -18,7 +18,7 @@ const Home = () => {
   var enteredQualifications = "";
   var enteredInsterest = "";
 
-  console.log(getCookie("session"));
+  console.log("session is: " + getCookie("session"));
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {

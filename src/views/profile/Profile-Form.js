@@ -221,7 +221,7 @@ class ProfileForm extends React.Component {
 
               <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
                 {Interests.map((option) => (
-                  <option value={option.value}>{option.label}</option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </CSelect>
 
