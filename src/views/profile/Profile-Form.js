@@ -218,13 +218,13 @@ class ProfileForm extends React.Component {
             </CCardHeader>
             <CCardBody>
 
-              <div className="select-container">
-                <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
-                  {Interests.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                  ))}
-                </CSelect>
-              </div>
+
+              <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
+                {Interests.map((option) => (
+                  <option value={option.value}>{option.label}</option>
+                ))}
+              </CSelect>
+
             </CCardBody>
           </CCard>
 

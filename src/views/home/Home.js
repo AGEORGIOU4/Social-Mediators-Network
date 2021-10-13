@@ -205,7 +205,7 @@ const Home = () => {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Your are now a member!',
+            title: 'You are now a member!',
             showConfirmButton: false,
             timer: 3000
           })
@@ -255,9 +255,10 @@ const Home = () => {
         <CCol style={{ background: '#0000' }}>
 
           <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-            ICLAIM envisions a society where citizens are empowered individually and collectively and enjoy access to social justice, through alternative and innovative approaches in the application of the law to societal issues, underpinned by high quality research and impact.</p>
+            Social Mediation in Practice is a project for communities and professionals in Cyprus
+            and the UK to provide capacity building for professionals and stakeholders on social mediation as a tool for preventing and tackling community conflicts and to pilot social mediation in Cyprus and the UK  </p>
 
-          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform can be used as a proposals tool where any member is able to post and comment.</p>
+          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designs and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
           <p style={{ textAlign: 'center' }}>
             <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
           </p>

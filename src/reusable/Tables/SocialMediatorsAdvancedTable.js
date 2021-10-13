@@ -6,6 +6,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { ViewBtn } from '../reusables';
 import LinesEllipsis from 'react-lines-ellipsis'
+import { Route } from 'react-router';
 
 export const socialMediatorFields = [
   { key: 'picture', label: "", sorter: false, filter: false },
@@ -51,57 +52,60 @@ export class SocialMediatorsAdvancedTable extends React.Component {
             <h4 style={{ margin: '0' }}><strong>Meet the Social Mediators</strong></h4>
           </CCardHeader>
           <CCardBody>
-            <CDataTable
-              items={this.state.users}
-              fields={socialMediatorFields}
-              loading={this.state.loading}
-              tableFilter
 
-              cleaner
-              striped
-              itemsPerPage={10}
-              hover
-              sorter
-              pagination
-              // loading
-              onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
-              // onPageChange={(val) => console.log('new page:', val)}
-              // onPagesChange={(val) => console.log('new pages:', val)}
-              // onPaginationChange={(val) => console.log('new pagination:', val)}
-              // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-              // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-              // onTableFilterChange={(val) => console.log('new table filter:', val)}
-              // onColumnFilterChange={(val) => console.log('new column filter:', val)}
-              scopedSlots={{
-                'picture':
-                  (item) => (
-                    <td>
-                      <CImg src={(item.picture !== "") ? item.picture : "avatar.png"}
-                        width="40" height="40"
-                        shape="rounded-circle" />
-                    </td>
-                  ),
-                'bio':
-                  (item) => (
-                    <td>
-                      <LinesEllipsis
-                        text={item.bio}
-                        maxLine='2'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                      />
-                    </td>
-                  ),
-                'view':
-                  (item) => (
-                    <td>
-                      <ViewBtn />
-                    </td>
-                  ),
+            <Route render={({ history }) => (
 
-              }}
-            />
+              <CDataTable
+                items={this.state.users}
+                fields={socialMediatorFields}
+                loading={this.state.loading}
+                tableFilter
+                clickableRows
+                cleaner
+                striped
+                itemsPerPage={10}
+                hover
+                sorter
+                pagination
+                loading={this.state.loading}
+                onRowClick={(item, index, col, e) => {
+                  history.push({
+                    pathname: "/users-profile",
+                    state: item
+                  })
+                }}
+                scopedSlots={{
+                  'picture':
+                    (item) => (
+                      <td>
+                        <CImg src={(item.picture !== "") ? item.picture : "avatar.png"}
+                          width="40" height="40"
+                          shape="rounded-circle" />
+                      </td>
+                    ),
+                  'bio':
+                    (item) => (
+                      <td>
+                        <LinesEllipsis
+                          text={item.bio}
+                          maxLine='2'
+                          ellipsis='...'
+                          trimRight
+                          basedOn='letters'
+                        />
+                      </td>
+                    ),
+                  'view':
+                    (item) => (
+                      <td>
+                        <ViewBtn />
+                      </td>
+                    ),
+
+                }}
+              />
+            )} />
+
           </CCardBody>
           <CCardFooter style={{ textAlign: 'right' }}>
 
