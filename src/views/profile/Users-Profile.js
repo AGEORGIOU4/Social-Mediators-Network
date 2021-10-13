@@ -73,7 +73,7 @@ const UsersProfile = props => {
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Interests:</strong></span> {userFirebase.interests}
+                  <span><strong>Interests:</strong></span> {userFirebase.areaOfInterest}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
@@ -92,7 +92,7 @@ const UsersProfile = props => {
             <CCardFooter>
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}></a></CButton>
+                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}> Send a mail</a></CButton>
                 </div>
               )} />
             </CCardFooter>

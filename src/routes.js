@@ -5,6 +5,7 @@ const About = React.lazy(() => import('./views/about/About'))
 const SocialMediators = React.lazy(() => import('./views/social-mediators/Social-Mediators'))
 const Posts = React.lazy(() => import('./views/posts/Posts'))
 const Blog = React.lazy(() => import('./views/blog/Blog'))
+const Contact = React.lazy(() => import('./views/contact/Contact'))
 const Admins = React.lazy(() => import('./views/admins/Admins'))
 const Login = React.lazy(() => import('./views/login/Login'))
 const Logout = React.lazy(() => import('./views/logout/Logout'))
@@ -25,6 +26,7 @@ const routes = [
   { path: '/social-mediators', name: 'Social Mediators', component: SocialMediators },
   { path: '/posts', name: 'Posts', component: Posts },
   { path: '/blog', name: 'Blog', component: Blog },
+  { path: '/contact', name: 'Contact', component: Contact },
   { path: '/admins', name: 'Admins', component: Admins },
   { path: '/login', name: 'Login', component: Login },
   { path: '/logout', name: 'Logout', component: Logout },

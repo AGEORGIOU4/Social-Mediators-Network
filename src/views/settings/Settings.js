@@ -8,7 +8,7 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import LinesEllipsis from 'react-lines-ellipsis'
 import { cilTrash } from '@coreui/icons';
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput } from '@coreui/react'
 import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
@@ -63,6 +63,10 @@ class Settings extends React.Component {
         isAdmin = true;
       }
     })
+
+    if (this.state.newAdminEmail === '') {
+      alert('Enter new admin`s email!');
+    }
 
     if (!isAdmin && this.state.newAdminEmail) {
 
@@ -244,6 +248,24 @@ class Settings extends React.Component {
           </CCard>
         </CCol>
 
+
+        <CCol xs={12}>
+          <CCard>
+            <CCardHeader>
+              <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
+            </CCardHeader>
+            <CCardBody>
+
+            </CCardBody>
+            <CCardFooter style={{ textAlign: 'right' }}>
+              <CButton color="primary">Create User
+              </CButton>
+
+            </CCardFooter>
+          </CCard>
+        </CCol>
+
+
         {/* Admins */}
         <CCol xs={12}>
           <CCard id="table">
@@ -255,7 +277,8 @@ class Settings extends React.Component {
                 items={this.state.admins}
                 fields={adminFields}
                 loading={this.state.loading}
-                itemsPerPage={5}
+                itemsPerPage={10}
+                striped
                 pagination
                 scopedSlots={{
                   'remove':
@@ -277,37 +300,20 @@ class Settings extends React.Component {
             </CCardBody>
             <CCardFooter style={{ textAlign: 'right' }}>
 
-              <CForm onSubmit={this.assignAdmin}>
-                <CRow>
 
-                  <CCol xs="8">
-                    <CInput required type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
-                  </CCol>
+              <CRow>
+                <CCol xs="8">
+                  <CInput type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                </CCol>
 
-                  <CCol xs="4">
-                    <CButton color="primary" type="submit">
-                      Assign
-                    </CButton>
-                  </CCol>
-                </CRow>
-              </CForm>
+                <CCol xs="4">
+                  <CButton onClick={this.assignAdmin} color="primary">
+                    Assign
+                  </CButton>
+                </CCol>
+              </CRow>
 
 
-            </CCardFooter>
-          </CCard>
-        </CCol>
-
-        <CCol xs={12}>
-          <CCard>
-            <CCardHeader>
-              <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
-            </CCardHeader>
-            <CCardBody>
-
-            </CCardBody>
-            <CCardFooter style={{ textAlign: 'right' }}>
-              <CButton color="primary">Create User
-              </CButton>
 
             </CCardFooter>
           </CCard>

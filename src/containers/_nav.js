@@ -1,7 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import { cilNotes, cilPeople } from '@coreui/icons'
-import { cilHome, cilInfoCircle } from '@coreui/icons-pro'
+import { cilHome, cilInfoCircle, cilPhone } from '@coreui/icons-pro'
 
 const _nav = [
   {
@@ -31,6 +31,12 @@ const _nav = [
     name: 'Social Mediators',
     to: '/social-mediators',
     icon: <CIcon content={cilPeople} customClasses="c-sidebar-nav-icon" />
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Contact',
+    to: '/contact',
+    icon: <CIcon content={cilPhone} customClasses="c-sidebar-nav-icon" />
   }
 ]
 

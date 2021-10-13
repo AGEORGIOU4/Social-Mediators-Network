@@ -1,10 +1,12 @@
-export const Interests = {
-  Computers: 'Computer Science',
-  Technology: 'Technology',
-  Journalism: 'Journalism',
-  Science: 'Science',
-  Mathematics: 'Mathematics',
-  Physics: 'Physics',
-  Law: 'Law',
-}
+export const Interests = [
+  {
+    label: "Computing", value: 'Computing',
+  },
+  {
+    label: "Law", value: 'Law',
+  },
+  {
+    label: "Physics", value: 'Physics',
+  }
+]
 export default Interests

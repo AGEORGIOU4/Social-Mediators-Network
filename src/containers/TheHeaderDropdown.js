@@ -90,11 +90,13 @@ const TheHeaderDropdown = () => {
           <strong>Social Mediator</strong>
         </CDropdownItem>
 
-        <CDropdownItem href="#/blog" >
+        <CDropdownItem>
           <CIcon content={cilNote} className="mfe-2" />
           Post a proposal
         </CDropdownItem>
-        <CDropdownItem href="#/blog" >
+
+
+        <CDropdownItem to="/blog">
           <CIcon content={cilNotes} className="mfe-2" />
           Blog
         </CDropdownItem>

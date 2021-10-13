@@ -5,8 +5,8 @@ import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-import Interests from 'src/reusable/interests';
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
+import Interest from 'src/reusable/Tables/Interest';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -74,9 +74,8 @@ const Home = () => {
       lastName: enteredLastName,
       bio: enteredBio,
       qualifications: enteredQualifications,
-      interests: enteredInsterest,
+      areaOfInterest: enteredInsterest,
       createdAt: user.updated_at,
-      loginTimes: 0,
     });
   }
 
@@ -84,13 +83,13 @@ const Home = () => {
 
     Swal.fire({
       title: 'Welcome',
-      text: 'to ICLAIM social mediators platform',
-      imageUrl: 'https://www.iclaimcentre.org/wp-content/uploads/2018/06/logo-form.png',
+      text: 'to Social Mediators Network',
+      imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
       imageWidth: 80,
-      imageAlt: 'ICLAIM logo',
+      imageAlt: 'Social Mediators Network',
       showConfirmButton: true,
       confirmButtonText: "Proceed",
-      confirmButtonColor: '#f55e45',
+      confirmButtonColor: '#635dff',
       allowOutsideClick: false,
       footer: 'Let`s create your profile...'
     }).then((result) => {
@@ -107,7 +106,7 @@ const Home = () => {
       inputPlaceholder: 'Enter your first name',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -128,7 +127,7 @@ const Home = () => {
       inputPlaceholder: 'Enter your last name',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -149,7 +148,7 @@ const Home = () => {
       inputPlaceholder: 'Enter qualifications',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -170,7 +169,7 @@ const Home = () => {
       inputPlaceholder: 'Few words about you',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -191,9 +190,9 @@ const Home = () => {
       inputPlaceholder: 'Select a field of interest',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
-      inputOptions: { interests: Interests },
+      inputOptions: { Interest },
       inputValidator: (value) => {
         if (!value) {
           return 'You need to select something!'
@@ -206,7 +205,7 @@ const Home = () => {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Your are now a member!',
+            title: 'You are now a member!',
             showConfirmButton: false,
             timer: 3000
           })
@@ -256,9 +255,10 @@ const Home = () => {
         <CCol style={{ background: '#0000' }}>
 
           <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-            ICLAIM envisions a society where citizens are empowered individually and collectively and enjoy access to social justice, through alternative and innovative approaches in the application of the law to societal issues, underpinned by high quality research and impact.</p>
+            Social Mediation in Practice is a project for communities and professionals in Cyprus
+            and the UK to provide capacity building for professionals and stakeholders on social mediation as a tool for preventing and tackling community conflicts and to pilot social mediation in Cyprus and the UK  </p>
 
-          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform can be used as a proposals tool where any member is able to post and comment.</p>
+          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designs and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
           <p style={{ textAlign: 'center' }}>
             <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
           </p>
