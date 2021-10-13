@@ -22,6 +22,7 @@ const TheSidebar = () => {
     <CSidebar
       show={show}
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
+      style={{ backgroundImage: "linear-gradient(180deg,rgba(61,61,61,0.6) 0%,rgba(61,61,61,0.6) 100%), url(/city-portrait.jpg)" }}
     >
       {/* <CSidebarBrand className="d-md-down-none" to="/">
         <img

@@ -186,21 +186,14 @@ const Home = () => {
 
   const GetInterest = () => {
     Swal.fire({
-      title: "Lastly! Select an interest...",
+      title: "Lastly! Select a field of interest...",
       input: "select",
-      inputPlaceholder: 'Select an interest',
+      inputPlaceholder: 'Select a field of interest',
       showConfirmButton: true,
       confirmButtonText: `Next`,
       confirmButtonColor: "#f55e45",
       allowOutsideClick: false,
       inputOptions: { interests: Interests },
-      //   'Interests': {
-      //     CS: 'Computer Science',
-      //     Technology: 'Technology',
-      //     Law: 'Law',
-      //     Journalism: 'Journalism'
-      //   },
-      // },
       inputValidator: (value) => {
         if (!value) {
           return 'You need to select something!'
@@ -224,8 +217,8 @@ const Home = () => {
 
   const slides = [
     'iclaim-slide1.jpg',
-    'iclaim-slide2.jpg',
-    'iclaim-slide3.jpg',
+    'iclaim-slide1.jpg',
+    'iclaim-slide1.jpg',
   ]
 
   return (
@@ -255,9 +248,8 @@ const Home = () => {
 
         </CCarousel>
       </CCol>
-
       <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
-        <h2><strong>Welcome to ICLAM Social Mediators Platform</strong></h2>
+        <h2><strong>Welcome to Social Mediators Network</strong></h2>
       </CCol>
 
       <CCol xs="12">
@@ -268,12 +260,12 @@ const Home = () => {
 
           <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform can be used as a proposals tool where any member is able to post and comment.</p>
           <p style={{ textAlign: 'center' }}>
-            <CButton href='https://www.iclaimcentre.org/' color="primary" size="lg">Learn More</CButton>
+            <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
           </p>
         </CCol>
       </CCol>
 
-      <CCol xs="12">
+      <CCol xs="12" style={{ margin: "30px 0" }}>
         <hr className="my-2" />
       </CCol>
 
@@ -344,7 +336,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12">
+      <CCol xs="12" style={{ margin: "30px 0" }}>
         <hr className="my-2" />
       </CCol>
 

@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { CButton, CCardBody, CCardFooter, CCardHeader, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { CSpinner } from "@coreui/react";
+import { Route } from 'react-router';
 
 import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
@@ -19,10 +20,10 @@ const UsersProfile = props => {
   const { email } =
     (props.location && props.location.state) || {};
 
-  console.log(email);
-
   if (isAuthenticated) {
     if (!firebaseFlag) {
+      console.log("User email is: " + email);
+
       const getUser = async (db) => {
         const docRef = doc(db, "users", email);
         const docSnap = await getDoc(docRef);
@@ -38,7 +39,6 @@ const UsersProfile = props => {
       }
       getUser(firebaseDB);
     }
-
 
     return (
       <CRow>
@@ -90,9 +90,11 @@ const UsersProfile = props => {
               <CSpinner color='primary' grow />
             </CCardBody>
             <CCardFooter>
-              <div style={{ textAlign: 'end' }}>
-                <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}></a></CButton>
-              </div>
+              <Route render={({ history }) => (
+                <div style={{ textAlign: 'end' }}>
+                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}></a></CButton>
+                </div>
+              )} />
             </CCardFooter>
           </CCard>
         </CCol>

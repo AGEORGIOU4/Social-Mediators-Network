@@ -1,76 +1,32 @@
 {
-  "short_name": "ICLAIM",
-  "name": "ICLAIM Social Mediators Platform",
-  "description": "Social Mediators web platform for ICLAIM ogranisation",
+  "theme_color": "#635dff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "",
+  "start_url": ".",
+  "name": "Social Mediators' Network",
+  "short_name": "SMN",
+  "description": "Web Platform created by ICLAIM organisation",
   "icons": [
     {
-      "src": "/manifest-icons/android-icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/manifest-icons/apple-icon-180x180.png",
-      "type": "image/png",
-      "sizes": "180x180"
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
     },
     {
-      "src": "/manifest-icons/apple-icon-152x152.png",
-      "type": "image/png",
-      "sizes": "152x152"
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
     },
     {
-      "src": "/manifest-icons/apple-icon-144x144.png",
-      "type": "image/png",
-      "sizes": "144x144"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-120x120.png",
-      "type": "image/png",
-      "sizes": "120x120"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-114x114.png",
-      "type": "image/png",
-      "sizes": "114x114"
-    },
-    {
-      "src": "/manifest-icons/favicon-96x96.png",
-      "type": "image/png",
-      "sizes": "96x96"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-76x76.png",
-      "type": "image/png",
-      "sizes": "76x76"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-72x72.png",
-      "type": "image/png",
-      "sizes": "72x72"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-60x60.png",
-      "type": "image/png",
-      "sizes": "60x60"
-    },
-    {
-      "src": "/manifest-icons/apple-icon-57x57.png",
-      "type": "image/png",
-      "sizes": "57x57"
-    },
-    {
-      "src": "/manifest-icons/favicon-32x32.png",
-      "type": "image/png",
-      "sizes": "32x32"
-    },
-    {
-      "src": "/manifest-icons/favicon-16x16.png",
-      "type": "image/png",
-      "sizes": "16x16"
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

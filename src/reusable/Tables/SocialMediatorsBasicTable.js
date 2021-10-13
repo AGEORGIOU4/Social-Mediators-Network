@@ -51,7 +51,6 @@ export class SocialMediatorsBasicTable extends React.Component {
             items={this.state.users}
             fields={socialMediatorFields}
             loading={this.state.loading}
-            // onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
             onRowClick={(item, index, col, e) => {
               history.push({
                 pathname: "/users-profile",

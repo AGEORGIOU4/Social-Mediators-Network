@@ -5,7 +5,7 @@ import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
 import { LoginCard } from "src/containers/common";
-
+import { Route } from 'react-router';
 import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
@@ -85,9 +85,19 @@ const Profile = props => {
               <CSpinner color='primary' grow />
             </CCardBody>
             <CCardFooter>
-              <div style={{ textAlign: 'end' }}>
-                <CButton color='primary' href="#/profile-form"><CIcon content={cilPencil} /> Edit</CButton>
-              </div>
+              <Route render={({ history }) => (
+                <div style={{ textAlign: 'end' }}>
+                  <CButton color='primary'
+                    onClick={() => {
+                      history.push({
+                        pathname: "/profile-form",
+                        state: userFirebase
+                      })
+                    }}
+                  ><CIcon content={cilPencil} /> Edit</CButton>
+
+                </div>
+              )} />
             </CCardFooter>
           </CCard>
         </CCol>

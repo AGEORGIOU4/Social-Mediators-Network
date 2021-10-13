@@ -17,9 +17,9 @@ export const LoginCard = () => {
 
                 <div style={{ textAlign: 'center' }}>
                   <img
-                    alt="iclaim-logo"
+                    alt="SMN-logo"
                     className="c-sidebar-brand-full"
-                    src='iclaim-logo-landscape.png'
+                    src='SMN-logo-landscape.png'
                     width={200} />
                 </div>
 
