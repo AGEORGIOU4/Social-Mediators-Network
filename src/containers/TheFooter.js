@@ -12,10 +12,10 @@ const TheFooter = () => {
     <CFooter fixed={false}>
       <div style={{ marginRight: "3.5rem" }}>
 
-        Copyright © 2021 ICLAIM | All Rights Reserved
+        Copyright © 2021 ICLAIM | All Rights Reserved |
 
 
-        <span className="mr-1">Powered by</span>
+        <span className="mr-1"> Powered by</span>
         <a href="https://www.uclancyprus.ac.cy/research/research-centres/inspire/" target="_blank" rel="noopener noreferrer">InSPIRE Lab</a>
       </div>
 

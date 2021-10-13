@@ -6,7 +6,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
@@ -16,8 +15,9 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilNotes } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
+import { cilNote } from '@coreui/icons-pro';
 
-// Check if Admin
+// Check if Admin to display admin option
 var admins = [];
 var checkIfAdmin = false;
 
@@ -91,12 +91,22 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem href="#/blog" >
+          <CIcon content={cilNote} className="mfe-2" />
+          Post a proposal
+        </CDropdownItem>
+        <CDropdownItem href="#/blog" >
           <CIcon content={cilNotes} className="mfe-2" />
           Blog
-          <CBadge color="warning" className="mfs-auto">42</CBadge>
         </CDropdownItem>
 
-        <CDropdownItem divider />
+        <CDropdownItem
+          header
+          tag="div"
+          color="light"
+          className="text-center"
+        >
+          <strong>Authentication</strong>
+        </CDropdownItem>
 
         <CDropdownItem href="#/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
           <CIcon content={cilArrowCircleRight} className="mfe-2" />

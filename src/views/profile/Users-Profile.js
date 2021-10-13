@@ -2,24 +2,30 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CButton, CCardBody, CCardFooter, CCardHeader, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
-import { LoginCard } from "src/containers/common";
 import { Route } from 'react-router';
+
 import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
+import { cilMail } from "@coreui/icons-pro";
+import { LoginCard } from "src/containers/common";
 
-const Profile = props => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+const UsersProfile = props => {
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const [userFirebase, setUserFirebase] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
 
+  const { email } =
+    (props.location && props.location.state) || {};
+
   if (isAuthenticated) {
     if (!firebaseFlag) {
+      console.log("User email is: " + email);
+
       const getUser = async (db) => {
-        const docRef = doc(db, "users", user.email);
+        const docRef = doc(db, "users", email);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -33,7 +39,6 @@ const Profile = props => {
       }
       getUser(firebaseDB);
     }
-
 
     return (
       <CRow>
@@ -87,15 +92,7 @@ const Profile = props => {
             <CCardFooter>
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <CButton color='primary'
-                    onClick={() => {
-                      history.push({
-                        pathname: "/profile-form",
-                        state: userFirebase
-                      })
-                    }}
-                  ><CIcon content={cilPencil} /> Edit</CButton>
-
+                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}></a></CButton>
                 </div>
               )} />
             </CCardFooter>
@@ -112,4 +109,4 @@ const Profile = props => {
   }
 }
 
-export default Profile
+export default UsersProfile

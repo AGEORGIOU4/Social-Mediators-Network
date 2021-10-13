@@ -1,13 +1,15 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CCardFooter, CBadge } from '@coreui/react'
+import { Route } from 'react-router';
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-
-import { CButton } from '@coreui/react';
 import LinesEllipsis from 'react-lines-ellipsis';
+import CIcon from '@coreui/icons-react';
+import { cilMail } from '@coreui/icons-pro';
 import { getInterestsBadge } from '../reusables';
+
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },
   { key: 'card', label: "", sorter: false, filter: false },
@@ -44,78 +46,72 @@ export class SocialMediatorsBasicTable extends React.Component {
   render() {
     return (
       <CCol >
-        {/* <CCard>
-          <CCardBody> */}
-        <CDataTable
-          items={this.state.users}
-          fields={socialMediatorFields}
-          loading={this.state.loading}
-          onRowClick={(item, index, col, e) => console.log(item, index, col, e)}
-          hover
-          tableFilter
-          size="sm"
-          itemsPerPage={5}
-          pagination
-          scopedSlots={{
-            // 'picture':
-            //   (item) => (
-            //     <td>
-            //       <CImg src={(item.picture) ? item.picture : "avatar.png"}
-            //         width="40" height="40"
-            //         shape="rounded-circle" />
-            //     </td>
-            //   ),
-            'firstName':
-              (item) => (
-                <td style={{ display: "none" }}>
+        <Route render={({ history }) => (
+          <CDataTable
+            items={this.state.users}
+            fields={socialMediatorFields}
+            loading={this.state.loading}
+            onRowClick={(item, index, col, e) => {
+              history.push({
+                pathname: "/users-profile",
+                state: item
+              })
+            }}
+            clickableRows
+            header={false}
+            tableFilter
+            size="sm"
+            itemsPerPage={5}
+            pagination
+            scopedSlots={{
+              'card':
+                (item) => (
+                  <td>
+                    <CCard style={{ padding: "0" }}>
+                      <CCardHeader>
+                        <div style={{ width: "80%", float: "left" }}>
+                          <CImg src={(item.picture) ? item.picture : "avatar.png"}
+                            width="40" height="40"
+                            shape="rounded-circle" />
 
-                </td>
-              ),
-            'card':
-              (item) => (
+                          <strong> {item.nickname}</strong>
+                        </div>
+                        <div style={{ width: "20%", float: "left", textAlign: "end" }}>
+                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}></a></CButton>
+                        </div>
 
-                <CCol xs="12" style={{ marginTop: "20px" }}>
-                  <CCard style={{ padding: "0" }}>
-                    <CCardHeader>
-                      <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                        width="40" height="40"
-                        shape="rounded-circle" />
+                      </CCardHeader>
+                      <CCardBody>
+                        <LinesEllipsis
+                          text={item.bio}
+                          maxLine='2'
+                          ellipsis='...'
+                          trimRight
+                          basedOn='letters'
+                        />
+                      </CCardBody>
+                      <CCardFooter>
+                        <CBadge color={getInterestsBadge(item.interests)}>{item.interests}</CBadge>
+                      </CCardFooter>
+                    </CCard>
+                  </td>
+                ),
+              'firstName':
+                (item) => (
+                  <td style={{ display: "none" }}>
 
-                      <strong> {item.nickname}</strong>
-                    </CCardHeader>
-                    <CCardBody>
-                      <LinesEllipsis
-                        text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
-                        maxLine='2'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                      />
+                  </td>
+                ),
+              'interests':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
 
-                      {/* <div style={{ textAlign: 'end', marginTop: '15px' }}>
-                        <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                          width="40" height="40"
-                          shape="rounded-circle" />
-                      </div> */}
-                    </CCardBody>
-
-                  </CCard>
-                </CCol>
-
-              ),
-            'interests':
-              (item) => (
-                <td
-                  style={{ display: "none" }}>
-
-                </td>
-              ),
-          }}
-        />
-        {/* </CCardBody>
-        </CCard> */}
+                  </td>
+                ),
+            }}
+          />
+        )} />
       </CCol>
 
     )

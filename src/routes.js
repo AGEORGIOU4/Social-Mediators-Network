@@ -9,6 +9,8 @@ const Admins = React.lazy(() => import('./views/admins/Admins'))
 const Login = React.lazy(() => import('./views/login/Login'))
 const Logout = React.lazy(() => import('./views/logout/Logout'))
 const Profile = React.lazy(() => import('./views/profile/Profile'))
+const ProfileForm = React.lazy(() => import('./views/profile/Profile-Form'))
+const UsersProfile = React.lazy(() => import('./views/profile/Users-Profile'))
 const Settings = React.lazy(() => import('./views/settings/Settings'))
 
 
@@ -27,6 +29,8 @@ const routes = [
   { path: '/login', name: 'Login', component: Login },
   { path: '/logout', name: 'Logout', component: Logout },
   { path: '/profile', name: 'Profile', component: Profile },
+  { path: '/profile-form', name: 'Profile Form', component: ProfileForm },
+  { path: '/users-profile', name: 'Users Profile', component: UsersProfile },
   { path: '/settings', name: 'Settings', component: Settings },
 
   { path: '/draggable', name: 'Draggable', component: Draggable },

@@ -6,11 +6,9 @@ import Swal from 'sweetalert2';
 import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import MainChartExample from '../charts/MainChartExample';
-
 import LinesEllipsis from 'react-lines-ellipsis'
-import { cilCloudDownload, cilTrash } from '@coreui/icons';
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm, CProgress, CButtonGroup } from '@coreui/react'
+import { cilTrash } from '@coreui/icons';
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput, CForm } from '@coreui/react'
 import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { v4 as uuidv4 } from 'uuid';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
@@ -158,145 +156,6 @@ class Settings extends React.Component {
     return (
 
       <CRow>
-        {/* Analytics */}
-        <CCol xs="12">
-          <CCard>
-            <CCardBody>
-              <CRow>
-                <CCol sm="5">
-                  <h4 id="traffic" className="card-title mb-0">Firebase Analytics</h4>
-                  <div className="small text-muted">November 2017</div>
-                </CCol>
-                <CCol sm="7" className="d-none d-md-block">
-                  <CButton color="defaultBlue" className="float-right">
-                    <CIcon content={cilCloudDownload} />
-                  </CButton>
-                  <CButtonGroup className="float-right mr-3">
-                    {
-                      ['Day', 'Month', 'Year'].map(value => (
-                        <CButton
-                          color="outline-secondary"
-                          key={value}
-                          className="mx-0"
-                          active={value === 'Month'}
-                        >
-                          {value}
-                        </CButton>
-                      ))
-                    }
-                  </CButtonGroup>
-                </CCol>
-              </CRow>
-              <MainChartExample style={{ height: '300px', marginTop: '40px' }} />
-            </CCardBody>
-            <CCardFooter>
-              <CRow className="text-center">
-                <CCol md sm="12" className="mb-sm-2 mb-0">
-                  <div className="text-muted">Visits</div>
-                  <strong>29.703 Users (40%)</strong>
-                  <CProgress
-                    className="progress-xs mt-2"
-                    precision={1}
-                    color="success"
-                    value={40}
-                  />
-                </CCol>
-                <CCol md sm="12" className="mb-sm-2 mb-0 d-md-down-none">
-                  <div className="text-muted">Unique</div>
-                  <strong>24.093 Users (20%)</strong>
-                  <CProgress
-                    className="progress-xs mt-2"
-                    precision={1}
-                    color="info"
-                    value={40}
-                  />
-                </CCol>
-                <CCol md sm="12" className="mb-sm-2 mb-0">
-                  <div className="text-muted">Pageviews</div>
-                  <strong>78.706 Views (60%)</strong>
-                  <CProgress
-                    className="progress-xs mt-2"
-                    precision={1}
-                    color="warning"
-                    value={40}
-                  />
-                </CCol>
-                <CCol md sm="12" className="mb-sm-2 mb-0">
-                  <div className="text-muted">New Users</div>
-                  <strong>22.123 Users (80%)</strong>
-                  <CProgress
-                    className="progress-xs mt-2"
-                    precision={1}
-                    color="danger"
-                    value={40}
-                  />
-                </CCol>
-                <CCol md sm="12" className="mb-sm-2 mb-0 d-md-down-none">
-                  <div className="text-muted">Bounce Rate</div>
-                  <strong>Average Rate (40.15%)</strong>
-                  <CProgress
-                    className="progress-xs mt-2"
-                    precision={1}
-                    value={40}
-                  />
-                </CCol>
-              </CRow>
-            </CCardFooter>
-          </CCard>
-        </CCol>
-
-        {/* Admins */}
-        <CCol xs={12}>
-          <CCard id="table">
-            <CCardHeader>
-              <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
-            </CCardHeader>
-            <CCardBody>
-              <CDataTable
-                items={this.state.admins}
-                fields={adminFields}
-                loading={this.state.loading}
-                itemsPerPage={5}
-                pagination
-                scopedSlots={{
-                  'remove':
-                    (item) => (
-                      <td>
-                        <CButton
-                          size="sm"
-                          color="danger"
-                          variant="outline"
-                          onClick={() => {
-                            this.removeAdmin(item.id, item.email)
-                          }}
-
-                        ><CIcon content={cilTrash} /></CButton>
-                      </td>
-                    )
-                }}
-              />
-            </CCardBody>
-            <CCardFooter style={{ textAlign: 'right' }}>
-
-              <CForm onSubmit={this.assignAdmin}>
-                <CRow>
-
-                  <CCol xs="8">
-                    <CInput required type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
-                  </CCol>
-
-                  <CCol xs="4">
-                    <CButton color="primary" type="submit">
-                      Assign
-                    </CButton>
-                  </CCol>
-                </CRow>
-              </CForm>
-
-
-            </CCardFooter>
-          </CCard>
-        </CCol>
 
         <CCol xs={12}>
           <CCard>
@@ -380,6 +239,59 @@ class Settings extends React.Component {
               <CButton color="primary">
                 Create Post
               </CButton>
+
+            </CCardFooter>
+          </CCard>
+        </CCol>
+
+        {/* Admins */}
+        <CCol xs={12}>
+          <CCard id="table">
+            <CCardHeader>
+              <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
+            </CCardHeader>
+            <CCardBody>
+              <CDataTable
+                items={this.state.admins}
+                fields={adminFields}
+                loading={this.state.loading}
+                itemsPerPage={5}
+                pagination
+                scopedSlots={{
+                  'remove':
+                    (item) => (
+                      <td>
+                        <CButton
+                          size="sm"
+                          color="danger"
+                          variant="outline"
+                          onClick={() => {
+                            this.removeAdmin(item.id, item.email)
+                          }}
+
+                        ><CIcon content={cilTrash} /></CButton>
+                      </td>
+                    )
+                }}
+              />
+            </CCardBody>
+            <CCardFooter style={{ textAlign: 'right' }}>
+
+              <CForm onSubmit={this.assignAdmin}>
+                <CRow>
+
+                  <CCol xs="8">
+                    <CInput required type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                  </CCol>
+
+                  <CCol xs="4">
+                    <CButton color="primary" type="submit">
+                      Assign
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CForm>
+
 
             </CCardFooter>
           </CCard>

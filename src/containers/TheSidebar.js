@@ -22,18 +22,19 @@ const TheSidebar = () => {
     <CSidebar
       show={show}
       onShowChange={(val) => dispatch({ type: 'set', sidebarShow: val })}
+      style={{ backgroundImage: "linear-gradient(180deg,rgba(61,61,61,0.6) 0%,rgba(61,61,61,0.6) 100%), url(/city-portrait.jpg)" }}
     >
       {/* <CSidebarBrand className="d-md-down-none" to="/">
         <img
-          alt='iclaim-logo-full'
+          alt='SMN-logo-full'
           className="c-sidebar-brand-full"
-          src='iclaim-logo-landscape.png'
+          src='SMN-logo-landscape.png'
           width={150}
         />
         <img
-          alt='iclaim-logo-minimized'
+          alt='SMN-logo-minimized'
           className="c-sidebar-brand-minimized"
-          src='iclaim-logo-square.png'
+          src='SMN-logo-square.png'
           width={30} />
       </CSidebarBrand> */}
       <CSidebarNav>

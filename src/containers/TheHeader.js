@@ -9,6 +9,7 @@ import {
   CSubheader,
   CToggler,
   CBreadcrumbRouter,
+  CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { TheHeaderDropdown } from '.'
@@ -44,12 +45,13 @@ const TheHeader = () => {
       />
       <CHeaderNav>
         <CHeaderBrand  >
-          <img
-            alt='iclaim-logo-full'
-            className="c-sidebar-brand-full"
-            src='iclaim-logo-landscape.png'
-            width={100}
-          />
+          <CHeaderNavLink to="/home">
+            <CImg
+              alt='SMN-logo-full'
+              className="c-sidebar-brand-full"
+              src='SMN-logo-landscape.png'
+              width={100}
+            /></CHeaderNavLink>
 
         </CHeaderBrand>
       </CHeaderNav>
