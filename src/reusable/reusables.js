@@ -17,10 +17,12 @@ export const getStatusBadge = status => {
 
 export const getInterestsBadge = interests => {
   switch (interests) {
-    case 'Computers': return 'success'
-    case 'Technology': return 'info'
-    case 'Physics': return 'warning'
-    case 'Law': return 'danger'
+    case 'Computing': return 'secondary'
+    case 'Technology': return 'success'
+    case 'Physics': return 'info'
+    case 'Law': return 'warning'
+    case 'Business': return 'danger'
+
     default: return 'primary'
   }
 }

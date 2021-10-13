@@ -91,7 +91,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                         />
                       </CCardBody>
                       <CCardFooter>
-                        <CBadge color={getInterestsBadge(item.interests)}>{item.interests}</CBadge>
+                        <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
                       </CCardFooter>
                     </CCard>
                   </td>
