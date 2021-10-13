@@ -5,6 +5,7 @@ import {
   CCard,
   CCardHeader,
   CCardBody,
+  CForm,
   CFormGroup,
   CLabel,
   CInput,
@@ -14,13 +15,16 @@ import {
 import { CButton, CCardFooter, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
+import LinesEllipsis from 'react-lines-ellipsis'
+import Interests from 'src/reusable/interests';
 
 class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userData: {
+      initialValues: {
+        email: "",
         firstName: "",
         lastName: "",
         nickname: "",
@@ -30,44 +34,78 @@ class ProfileForm extends React.Component {
         picture: "avatar.png",
       },
       loading: false,
-      value: {
-        "Law": "Law"
-      }
+      firstName: "",
+      lastName: "",
+      nickname: "",
+      qualifications: "",
+      areaOfInterest: "",
+      bio: "",
+      picture: "avatar.png",
     };
 
-    if (props.location.state) {
-      this.state.userData = props.location.state;
-      console.log(this.state.userData)
+    if (props.location.state) { // Pass all attributes from profile
+      this.state.initialValues = props.location.state;
+
+      this.state.firstName = this.state.initialValues.firstName;
+      this.state.lastName = this.state.initialValues.lastName;
+      this.state.nickname = this.state.initialValues.nickname;
+      this.state.qualifications = this.state.initialValues.qualifications;
+      this.state.bio = this.state.initialValues.bio;
+      this.state.areaOfInterest = this.state.initialValues.areaOfInterest;
+      this.state.picture = this.state.initialValues.picture;
+
     }
+
+    this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+    this.handleChangeLastName = this.handleChangeLastName.bind(this);
+    this.handleChangeNickname = this.handleChangeNickname.bind(this);
+    this.handleChangeQualifications = this.handleChangeQualifications.bind(this);
+    this.handleChangeBio = this.handleChangeBio.bind(this);
+    this.handleChangeAreaOfInterest = this.handleChangeAreaOfInterest.bind(this);
+    this.handleChangePicture = this.handleChangePicture.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
+  handleChangeFirstName(event) { this.setState({ firstName: event.target.value }) }
+  handleChangeLastName(event) { this.setState({ lastName: event.target.value }) }
+  handleChangeNickname(event) { this.setState({ nickname: event.target.value }) }
+  handleChangeQualifications(event) { this.setState({ qualifications: event.target.value }) }
+  handleChangeBio(event) { this.setState({ bio: event.target.value }) }
+  handleChangeAreaOfInterest(event) { this.setState({ areaOfInterest: event.target.value }) }
+  handleChangePicture(event) { this.setState({ picture: event.target.value }) }
 
+  handleSubmit(event) {
+    alert('Done!');
+
+    event.preventDefault();
+  }
 
   componentDidMount() {
-    document.getElementById("firstName").value = this.state.userData.firstName;
-    document.getElementById("lastName").value = this.state.userData.lastName;
-    document.getElementById("nickname").value = this.state.userData.nickname;
-    document.getElementById("qualifications").value = this.state.userData.qualifications;
+    document.getElementById("email").value = this.state.initialValues.email;
+    document.getElementById("firstName").value = this.state.initialValues.firstName;
+    document.getElementById("lastName").value = this.state.initialValues.lastName;
+    document.getElementById("nickname").value = this.state.initialValues.nickname;
+    document.getElementById("qualifications").value = this.state.initialValues.qualifications;
+    document.getElementById("bio").value = this.state.initialValues.bio;
 
-    // switch (this.state.userData.areaOfInterest) {
-    //   case "Computers":
-    //     document.getElementById("areaOfInterest").value = "hel";
-    // }
-
-    document.getElementById("bio").value = this.state.userData.bio;
   }
 
   render() {
     return (
       <CRow>
         <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
+
           <CCard>
             <CCardHeader><h4 style={{ margin: '0px' }}><strong>Edit Profile Card</strong></h4></CCardHeader>
             <CCardBody>
+
               <CFormGroup>
 
                 <CLabel>Email</CLabel>
                 <CInput
+                  id="email"
                   type="text"
                   name="email"
                   readOnly />
@@ -77,6 +115,7 @@ class ProfileForm extends React.Component {
                   type="text"
                   id="firstName"
                   name="firstName"
+                  onChange={this.handleChangeFirstName}
                 />
 
                 <CLabel>Last Name</CLabel>
@@ -84,6 +123,7 @@ class ProfileForm extends React.Component {
                   type="text"
                   id="lastName"
                   name="lastName"
+                  onChange={this.handleChangeLastName}
                 />
 
                 <CLabel>Nickname</CLabel>
@@ -91,6 +131,7 @@ class ProfileForm extends React.Component {
                   type="text"
                   id="nickname"
                   name="nickname"
+                  onChange={this.handleChangeNickname}
                 />
 
                 <CLabel>Qualifications/Experiences</CLabel>
@@ -98,6 +139,7 @@ class ProfileForm extends React.Component {
                   type="text"
                   id="qualifications"
                   name="qualifications"
+                  onChange={this.handleChangeQualifications}
                 />
 
                 <CLabel>Few words about you</CLabel>
@@ -106,13 +148,14 @@ class ProfileForm extends React.Component {
                   name="bio"
                   size="md"
                   type="textarea"
-                  rows="7" />
+                  rows="7"
+                  onChange={this.handleChangeBio}
+                />
 
-                {/* <textarea className="form-control" id="bio" name="bio" rows="4"></textarea> */}
               </CFormGroup>
-
             </CCardBody>
           </CCard>
+
         </CCol>
 
         <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
@@ -121,12 +164,20 @@ class ProfileForm extends React.Component {
               Area of interest
             </CCardHeader>
             <CCardBody>
-              <CSelect custom onChange={this.state.areaOfInterest} name="areaOfInterest" id="areaOfInterest">
+              {/* <CSelect custom value={this.state.value} onChange={this.handleChange} name="areaOfInterest" id="areaOfInterest">
                 <option value="N/A">Please select</option>
                 <option value="Law">Law</option>
                 <option value="Technology">Technology</option>
                 <option value="Computer Science">Computer Science</option>
-              </CSelect>
+              </CSelect> */}
+
+              <div className="select-container">
+                <CSelect value={this.state.initialValues.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
+                  {Interests.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                  ))}
+                </CSelect>
+              </div>
             </CCardBody>
           </CCard>
 
@@ -148,7 +199,6 @@ class ProfileForm extends React.Component {
             </CCardBody>
           </CCard>
 
-
           <CCard>
             <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
             <CCardBody>
@@ -157,35 +207,48 @@ class ProfileForm extends React.Component {
                 <CCol xs="12" md="12" lg="8">
                   <div>
                     <CCol>
-                      <span><strong>First name:</strong></span> {this.state.userData.firstName}
+                      <span><strong>Email: </strong></span> {this.state.initialValues.email}
                     </CCol>
 
                     <CCol>
-                      <span><strong>Last name:</strong></span> {this.state.userData.lastName}
+                      <span><strong>First name: </strong></span> {this.state.firstName}
                     </CCol>
 
                     <CCol>
-                      <span><strong>Username:</strong></span> {this.state.userData.nickname}
+                      <span><strong>Last name: </strong></span> {this.state.lastName}
+                    </CCol>
+
+                    <CCol>
+                      <span><strong>Nickname: </strong></span> {this.state.nickname}
                     </CCol>
 
 
                     <CCol>
-                      <span><strong>Qualifications/Experiences:</strong></span> {this.state.userData.qualifications}
+                      <span><strong>Qualifications/Experiences: </strong></span> {this.state.qualifications}
+                    </CCol>
+
+
+                    <CCol>
+                      <span><strong>Area of interest: </strong></span> {this.state.areaOfInterest}
                     </CCol>
 
                     <CCol>
-                      <span><strong>Email:</strong></span> {this.state.userData.email}
-                    </CCol>
-                    <CCol style={{ paddingBottom: "10px" }}>
-                      <span><strong>Few words about you:</strong></span> {this.state.userData.bio}
+                      <span><strong>About you: </strong></span>
+                      <LinesEllipsis
+                        text={this.state.bio}
+                        maxLine='1'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                      />
                     </CCol>
                   </div>
 
                 </CCol>
 
-                <CCol xs="12" md="12" lg="4" style={{ textAlign: "center" }}>
+                <CCol xs="12" md="4" lg="4" style={{ textAlign: "center" }}>
                   <div style={{ padding: "10px" }}>
-                    <CImg src={this.state.userData.picture}
+                    <CImg src={this.state.picture}
                       width="100"
                       shape="rounded-circle" />
                   </div>
@@ -196,16 +259,14 @@ class ProfileForm extends React.Component {
 
             <CCardFooter>
               <div style={{ textAlign: 'end' }}>
-                <CButton color='primary' href="#/profile-form"
-                ><CIcon content={cilPencil} /> Submit</CButton>
+                <CButton color='primary' onClick={this.handleSubmit}>
+                  Submit</CButton>
               </div>
             </CCardFooter>
-
           </CCard>
 
-
         </CCol>
-      </CRow>
+      </CRow >
 
     )
   }
