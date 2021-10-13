@@ -26,15 +26,15 @@ const TheSidebar = () => {
     >
       {/* <CSidebarBrand className="d-md-down-none" to="/">
         <img
-          alt='iclaim-logo-full'
+          alt='SMN-logo-full'
           className="c-sidebar-brand-full"
-          src='iclaim-logo-landscape.png'
+          src='SMN-logo-landscape.png'
           width={150}
         />
         <img
-          alt='iclaim-logo-minimized'
+          alt='SMN-logo-minimized'
           className="c-sidebar-brand-minimized"
-          src='iclaim-logo-square.png'
+          src='SMN-logo-square.png'
           width={30} />
       </CSidebarBrand> */}
       <CSidebarNav>

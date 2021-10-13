@@ -1,67 +1,74 @@
-import React, { Component } from 'react';
-import { CCol, CRow } from '@coreui/react';
+import React, { useState } from 'react'
+import {
+  CCol,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CRow,
+  CTabContent,
+  CTabPane,
+  CCard,
+  CCardBody,
+  CTabs,
+  CCardHeader,
+  CButton
+} from '@coreui/react'
+import CIcon from '@coreui/icons-react'
 
-class About extends Component {
-  render() {
-    return (
-      <div>
-        <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
+const About = () => {
+
+  const uclan = 'UCLan Cyprus is a Cypriot University and also the first overseas campus of a British University, the University of Central Lancashire (UCLan).It is the only university in Cyprus that can offer students the advantage of an honours or postgraduate degree recognised both in the UK and in Cyprus; truly international qualifications to enhance employability at home and overseas. What distinguishes UCLan Cyprus is its commitment to quality and standards. Students have to meet our entrance requirements in order to be admitted. Our teaching staff are required to have ‘Rolls Royce minds’ to enable the UCLan Group of Universities to continue climbing the QS World University Rankings, the most prestigious university rankings in the world.'
+  const iclaim = 'ICLAIM is an interdisciplinary Centre, which closely works with UCLan Cyprus on law in the real world, socio-legal issues and disputes arising in a transnational and interdisciplinary context, at all levels of the legal order and multi-level governance (international, European and national), utilising alternative and innovative methods.'
+  const icsc = 'The Lancashire Research Institute of Citizenship, Society and Change brings together powerful research strands from four UCLan Faculties into a critical mass capable of extensive transdisciplinary work, well placed to respond to urgent and profound questions concerning a sustainable future, relationships among individuals and communities, arts and culture, public institutions of health, welfare and security. The Directors of the Institute are Professor Nicky Stanley, Dr John Whitton, Professor Ulrike Zeshan and Professor Lynn Froggett with research backgrounds that reflect the cross disciplinary nature of the Institute.'
+
+  return (
+    <CRow>
+      <CCol xs="12" md="12">
+
+        <CCol xs="12" style={{ textAlign: 'center', paddingBottom: "2rem" }}>
           <h2><strong>About us</strong></h2>
         </CCol>
 
-        <CRow style={{ marginTop: "10px" }}>
-          <CCol>
-
-            <CCol>
-
-              <h5><strong>Vision</strong></h5>
-              <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-                ICLAIM envisions a society where citizens are empowered individually and collectively and enjoy access to social justice,
-                through alternative and innovative approaches in the application of the law to societal issues, underpinned by high quality
-                research and impact.</p>
-
-            </CCol>
-
-            <CCol>
-              {/* <hr className="my-2" /> */}
-            </CCol>
-
-            <CCol>
-
-              <h5><strong>Mission</strong></h5>
-              <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-                As a social enterprise, to foster social dialogue and the rule of law through education and training and enhance active citizenship
-                through knowledge transfer activities to groups of interested parties and the wider public. We are pioneering new solutions with wider
-                impact on socio-legal challenges, at no or a fair cost.</p>
-
-            </CCol>
-
-
-            <CCol>
-              {/* <hr className="my-2" /> */}
-            </CCol>
-
-            <CCol>
-
-              <h5><strong>Objectives</strong></h5>
-              <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-                To create, promote and raise awareness of innovative and alternative legal solutions, including dispute resolution methods, widening access to social justice.
-                To support socio-legal research and impact beyond academia, making a notable difference in society.
-                To create a space and share experience, knowledge and expertise with interested groups and the public at large, designing solutions taylor-made to their needs.
-                To enhance capacity building of interested groups and the wider public in the field of social justice.
-                To empower ICLAIM users and citizens more generally to find their own solutions to socio-legal challenges.</p>
-
-            </CCol>
-
-            <CCol>
-              {/* <hr className="my-2" /> */}
-            </CCol>
-          </CCol>
-
-        </CRow>
-      </div>
-    );
-  }
+        <CCard>
+          <CCardBody>
+            <CTabs>
+              <CNav variant="tabs">
+                <CNavItem>
+                  <CNavLink>
+                    UCLan Cyprus
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink>
+                    ICLAIM
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink>
+                    ICSC
+                  </CNavLink>
+                </CNavItem>
+              </CNav>
+              <CTabContent>
+                <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
+                  <p>{uclan}</p>
+                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                </CTabPane>
+                <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
+                  <p>{iclaim}</p>
+                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                </CTabPane>
+                <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
+                  <p>{icsc}</p>
+                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                </CTabPane>
+              </CTabContent>
+            </CTabs>
+          </CCardBody>
+        </CCard>
+      </CCol>
+    </CRow >
+  )
 }
 
 export default About

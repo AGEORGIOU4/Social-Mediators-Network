@@ -266,7 +266,7 @@ const Home = () => {
       </CCol>
 
       <CCol xs="12" style={{ margin: "30px 0" }}>
-        <hr className="my-2" />
+        <hr style={{ width: "70%" }} />
       </CCol>
 
       <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
@@ -337,7 +337,7 @@ const Home = () => {
       </CCol>
 
       <CCol xs="12" style={{ margin: "30px 0" }}>
-        <hr className="my-2" />
+        <hr style={{ width: "70%" }} />
       </CCol>
 
       <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
