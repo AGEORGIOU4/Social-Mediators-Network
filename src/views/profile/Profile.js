@@ -77,6 +77,10 @@ const Profile = props => {
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>About:</strong></span> {userFirebase.bio}
                 </CCol>
+
+                <CCol style={{ padding: "10px" }}>
+                  <span><strong>Member since:</strong></span> {userFirebase.createdAt}
+                </CCol>
               </div>
             </CCardBody>
 

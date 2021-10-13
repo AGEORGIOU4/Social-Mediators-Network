@@ -5,8 +5,8 @@ import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-import Interests from 'src/reusable/interests';
 import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
+import Interest from 'src/reusable/Tables/Interest';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -76,7 +76,6 @@ const Home = () => {
       qualifications: enteredQualifications,
       areaOfInterest: enteredInsterest,
       createdAt: user.updated_at,
-      loginTimes: 0,
     });
   }
 
@@ -193,7 +192,7 @@ const Home = () => {
       confirmButtonText: `Next`,
       confirmButtonColor: "#635dff",
       allowOutsideClick: false,
-      inputOptions: { areaOfInterest: Interests },
+      inputOptions: { Interest },
       inputValidator: (value) => {
         if (!value) {
           return 'You need to select something!'

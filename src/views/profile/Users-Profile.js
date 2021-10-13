@@ -73,7 +73,7 @@ const UsersProfile = props => {
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Interests:</strong></span> {userFirebase.interests}
+                  <span><strong>Interests:</strong></span> {userFirebase.areaOfInterest}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
