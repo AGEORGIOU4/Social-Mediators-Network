@@ -34,7 +34,6 @@ const Profile = props => {
       getUser(firebaseDB);
     }
 
-
     return (
       <CRow>
         <CCol>
@@ -68,7 +67,7 @@ const Profile = props => {
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Interests:</strong></span> {userFirebase.interests}
+                  <span><strong>Interests:</strong></span> {userFirebase.areaOfInterest}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>

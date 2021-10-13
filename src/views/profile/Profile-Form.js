@@ -8,15 +8,12 @@ import {
   CFormGroup,
   CLabel,
   CInput,
-  CTextarea
+  CTextarea, CSelect
 } from '@coreui/react'
 
 import { CButton, CCardFooter, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
-import interests from './interests'
-import Select from 'react-select'
-import { useSelector } from 'react-redux';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -28,7 +25,7 @@ class ProfileForm extends React.Component {
         lastName: "",
         nickname: "",
         qualifications: "",
-        interests: "",
+        areaOfInterest: "",
         bio: "",
         picture: "avatar.png",
       },
@@ -38,29 +35,27 @@ class ProfileForm extends React.Component {
       }
     };
 
-
-    //const darkMode = useSelector(state => state.darkMode)
-    // const [value, setValue] = React.useState([
-    //   { value: 'Law', label: 'Law' },
-    // ])
-
-
     if (props.location.state) {
       this.state.userData = props.location.state;
       console.log(this.state.userData)
     }
-
   }
+
+
 
   componentDidMount() {
     document.getElementById("firstName").value = this.state.userData.firstName;
     document.getElementById("lastName").value = this.state.userData.lastName;
     document.getElementById("nickname").value = this.state.userData.nickname;
     document.getElementById("qualifications").value = this.state.userData.qualifications;
-    document.getElementById("interests").value = this.state.userData.interests;
+
+    // switch (this.state.userData.areaOfInterest) {
+    //   case "Computers":
+    //     document.getElementById("areaOfInterest").value = "hel";
+    // }
+
     document.getElementById("bio").value = this.state.userData.bio;
   }
-
 
   render() {
     return (
@@ -111,7 +106,7 @@ class ProfileForm extends React.Component {
                   name="bio"
                   size="md"
                   type="textarea"
-                  rows="6" />
+                  rows="7" />
 
                 {/* <textarea className="form-control" id="bio" name="bio" rows="4"></textarea> */}
               </CFormGroup>
@@ -123,27 +118,15 @@ class ProfileForm extends React.Component {
         <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
           <CCard>
             <CCardHeader>
-              Area of interests
+              Area of interest
             </CCardHeader>
             <CCardBody>
-              <Select
-                id="interests"
-                name="interests"
-                value="hello"
-                options={interests}
-                // onChange={this.setState({ value: this.state.userData.interests })}
-                isMulti
-              // theme={(theme) => ({
-              //   ...theme,
-              //   colors: {
-              //     ...theme.colors,
-              //     primary: darkMode ? 'black' : theme.colors.primary,
-              //     primary25: darkMode ? 'black' : theme.colors.primary25,
-              //     dangerLight: darkMode ? 'black' : theme.colors.dangerLight,
-              //     neutral0: darkMode ? '#2a2b36' : theme.colors.neutral0
-              //   },
-              // })}
-              />
+              <CSelect custom onChange={this.state.areaOfInterest} name="areaOfInterest" id="areaOfInterest">
+                <option value="N/A">Please select</option>
+                <option value="Law">Law</option>
+                <option value="Technology">Technology</option>
+                <option value="Computer Science">Computer Science</option>
+              </CSelect>
             </CCardBody>
           </CCard>
 

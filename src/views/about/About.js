@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   CCol,
   CNav,
@@ -10,10 +10,8 @@ import {
   CCard,
   CCardBody,
   CTabs,
-  CCardHeader,
   CButton
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
 const About = () => {
 

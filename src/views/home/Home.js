@@ -74,7 +74,7 @@ const Home = () => {
       lastName: enteredLastName,
       bio: enteredBio,
       qualifications: enteredQualifications,
-      interests: enteredInsterest,
+      areaOfInterest: enteredInsterest,
       createdAt: user.updated_at,
       loginTimes: 0,
     });
@@ -84,13 +84,13 @@ const Home = () => {
 
     Swal.fire({
       title: 'Welcome',
-      text: 'to ICLAIM social mediators platform',
-      imageUrl: 'https://www.iclaimcentre.org/wp-content/uploads/2018/06/logo-form.png',
+      text: 'to Social Mediators Network',
+      imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
       imageWidth: 80,
-      imageAlt: 'ICLAIM logo',
+      imageAlt: 'Social Mediators Network',
       showConfirmButton: true,
       confirmButtonText: "Proceed",
-      confirmButtonColor: '#f55e45',
+      confirmButtonColor: '#635dff',
       allowOutsideClick: false,
       footer: 'Let`s create your profile...'
     }).then((result) => {
@@ -107,7 +107,7 @@ const Home = () => {
       inputPlaceholder: 'Enter your first name',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -128,7 +128,7 @@ const Home = () => {
       inputPlaceholder: 'Enter your last name',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -149,7 +149,7 @@ const Home = () => {
       inputPlaceholder: 'Enter qualifications',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -170,7 +170,7 @@ const Home = () => {
       inputPlaceholder: 'Few words about you',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
@@ -191,9 +191,9 @@ const Home = () => {
       inputPlaceholder: 'Select a field of interest',
       showConfirmButton: true,
       confirmButtonText: `Next`,
-      confirmButtonColor: "#f55e45",
+      confirmButtonColor: "#635dff",
       allowOutsideClick: false,
-      inputOptions: { interests: Interests },
+      inputOptions: { areaOfInterest: Interests },
       inputValidator: (value) => {
         if (!value) {
           return 'You need to select something!'

@@ -14,7 +14,7 @@ export const socialMediatorFields = [
   { key: 'nickname', label: "Username" },
   { key: 'bio', label: "About" },
   { key: 'qualifications' },
-  { key: 'interests' },
+  { key: 'areaOfInterest' },
   { key: 'view', label: "", sorter: false, filter: false },
 ]
 

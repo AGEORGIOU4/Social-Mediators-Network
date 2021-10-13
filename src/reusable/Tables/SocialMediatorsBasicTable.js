@@ -77,7 +77,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                           <strong> {item.nickname}</strong>
                         </div>
                         <div style={{ width: "20%", float: "left", textAlign: "end" }}>
-                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}></a></CButton>
+                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}> Send a mail</a></CButton>
                         </div>
 
                       </CCardHeader>
