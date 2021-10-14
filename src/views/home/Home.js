@@ -255,11 +255,15 @@ const Home = () => {
         <CCol style={{ background: '#0000' }}>
 
           <p style={{ textAlign: "justify", fontSize: 'medium' }}>
-            Social Mediation in Practice is a project for communities and professionals in Cyprus
-            and the UK to provide capacity building for professionals and stakeholders on social mediation as a tool for preventing and tackling community conflicts and to pilot social mediation in Cyprus and the UK  </p>
+            This app provides a forum for the members of the Social Mediators' Network, where they can discuss future collaborations and joint action on Social Mediation. The app features the bios, profiles and completed trainings of each member and lets all users to familiarise with the other members of the Network and complement one another's work through their individual interests and expertise.
+          </p>
 
-          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designs and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
-          <p style={{ textAlign: 'center' }}>
+          <p style={{ textAlign: "justify", fontSize: 'medium' }}>
+            The Social Mediators' Network developed through the Social Mediation initiative ran by ICLAIM in a series of consecutive trainings since 2018. Supporters of the Social Mediation initiative and the Social Mediators' Network include the University of Central Lancashire, UCLan Cyprus, the Centre for Sustainable Transitions, and the British High Commission. The initiative was awarded the 2020 European Citizens' Award by the European Parliament.
+          </p>
+
+          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
+          <p style={{ textAlign: 'center', marginTop: '30px', marginBottom: '0px' }}>
             <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
           </p>
         </CCol>
