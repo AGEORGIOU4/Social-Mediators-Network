@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CCardFooter, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CBadge } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
@@ -13,7 +13,7 @@ import { getInterestsBadge } from '../reusables';
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },
   { key: 'card', label: "", sorter: false, filter: false },
-  { key: 'interests', label: "", sorter: false, filter: false },
+  { key: 'areaOfInterest', label: "", sorter: false, filter: false },
 ]
 
 export class SocialMediatorsBasicTable extends React.Component {
@@ -43,6 +43,23 @@ export class SocialMediatorsBasicTable extends React.Component {
     getUsers(firebaseDB);
   }
 
+
+  getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   render() {
     return (
       <CCol >
@@ -52,14 +69,21 @@ export class SocialMediatorsBasicTable extends React.Component {
             fields={socialMediatorFields}
             loading={this.state.loading}
             onRowClick={(item, index, col, e) => {
-              history.push({
-                pathname: "/users-profile",
-                state: item
-              })
-            }}
+              if (this.getCookie("userEmail") == item.email) {
+
+                history.push("/profile")
+
+              } else {
+                history.push({
+                  pathname: "/users-profile",
+                  state: item
+                })
+              }
+            }
+            }
             clickableRows
             header={false}
-            tableFilter
+            tableFilter={{ 'placeholder': 'Search by name or interest...' }}
             size="sm"
             itemsPerPage={5}
             pagination
@@ -77,7 +101,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                           <strong> {item.nickname}</strong>
                         </div>
                         <div style={{ width: "20%", float: "left", textAlign: "end" }}>
-                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}> Mail</a></CButton>
+                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" href={`mailto:${item.email}`}> Mail</a></CButton>
                         </div>
 
                       </CCardHeader>
@@ -89,10 +113,11 @@ export class SocialMediatorsBasicTable extends React.Component {
                           trimRight
                           basedOn='letters'
                         />
+
+                        <CCol style={{ textAlign: 'end' }}>
+                          <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
+                        </CCol>
                       </CCardBody>
-                      <CCardFooter>
-                        <CBadge color={getInterestsBadge(item.interests)}>{item.interests}</CBadge>
-                      </CCardFooter>
                     </CCard>
                   </td>
                 ),
@@ -102,7 +127,7 @@ export class SocialMediatorsBasicTable extends React.Component {
 
                   </td>
                 ),
-              'interests':
+              'areaOfInterest':
                 (item) => (
                   <td
                     style={{ display: "none" }}>

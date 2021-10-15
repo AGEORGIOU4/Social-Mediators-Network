@@ -28,7 +28,7 @@ const Login = () => {
                       <CButton color="primary" className="px-4" onClick={() => loginWithRedirect()}>Login</CButton>
                     </CCol>
                     <CCol xs="6">
-                      <CButton href="/" color="secondary" className="px-4">Guest</CButton>
+                      <CButton to="/" color="secondary" className="px-4">Guest</CButton>
                     </CCol>
                   </CRow>
                 </CForm>

@@ -1,6 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
 import Swal from 'sweetalert2';
+import { Route } from 'react-router';
 
 // Firebase
 import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
@@ -127,6 +128,21 @@ class Settings extends React.Component {
     })
   }
 
+  getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
   componentDidMount() {
     this.setState({ loading: true })
@@ -157,170 +173,179 @@ class Settings extends React.Component {
   }
 
   render() {
-    return (
 
-      <CRow>
+    if (this.getCookie("admin")) {
+      return (
 
-        <CCol xs={12}>
-          <CCard>
-            <CCardHeader>
-              <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
-            </CCardHeader>
-            <CCardBody>
-              <CDataTable
-                items={this.state.posts}
-                fields={postFields}
-                loading={this.state.loading}
-                columnFilter
-                tableFilter
-                cleaner
-                itemsPerPageSelect
-                itemsPerPage={5}
-                hover
-                sorter
-                pagination
-                clickableRows
-                // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
-                // onPageChange={(val) => console.log('new page:', val)}
-                // onPagesChange={(val) => console.log('new pages:', val)}
-                // onPaginationChange={(val) => console.log('new pagination:', val)}
-                // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-                // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-                // onTableFilterChange={(val) => console.log('new table filter:', val)}
-                // onColumnFilterChange={(val) => console.log('new column filter:', val)}
-                scopedSlots={{
-                  'content':
-                    (item) => (
-                      <td>
-                        <LinesEllipsis
-                          text={item.content}
-                          maxLine='2'
-                          ellipsis='...'
-                          trimRight
-                          basedOn='letters'
-                        />
-                      </td>
-                    ),
-                  'createdOn':
-                    (item) => (
-                      <td>
-                        <FormatTimestamp seconds={(item.createdOn != null ? item.createdOn.seconds : "N/A")} />
-                      </td>
-                    ),
-                  'status':
-                    (item) => (
-                      <td>
-                        <CBadge color={getStatusBadge(item.status)}>
-                          {item.status}
-                        </CBadge>
-                      </td>
-                    ),
-                  'visibility':
-                    (item) => (
-                      <td>
-                        <CButton
-                          color="#4638c2"
-                          variant="outline"
-                          size="sm"><CIcon content={(item.status === "Active") ? cilEye : cilEyeSlash} /></CButton>
-                      </td>
-                    ),
-                  'edit':
-                    (item) => (
-                      <td>
-                        <EditBtn EditRoute="/customer-form" />
-                      </td>
-                    ),
-                  'remove':
-                    (item) => (
-                      <td>
-                        <RemoveBtn />
-                      </td>
-                    )
-                }}
-              />
-            </CCardBody>
-            <CCardFooter style={{ textAlign: 'right' }}>
-              <CButton color="primary">
-                Create Post
-              </CButton>
+        <CRow>
 
-            </CCardFooter>
-          </CCard>
-        </CCol>
+          <CCol xs={12}>
+            <CCard>
+              <CCardHeader>
+                <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
+              </CCardHeader>
+              <CCardBody>
+                <CDataTable
+                  items={this.state.posts}
+                  fields={postFields}
+                  loading={this.state.loading}
+                  columnFilter
+                  tableFilter
+                  cleaner
+                  itemsPerPageSelect
+                  itemsPerPage={5}
+                  hover
+                  sorter
+                  pagination
+                  clickableRows
+                  // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
+                  // onPageChange={(val) => console.log('new page:', val)}
+                  // onPagesChange={(val) => console.log('new pages:', val)}
+                  // onPaginationChange={(val) => console.log('new pagination:', val)}
+                  // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
+                  // onSorterValueChange={(val) => console.log('new sorter value:', val)}
+                  // onTableFilterChange={(val) => console.log('new table filter:', val)}
+                  // onColumnFilterChange={(val) => console.log('new column filter:', val)}
+                  scopedSlots={{
+                    'content':
+                      (item) => (
+                        <td>
+                          <LinesEllipsis
+                            text={item.content}
+                            maxLine='2'
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                          />
+                        </td>
+                      ),
+                    'createdOn':
+                      (item) => (
+                        <td>
+                          <FormatTimestamp seconds={(item.createdOn != null ? item.createdOn.seconds : "N/A")} />
+                        </td>
+                      ),
+                    'status':
+                      (item) => (
+                        <td>
+                          <CBadge color={getStatusBadge(item.status)}>
+                            {item.status}
+                          </CBadge>
+                        </td>
+                      ),
+                    'visibility':
+                      (item) => (
+                        <td>
+                          <CButton
+                            color="#4638c2"
+                            variant="outline"
+                            size="sm"><CIcon content={(item.status === "Active") ? cilEye : cilEyeSlash} /></CButton>
+                        </td>
+                      ),
+                    'edit':
+                      (item) => (
+                        <td>
+                          <EditBtn EditRoute="/customer-form" />
+                        </td>
+                      ),
+                    'remove':
+                      (item) => (
+                        <td>
+                          <RemoveBtn />
+                        </td>
+                      )
+                  }}
+                />
+              </CCardBody>
+              <CCardFooter style={{ textAlign: 'right' }}>
+                <CButton color="primary">
+                  Create Post
+                </CButton>
 
-
-        <CCol xs={12}>
-          <CCard>
-            <CCardHeader>
-              <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
-            </CCardHeader>
-            <CCardBody>
-
-            </CCardBody>
-            <CCardFooter style={{ textAlign: 'right' }}>
-              <CButton color="primary">Create User
-              </CButton>
-
-            </CCardFooter>
-          </CCard>
-        </CCol>
+              </CCardFooter>
+            </CCard>
+          </CCol>
 
 
-        {/* Admins */}
-        <CCol xs={12}>
-          <CCard id="table">
-            <CCardHeader>
-              <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
-            </CCardHeader>
-            <CCardBody>
-              <CDataTable
-                items={this.state.admins}
-                fields={adminFields}
-                loading={this.state.loading}
-                itemsPerPage={10}
-                striped
-                pagination
-                scopedSlots={{
-                  'remove':
-                    (item) => (
-                      <td>
-                        <CButton
-                          size="sm"
-                          color="danger"
-                          variant="outline"
-                          onClick={() => {
-                            this.removeAdmin(item.id, item.email)
-                          }}
+          <CCol xs={12}>
+            <CCard>
+              <CCardHeader>
+                <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
+              </CCardHeader>
+              <CCardBody>
 
-                        ><CIcon content={cilTrash} /></CButton>
-                      </td>
-                    )
-                }}
-              />
-            </CCardBody>
-            <CCardFooter style={{ textAlign: 'right' }}>
+              </CCardBody>
+              <CCardFooter style={{ textAlign: 'right' }}>
+                <CButton color="primary">Create User
+                </CButton>
+
+              </CCardFooter>
+            </CCard>
+          </CCol>
 
 
-              <CRow>
-                <CCol xs="8">
-                  <CInput type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
-                </CCol>
+          {/* Admins */}
+          <CCol xs={12}>
+            <CCard id="table">
+              <CCardHeader>
+                <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
+              </CCardHeader>
+              <CCardBody>
+                <CDataTable
+                  items={this.state.admins}
+                  fields={adminFields}
+                  loading={this.state.loading}
+                  itemsPerPage={10}
+                  striped
+                  pagination
+                  scopedSlots={{
+                    'remove':
+                      (item) => (
+                        <td>
+                          <CButton
+                            size="sm"
+                            color="danger"
+                            variant="outline"
+                            onClick={() => {
+                              this.removeAdmin(item.id, item.email)
+                            }}
 
-                <CCol xs="4">
-                  <CButton onClick={this.assignAdmin} color="primary">
-                    Assign
-                  </CButton>
-                </CCol>
-              </CRow>
+                          ><CIcon content={cilTrash} /></CButton>
+                        </td>
+                      )
+                  }}
+                />
+              </CCardBody>
+              <CCardFooter style={{ textAlign: 'right' }}>
+
+
+                <CRow>
+                  <CCol xs="8">
+                    <CInput type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                  </CCol>
+
+                  <CCol xs="4">
+                    <CButton onClick={this.assignAdmin} color="primary">
+                      Assign
+                    </CButton>
+                  </CCol>
+                </CRow>
 
 
 
-            </CCardFooter>
-          </CCard>
-        </CCol>
+              </CCardFooter>
+            </CCard>
+          </CCol>
 
-      </CRow >
-    )
+        </CRow >
+      )
+    } else {
+      return (
+        <Route render={({ history }) => (
+          history.push("/")
+        )} />
+      )
+    }
   }
 }
 

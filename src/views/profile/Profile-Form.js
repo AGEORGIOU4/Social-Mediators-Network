@@ -8,8 +8,13 @@ import {
   CFormGroup,
   CLabel,
   CInput,
-  CTextarea, CSelect
+  CTextarea,
+  CSelect,
+  CSpinner,
 } from '@coreui/react'
+
+import { uploadBytes } from '@firebase/storage';
+import { getStorage, ref, getDownloadURL } from '@firebase/storage';
 
 import { CButton, CCardFooter, CImg } from "@coreui/react";
 import { setDoc, doc } from 'firebase/firestore';
@@ -17,6 +22,7 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import Interests from 'src/reusable/interests';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from 'sweetalert2';
+import { SwalMixing } from 'src/reusable/SwalMixin';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -34,6 +40,7 @@ class ProfileForm extends React.Component {
         picture: "avatar.png",
         createdAt: "",
       },
+
       loading: false,
 
       email: "",
@@ -45,6 +52,8 @@ class ProfileForm extends React.Component {
       bio: "",
       picture: "avatar.png",
       createdAt: "",
+
+      image: "",
     };
 
     if (props.location.state) { // Pass all attributes from profile
@@ -89,6 +98,37 @@ class ProfileForm extends React.Component {
   handleChangeBio(event) { this.setState({ bio: event.target.value }) }
   handleChangeAreaOfInterest(event) { this.setState({ areaOfInterest: event.target.value }) }
   handleChangePicture(event) { this.setState({ picture: event.target.value }) }
+
+
+  uploadPhoto = () => {
+
+    const imagePath = 'images/'.concat(this.state.initialValues.email).concat("-avatar");
+
+    // Upload
+    const storage = getStorage();
+    const storageRef = ref(storage, imagePath);
+    if (this.state.image === '') {
+      SwalMixing("warning", "Forgot something? :)");
+      return;
+    } else {
+
+      this.setState({ loading: true });
+
+      uploadBytes(storageRef, this.state.image).then((snapshot) => {
+        getDownloadURL(ref(storage, imagePath))
+          .then((url) => {
+            this.setState({ picture: url });
+
+          })
+
+        SwalMixing("success", "Uploaded succesfully!");
+
+        this.setState({ loading: false });
+
+      });
+    }
+  }
+
 
   handleSubmit(event) {
 
@@ -221,7 +261,7 @@ class ProfileForm extends React.Component {
 
               <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
                 {Interests.map((option) => (
-                  <option value={option.value}>{option.label}</option>
+                  <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </CSelect>
 
@@ -233,16 +273,32 @@ class ProfileForm extends React.Component {
               Photo
             </CCardHeader>
             <CCardBody>
-              <div className="input-group mb-3">
 
-                <div className="form-file">
-                  <input type="file" className="form-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
+              <div>
+                <div style={{ display: (this.state.loading) ? "none" : "block" }}>
+                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
+                    <input type="file" onChange={(e) => {
+                      this.setState({ image: (e.target.files[0]) })
+                      this.state.image = e.target.files[0];
+                      if (this.state.image)
+                        this.uploadPhoto();
+                    }} />
+                  </CCol>
+                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
+                    <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
+                  </CCol>
                 </div>
 
-                <div className="input-group-prepend">
-                  <span className="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                <div style={{ display: (this.state.loading) ? "block" : "none" }}>
+                  <center>
+                    <CCol>
+                      <CSpinner color='primary' grow />
+                    </CCol>
+                  </center>
                 </div>
+
               </div>
+
             </CCardBody>
           </CCard>
 
@@ -279,10 +335,6 @@ class ProfileForm extends React.Component {
                       <span><strong>Area of interest: </strong></span> {this.state.areaOfInterest}
                     </CCol>
 
-                    {/* <CCol>
-                      <span><strong>Picture: </strong></span> {this.state.picture}
-                    </CCol> */}
-
                     <CCol>
                       <span><strong>About you: </strong></span>
                       <LinesEllipsis
@@ -294,6 +346,7 @@ class ProfileForm extends React.Component {
                       />
                     </CCol>
                   </div>
+
 
                 </CCol>
 

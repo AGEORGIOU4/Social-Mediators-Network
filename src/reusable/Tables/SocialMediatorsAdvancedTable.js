@@ -58,7 +58,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
               <CDataTable
                 items={this.state.users}
                 fields={socialMediatorFields}
-                loading={this.state.loading}
                 tableFilter
                 clickableRows
                 cleaner
