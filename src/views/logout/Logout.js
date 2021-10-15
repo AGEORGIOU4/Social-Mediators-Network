@@ -4,6 +4,7 @@ const Logout = () => {
   const { logout } = useAuth0();
 
   document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
   return (

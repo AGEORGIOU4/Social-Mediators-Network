@@ -19,10 +19,12 @@ const Home = () => {
   var enteredInsterest = "";
 
   console.log("session is: " + getCookie("session"));
+  console.log("userEmail is: " + getCookie("userEmail"));
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
     document.cookie = "session=Established...";
+    setCookie("userEmail", user.email, 1);
     console.log("User " + user.email + " is authenticated: " + isAuthenticated);
 
     // Get all firebase users
@@ -47,6 +49,13 @@ const Home = () => {
     }
     getUsers(firebaseDB);
     setFirebaseFlag(true);
+  }
+
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
   function getCookie(cname) {

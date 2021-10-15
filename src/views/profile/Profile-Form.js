@@ -276,7 +276,7 @@ class ProfileForm extends React.Component {
 
               <div>
                 <div style={{ display: (this.state.loading) ? "none" : "block" }}>
-                  <CCol >
+                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
                     <input type="file" onChange={(e) => {
                       this.setState({ image: (e.target.files[0]) })
                       this.state.image = e.target.files[0];
@@ -284,7 +284,7 @@ class ProfileForm extends React.Component {
                         this.uploadPhoto();
                     }} />
                   </CCol>
-                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "end" }}>
+                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
                     <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
                   </CCol>
                 </div>

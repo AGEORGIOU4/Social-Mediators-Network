@@ -43,6 +43,23 @@ export class SocialMediatorsBasicTable extends React.Component {
     getUsers(firebaseDB);
   }
 
+
+  getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   render() {
     return (
       <CCol >
@@ -52,11 +69,18 @@ export class SocialMediatorsBasicTable extends React.Component {
             fields={socialMediatorFields}
             loading={this.state.loading}
             onRowClick={(item, index, col, e) => {
-              history.push({
-                pathname: "/users-profile",
-                state: item
-              })
-            }}
+              if (this.getCookie("userEmail") == item.email) {
+
+                history.push("/profile")
+
+              } else {
+                history.push({
+                  pathname: "/users-profile",
+                  state: item
+                })
+              }
+            }
+            }
             clickableRows
             header={false}
             tableFilter={{ 'placeholder': 'Search by name or interest...' }}
