@@ -17,7 +17,8 @@ const loading = (
 
 const TheContent = () => {
   return (
-    <main className="c-main">
+
+    <main className="c-main back-photo">
       <CContainer fluid>
         <Suspense fallback={loading}>
           <Switch>
@@ -40,6 +41,7 @@ const TheContent = () => {
         </Suspense>
       </CContainer>
     </main>
+
   )
 }
 
