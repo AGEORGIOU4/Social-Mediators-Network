@@ -247,7 +247,7 @@ const Home = () => {
 
         </CCarousel>
       </CCol>
-      <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
+      <CCol xs="12" style={{ textAlign: 'center', marginTop: '10px', marginBottom: '30px' }}>
         <h2><strong>Welcome to Social Mediators Network</strong></h2>
       </CCol>
 
@@ -273,7 +273,7 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
+      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2><strong>News</strong></h2>
       </CCol>
 
@@ -344,7 +344,7 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      <CCol xs="12" style={{ textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
+      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2><strong>Social Mediators</strong></h2>
       </CCol>
 

@@ -41,6 +41,8 @@ const TheHeaderDropdown = () => {
         admins.forEach(admin => {
           if (admin.email === user.email) {
             setAdmin({ isAdmin: true });
+            document.cookie = "admin=True";
+            console.log("User is admin!");
             checkIfAdmin = true;
           }
         }

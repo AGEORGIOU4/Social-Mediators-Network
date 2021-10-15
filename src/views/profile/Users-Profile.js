@@ -20,7 +20,14 @@ const UsersProfile = props => {
   const { email } =
     (props.location && props.location.state) || {};
 
-  if (isAuthenticated) {
+  if (!email) {
+    return (
+      <Route render={({ history }) => (
+        history.push("/")
+      )} />
+    )
+  }
+  else if (isAuthenticated && email) {
     if (!firebaseFlag) {
       console.log("User email is: " + email);
 
@@ -92,7 +99,7 @@ const UsersProfile = props => {
             <CCardFooter>
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${email}`}> Send a mail</a></CButton>
+                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" href={`mailto:${email}`}> Send a mail</a></CButton>
                 </div>
               )} />
             </CCardFooter>

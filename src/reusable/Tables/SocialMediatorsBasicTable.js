@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CCardFooter, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CBadge } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
@@ -77,7 +77,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                           <strong> {item.nickname}</strong>
                         </div>
                         <div style={{ width: "20%", float: "left", textAlign: "end" }}>
-                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a href={`mailto:${item.email}`}> Mail</a></CButton>
+                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" href={`mailto:${item.email}`}> Mail</a></CButton>
                         </div>
 
                       </CCardHeader>
