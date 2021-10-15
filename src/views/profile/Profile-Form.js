@@ -22,7 +22,7 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import Interests from 'src/reusable/interests';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from 'sweetalert2';
-import Upload from 'src/reusable/Upload';
+import { SwalMixing } from 'src/reusable/SwalMixin';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -108,7 +108,7 @@ class ProfileForm extends React.Component {
     const storage = getStorage();
     const storageRef = ref(storage, imagePath);
     if (this.state.image === '') {
-      alert("Forgot something? :)")
+      SwalMixing("warning", "Forgot something? :)");
       return;
     } else {
 
@@ -123,24 +123,10 @@ class ProfileForm extends React.Component {
             console.log(url);
           })
 
+        SwalMixing("success", "Uploaded succesfully!");
+
         this.setState({ loading: false });
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'bottom-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: false,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-
-        Toast.fire({
-          icon: 'success',
-          title: 'Uploaded successfully'
-        })
       });
     }
   }
