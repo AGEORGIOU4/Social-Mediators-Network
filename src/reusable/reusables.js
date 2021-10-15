@@ -22,6 +22,7 @@ export const getInterestsBadge = interests => {
     case 'Physics': return 'info'
     case 'Law': return 'warning'
     case 'Business': return 'danger'
+    case 'Other': return 'primary'
 
     default: return 'primary'
   }

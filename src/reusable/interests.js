@@ -13,6 +13,9 @@ export const Interests = [
   },
   {
     label: "Business", value: 'Business',
+  },
+  {
+    label: "Other", value: 'Other',
   }
 ]
 export default Interests

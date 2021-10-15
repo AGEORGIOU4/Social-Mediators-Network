@@ -117,10 +117,8 @@ class ProfileForm extends React.Component {
       uploadBytes(storageRef, this.state.image).then((snapshot) => {
         getDownloadURL(ref(storage, imagePath))
           .then((url) => {
-
             this.setState({ picture: url });
 
-            console.log(url);
           })
 
         SwalMixing("success", "Uploaded succesfully!");

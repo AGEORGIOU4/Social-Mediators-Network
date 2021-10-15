@@ -5,5 +5,6 @@ export const Interest =
   Physics: 'Physics',
   Technology: 'Technology',
   Business: 'Business',
+  Other: 'Other',
 }
 export default Interest

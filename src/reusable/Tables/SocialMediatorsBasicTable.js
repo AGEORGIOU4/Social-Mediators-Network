@@ -13,7 +13,7 @@ import { getInterestsBadge } from '../reusables';
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },
   { key: 'card', label: "", sorter: false, filter: false },
-  { key: 'interests', label: "", sorter: false, filter: false },
+  { key: 'areaOfInterest', label: "", sorter: false, filter: false },
 ]
 
 export class SocialMediatorsBasicTable extends React.Component {
@@ -59,7 +59,7 @@ export class SocialMediatorsBasicTable extends React.Component {
             }}
             clickableRows
             header={false}
-            tableFilter
+            tableFilter={{ 'placeholder': 'Search by name or interest...' }}
             size="sm"
             itemsPerPage={5}
             pagination
@@ -89,10 +89,11 @@ export class SocialMediatorsBasicTable extends React.Component {
                           trimRight
                           basedOn='letters'
                         />
+
+                        <CCol style={{ textAlign: 'end' }}>
+                          <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
+                        </CCol>
                       </CCardBody>
-                      <CCardFooter>
-                        <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
-                      </CCardFooter>
                     </CCard>
                   </td>
                 ),
@@ -102,7 +103,7 @@ export class SocialMediatorsBasicTable extends React.Component {
 
                   </td>
                 ),
-              'interests':
+              'areaOfInterest':
                 (item) => (
                   <td
                     style={{ display: "none" }}>
