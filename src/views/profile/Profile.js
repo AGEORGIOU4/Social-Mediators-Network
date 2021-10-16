@@ -23,7 +23,6 @@ const Profile = props => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
           setUserFirebase(docSnap.data())
           setFirebaseFlag(true);
           setFirebaseLoading(false);

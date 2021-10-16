@@ -29,14 +29,12 @@ const UsersProfile = props => {
   }
   else if (isAuthenticated && email) {
     if (!firebaseFlag) {
-      console.log("User email is: " + email);
 
       const getUser = async (db) => {
         const docRef = doc(db, "users", email);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
           setUserFirebase(docSnap.data())
           setFirebaseFlag(true);
           setFirebaseLoading(false);
@@ -99,7 +97,7 @@ const UsersProfile = props => {
             <CCardFooter>
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" href={`mailto:${email}`}> Send a mail</a></CButton>
+                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}> Send a mail</a></CButton>
                 </div>
               )} />
             </CCardFooter>

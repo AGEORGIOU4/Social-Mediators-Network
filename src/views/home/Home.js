@@ -18,20 +18,19 @@ const Home = () => {
   var enteredQualifications = "";
   var enteredInsterest = "";
 
-  console.log("session is: " + getCookie("session"));
-  console.log("userEmail is: " + getCookie("userEmail"));
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
     document.cookie = "session=Established...";
     setCookie("userEmail", user.email, 1);
     console.log("User " + user.email + " is authenticated: " + isAuthenticated);
+    console.log("session is: " + getCookie("session"));
+    console.log("userEmail is: " + getCookie("userEmail"));
 
     // Get all firebase users
     const getUsers = async (db) => {
       const userSnapshot = await getDocs(collection(db, "users"));
       const usersList = userSnapshot.docs.map(doc => doc.data());
-      console.log("Users list done...");
 
       var memberFlag = false;
       // Check if logged in user is not in firestore
