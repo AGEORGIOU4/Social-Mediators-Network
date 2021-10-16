@@ -69,7 +69,7 @@ export class SocialMediatorsBasicTable extends React.Component {
             fields={socialMediatorFields}
             loading={this.state.loading}
             onRowClick={(item, index, col, e) => {
-              if (this.getCookie("userEmail") == item.email) {
+              if (this.getCookie("userEmail") === item.email) {
 
                 history.push("/profile")
 
@@ -101,7 +101,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                           <strong> {item.nickname}</strong>
                         </div>
                         <div style={{ width: "20%", float: "left", textAlign: "end" }}>
-                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" href={`mailto:${item.email}`}> Mail</a></CButton>
+                          <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}> Mail</a></CButton>
                         </div>
 
                       </CCardHeader>
