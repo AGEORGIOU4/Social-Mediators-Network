@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router';
 import {
   CRow,
   CCol,
@@ -83,12 +84,14 @@ class ProfileForm extends React.Component {
   }
 
   componentDidMount() {
-    document.getElementById("email").value = this.state.initialValues.email;
-    document.getElementById("firstName").value = this.state.initialValues.firstName;
-    document.getElementById("lastName").value = this.state.initialValues.lastName;
-    document.getElementById("nickname").value = this.state.initialValues.nickname;
-    document.getElementById("qualifications").value = this.state.initialValues.qualifications;
-    document.getElementById("bio").value = this.state.initialValues.bio;
+    if (this.getCookie("session")) {
+      document.getElementById("email").value = this.state.initialValues.email;
+      document.getElementById("firstName").value = this.state.initialValues.firstName;
+      document.getElementById("lastName").value = this.state.initialValues.lastName;
+      document.getElementById("nickname").value = this.state.initialValues.nickname;
+      document.getElementById("qualifications").value = this.state.initialValues.qualifications;
+      document.getElementById("bio").value = this.state.initialValues.bio;
+    }
   }
 
   handleChangeFirstName(event) { this.setState({ firstName: event.target.value }) }
@@ -182,197 +185,222 @@ class ProfileForm extends React.Component {
     });
   }
 
+  getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+
   render() {
-    return (
-      <CRow>
-        <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
+    if (this.getCookie("session")) {
+      return (
+        <CRow>
+          <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
 
-          <CCard>
-            <CCardHeader><h4 style={{ margin: '0px' }}><strong>Edit Profile Card</strong></h4>
-            </CCardHeader>
-            <CCardBody>
+            <CCard>
+              <CCardHeader><h4 style={{ margin: '0px' }}><strong>Edit Profile Card</strong></h4>
+              </CCardHeader>
+              <CCardBody>
 
-              <CFormGroup>
+                <CFormGroup>
 
-                <CLabel>Email</CLabel>
-                <CInput
-                  id="email"
-                  type="text"
-                  name="email"
-                  readOnly />
+                  <CLabel>Email</CLabel>
+                  <CInput
+                    id="email"
+                    type="text"
+                    name="email"
+                    readOnly />
 
-                <CLabel>First Name</CLabel>
-                <CInput
-                  required
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  onChange={this.handleChangeFirstName}
-                />
+                  <CLabel>First Name</CLabel>
+                  <CInput
+                    required
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    onChange={this.handleChangeFirstName}
+                  />
 
-                <CLabel>Last Name</CLabel>
-                <CInput
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  onChange={this.handleChangeLastName}
-                />
+                  <CLabel>Last Name</CLabel>
+                  <CInput
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    onChange={this.handleChangeLastName}
+                  />
 
-                <CLabel>Nickname</CLabel>
-                <CInput
-                  type="text"
-                  id="nickname"
-                  name="nickname"
-                  onChange={this.handleChangeNickname}
-                />
+                  <CLabel>Nickname</CLabel>
+                  <CInput
+                    type="text"
+                    id="nickname"
+                    name="nickname"
+                    onChange={this.handleChangeNickname}
+                  />
 
-                <CLabel>Qualifications/Experiences</CLabel>
-                <CInput
-                  type="text"
-                  id="qualifications"
-                  name="qualifications"
-                  onChange={this.handleChangeQualifications}
-                />
+                  <CLabel>Qualifications/Experiences</CLabel>
+                  <CInput
+                    type="text"
+                    id="qualifications"
+                    name="qualifications"
+                    onChange={this.handleChangeQualifications}
+                  />
 
-                <CLabel>Few words about you</CLabel>
-                <CTextarea
-                  style={{ marginBottom: "23px" }}
-                  id="bio"
-                  name="bio"
-                  size="md"
-                  type="textarea"
-                  rows="7"
-                  onChange={this.handleChangeBio}
-                />
+                  <CLabel>Few words about you</CLabel>
+                  <CTextarea
+                    style={{ marginBottom: "23px" }}
+                    id="bio"
+                    name="bio"
+                    size="md"
+                    type="textarea"
+                    rows="7"
+                    onChange={this.handleChangeBio}
+                  />
 
-              </CFormGroup>
-            </CCardBody>
-          </CCard>
+                </CFormGroup>
+              </CCardBody>
+            </CCard>
 
-        </CCol>
+          </CCol>
 
-        <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
-          <CCard>
-            <CCardHeader>
-              Area of interest
-            </CCardHeader>
-            <CCardBody>
+          <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
+            <CCard>
+              <CCardHeader>
+                Area of interest
+              </CCardHeader>
+              <CCardBody>
 
 
-              <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
-                {Interests.map((option) => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))}
-              </CSelect>
+                <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
+                  {Interests.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </CSelect>
 
-            </CCardBody>
-          </CCard>
+              </CCardBody>
+            </CCard>
 
-          <CCard>
-            <CCardHeader>
-              Photo
-            </CCardHeader>
-            <CCardBody>
+            <CCard>
+              <CCardHeader>
+                Photo
+              </CCardHeader>
+              <CCardBody>
 
-              <div>
-                <div style={{ display: (this.state.loading) ? "none" : "block" }}>
-                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
-                    <input type="file" onChange={(e) => {
-                      this.setState({ image: (e.target.files[0]) })
-                      this.state.image = e.target.files[0];
-                      if (this.state.image)
-                        this.uploadPhoto();
-                    }} />
-                  </CCol>
-                  <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
-                    <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
-                  </CCol>
-                </div>
-
-                <div style={{ display: (this.state.loading) ? "block" : "none" }}>
-                  <center>
-                    <CCol>
-                      <CSpinner color='primary' grow />
+                <div>
+                  <div style={{ display: (this.state.loading) ? "none" : "block" }}>
+                    <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
+                      <input type="file" onChange={(e) => {
+                        this.setState({ image: (e.target.files[0]) })
+                        this.state.image = e.target.files[0];
+                        if (this.state.image)
+                          this.uploadPhoto();
+                      }} />
                     </CCol>
-                  </center>
-                </div>
-
-              </div>
-
-            </CCardBody>
-          </CCard>
-
-          <CCard>
-            <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
-            <CCardBody>
-
-              <CRow>
-                <CCol xs="12" md="12" lg="8">
-                  <div>
-                    <CCol>
-                      <span><strong>Email: </strong></span> {this.state.initialValues.email}
-                    </CCol>
-
-                    <CCol>
-                      <span><strong>First name: </strong></span> {this.state.firstName}
-                    </CCol>
-
-                    <CCol>
-                      <span><strong>Last name: </strong></span> {this.state.lastName}
-                    </CCol>
-
-                    <CCol>
-                      <span><strong>Nickname: </strong></span> {this.state.nickname}
-                    </CCol>
-
-
-                    <CCol>
-                      <span><strong>Qualifications/Experiences: </strong></span> {this.state.qualifications}
-                    </CCol>
-
-
-                    <CCol>
-                      <span><strong>Area of interest: </strong></span> {this.state.areaOfInterest}
-                    </CCol>
-
-                    <CCol>
-                      <span><strong>About you: </strong></span>
-                      <LinesEllipsis
-                        text={this.state.bio}
-                        maxLine='1'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                      />
+                    <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
+                      <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
                     </CCol>
                   </div>
 
-
-                </CCol>
-
-                <CCol xs="12" md="4" lg="4" style={{ textAlign: "center" }}>
-                  <div style={{ padding: "10px" }}>
-                    <CImg src={this.state.picture}
-                      width="100"
-                      shape="rounded-circle" />
+                  <div style={{ display: (this.state.loading) ? "block" : "none" }}>
+                    <center>
+                      <CCol>
+                        <CSpinner color='primary' grow />
+                      </CCol>
+                    </center>
                   </div>
-                </CCol>
-              </CRow>
 
-            </CCardBody>
+                </div>
 
-            <CCardFooter>
-              <div style={{ textAlign: 'end' }}>
-                <CButton color='primary' onClick={this.handleSubmit}>
-                  Update</CButton>
-              </div>
-            </CCardFooter>
-          </CCard>
+              </CCardBody>
+            </CCard>
 
-        </CCol>
-      </CRow >
+            <CCard>
+              <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
+              <CCardBody>
 
-    )
+                <CRow>
+                  <CCol xs="12" md="12" lg="8">
+                    <div>
+                      <CCol>
+                        <span><strong>Email: </strong></span> {this.state.initialValues.email}
+                      </CCol>
+
+                      <CCol>
+                        <span><strong>First name: </strong></span> {this.state.firstName}
+                      </CCol>
+
+                      <CCol>
+                        <span><strong>Last name: </strong></span> {this.state.lastName}
+                      </CCol>
+
+                      <CCol>
+                        <span><strong>Nickname: </strong></span> {this.state.nickname}
+                      </CCol>
+
+
+                      <CCol>
+                        <span><strong>Qualifications/Experiences: </strong></span> {this.state.qualifications}
+                      </CCol>
+
+
+                      <CCol>
+                        <span><strong>Area of interest: </strong></span> {this.state.areaOfInterest}
+                      </CCol>
+
+                      <CCol>
+                        <span><strong>About you: </strong></span>
+                        <LinesEllipsis
+                          text={this.state.bio}
+                          maxLine='1'
+                          ellipsis='...'
+                          trimRight
+                          basedOn='letters'
+                        />
+                      </CCol>
+                    </div>
+
+
+                  </CCol>
+
+                  <CCol xs="12" md="4" lg="4" style={{ textAlign: "center" }}>
+                    <div style={{ padding: "10px" }}>
+                      <CImg src={this.state.picture}
+                        width="100" height="100"
+                        shape="rounded-circle" />
+                    </div>
+                  </CCol>
+                </CRow>
+
+              </CCardBody>
+
+              <CCardFooter>
+                <div style={{ textAlign: 'end' }}>
+                  <CButton color='primary' onClick={this.handleSubmit}>
+                    Update</CButton>
+                </div>
+              </CCardFooter>
+            </CCard>
+
+          </CCol>
+        </CRow >
+
+      )
+    } else {
+      return (
+        <Route render={({ history }) => (
+          history.push("/")
+        )} />
+      )
+    }
   }
 }
 

@@ -99,7 +99,7 @@ const Home = () => {
       confirmButtonText: "Proceed",
       confirmButtonColor: '#635dff',
       allowOutsideClick: false,
-      footer: 'Let`s create your profile...'
+      footer: 'Firstly let`s create your profile...'
     }).then((result) => {
       if (result.isConfirmed) {
         GetName();
@@ -193,9 +193,9 @@ const Home = () => {
 
   const GetInterest = () => {
     Swal.fire({
-      title: "Lastly! Select a field of interest...",
+      title: "And last! Select an area of interest...",
       input: "select",
-      inputPlaceholder: 'Select a field of interest',
+      inputPlaceholder: 'Select an area of interest',
       showConfirmButton: true,
       confirmButtonText: `Next`,
       confirmButtonColor: "#635dff",
@@ -256,7 +256,7 @@ const Home = () => {
         </CCarousel>
       </CCol>
       <CCol xs="12" style={{ textAlign: 'center', marginTop: '10px', marginBottom: '30px' }}>
-        <h2><strong>Welcome to Social Mediators Network</strong></h2>
+        <h2><strong>Welcome to Social Mediators' Network</strong></h2>
       </CCol>
 
       <CCol xs="12">
