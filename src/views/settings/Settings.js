@@ -54,8 +54,8 @@ class Settings extends React.Component {
   }
 
   assignAdmin(event) {
-    var autoID = uuidv4();
-    console.log(autoID);
+    // var autoID = uuidv4();
+    // console.log(autoID);
 
     let isAdmin = false;
     this.state.admins.forEach(admin => {
@@ -72,8 +72,7 @@ class Settings extends React.Component {
     if (!isAdmin && this.state.newAdminEmail) {
 
       const setAdmin = async (db) => {
-        await setDoc(doc(db, "admins", autoID), {
-          id: autoID,
+        await setDoc(doc(db, "admins", this.state.newAdminEmail), {
           email: this.state.newAdminEmail,
         });
         event.preventDefault();
@@ -99,31 +98,34 @@ class Settings extends React.Component {
     }).then((result) => {
       if (result.isConfirmed) {
 
-
-        const deleteAdmin = async (db) => {
-          await deleteDoc(doc(db, "admins", id));
-        }
-
-        deleteAdmin(firebaseDB);
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'bottom-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: false,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        try {
+          const deleteAdmin = async (db) => {
+            await deleteDoc(doc(db, "admins", email));
           }
-        })
 
-        Toast.fire({
-          icon: 'success',
-          title: 'Deleted successfully'
-        })
+          deleteAdmin(firebaseDB);
 
-        this.componentDidMount();
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Deleted successfully'
+          })
+
+          this.componentDidMount();
+        } catch (error) {
+          console.log(error);
+        }
       }
     })
   }
