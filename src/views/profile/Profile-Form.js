@@ -165,6 +165,8 @@ class ProfileForm extends React.Component {
           icon: 'success',
           title: 'Updated successfully'
         })
+
+        window.location.href = "/";
       }
     })
 

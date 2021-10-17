@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Firebase
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
@@ -20,16 +20,16 @@ import { cilNote } from '@coreui/icons-pro';
 // Check if Admin to display admin option
 var admins = [];
 var checkIfAdmin = false;
+var checkIfUser = false;
 
 const TheHeaderDropdown = () => {
-  const [isAdmin, setAdmin] = useState("");
-  let avatar = 'avatar.png';
-
   const { user, isAuthenticated } = useAuth0();
 
+  const [isAdmin, setAdmin] = useState("");
+  const [userFirebase, setUserFirebase] = useState([]);
+  const [avatar, setAvatar] = useState("avatar.png");
 
   if (isAuthenticated) {
-    avatar = user.picture;
 
     if (!checkIfAdmin) {
       const getAdmins = async (db) => {
@@ -49,6 +49,23 @@ const TheHeaderDropdown = () => {
         )
       }
       getAdmins(firebaseDB);
+    }
+
+    if (!checkIfUser) {
+      const getUser = async (db) => {
+        const docRef = doc(db, "users", user.email);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setUserFirebase(docSnap.data())
+          setAvatar(userFirebase.picture);
+          console.log(avatar);
+          checkIfUser = true;
+        } else {
+          console.log("No such document!");
+        }
+      }
+      getUser(firebaseDB);
     }
   }
 
