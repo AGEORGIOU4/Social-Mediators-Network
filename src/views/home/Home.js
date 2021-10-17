@@ -73,7 +73,25 @@ const Home = () => {
     return "";
   }
 
+  function convertDate(updated_at) {
+    var dateToString = "N/A";
+
+    console.log(updated_at);
+    if (updated_at !== "N/A" || updated_at !== undefined) {
+      var dateObject = new Date(updated_at);
+      var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit" }).format(dateObject);
+      dateToString = date.toString();
+    }
+
+    return (
+      dateToString
+    )
+
+  }
+
   const addUser = async (db) => {
+    let createdAt = convertDate(user.updated_at);
+
     await setDoc(doc(db, "users", user.email), {
       email: user.email,
       nickname: user.nickname,
@@ -83,7 +101,7 @@ const Home = () => {
       bio: enteredBio,
       qualifications: enteredQualifications,
       areaOfInterest: enteredInsterest,
-      createdAt: user.updated_at,
+      createdAt: createdAt,
     });
   }
 
