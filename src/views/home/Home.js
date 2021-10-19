@@ -19,6 +19,9 @@ const Home = () => {
   var enteredInsterest = "";
 
 
+  var online = window.navigator.onLine;
+  console.log("online is " + online);
+
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
     document.cookie = "session=Established...";
