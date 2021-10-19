@@ -14,6 +14,17 @@ button {
   border: 1px solid #23282c;
 }
 
+.c-dark-theme hr {
+  border-color: #2a2b36;
+}
+
+.c-dark-theme h4 {
+  color: #FFFFFFDE;
+}
+
+.c-dark-theme .backgroundP {
+  color: #3c4b64;
+}
 // todo: brand button icon margin
 .btn-brand:not(:only-child) {
   .c-icon {

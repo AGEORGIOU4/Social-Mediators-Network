@@ -19,6 +19,9 @@ const Home = () => {
   var enteredInsterest = "";
 
 
+  var online = window.navigator.onLine;
+  console.log("online is " + online);
+
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
     document.cookie = "session=Established...";
@@ -73,7 +76,25 @@ const Home = () => {
     return "";
   }
 
+  function convertDate(updated_at) {
+    var dateToString = "N/A";
+
+    console.log(updated_at);
+    if (updated_at !== "N/A" || updated_at !== undefined) {
+      var dateObject = new Date(updated_at);
+      var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit" }).format(dateObject);
+      dateToString = date.toString();
+    }
+
+    return (
+      dateToString
+    )
+
+  }
+
   const addUser = async (db) => {
+    let createdAt = convertDate(user.updated_at);
+
     await setDoc(doc(db, "users", user.email), {
       email: user.email,
       nickname: user.nickname,
@@ -83,7 +104,7 @@ const Home = () => {
       bio: enteredBio,
       qualifications: enteredQualifications,
       areaOfInterest: enteredInsterest,
-      createdAt: user.updated_at,
+      createdAt: createdAt,
     });
   }
 
@@ -99,7 +120,7 @@ const Home = () => {
       confirmButtonText: "Proceed",
       confirmButtonColor: '#635dff',
       allowOutsideClick: false,
-      footer: 'Let`s create your profile...'
+      footer: 'Firstly let`s create your profile...'
     }).then((result) => {
       if (result.isConfirmed) {
         GetName();
@@ -193,9 +214,9 @@ const Home = () => {
 
   const GetInterest = () => {
     Swal.fire({
-      title: "Lastly! Select a field of interest...",
+      title: "And last! Select an area of interest...",
       input: "select",
-      inputPlaceholder: 'Select a field of interest',
+      inputPlaceholder: 'Select an area of interest',
       showConfirmButton: true,
       confirmButtonText: `Next`,
       confirmButtonColor: "#635dff",
@@ -256,21 +277,21 @@ const Home = () => {
         </CCarousel>
       </CCol>
       <CCol xs="12" style={{ textAlign: 'center', marginTop: '10px', marginBottom: '30px' }}>
-        <h2><strong>Welcome to Social Mediators Network</strong></h2>
+        <h2><strong>Welcome to Social Mediators' Network</strong></h2>
       </CCol>
 
       <CCol xs="12">
         <CCol style={{ background: '#0000' }}>
 
-          <p style={{ textAlign: "justify", fontSize: 'medium' }}>
+          <p className="backgroundP" style={{ textAlign: "justify", fontSize: 'medium' }}>
             This app provides a forum for the members of the Social Mediators' Network, where they can discuss future collaborations and joint action on Social Mediation. The app features the bios, profiles and completed trainings of each member and lets all users to familiarise with the other members of the Network and complement one another's work through their individual interests and expertise.
           </p>
 
-          <p style={{ textAlign: "justify", fontSize: 'medium' }}>
+          <p className="backgroundP" style={{ textAlign: "justify", fontSize: 'medium' }}>
             The Social Mediators' Network developed through the Social Mediation initiative ran by ICLAIM in a series of consecutive trainings since 2018. Supporters of the Social Mediation initiative and the Social Mediators' Network include the University of Central Lancashire, UCLan Cyprus, the Centre for Sustainable Transitions, and the British High Commission. The initiative was awarded the 2020 European Citizens' Award by the European Parliament.
           </p>
 
-          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
+          <p className="backgroundP" style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
           <p style={{ textAlign: 'center', marginTop: '30px', marginBottom: '0px' }}>
             <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
           </p>
