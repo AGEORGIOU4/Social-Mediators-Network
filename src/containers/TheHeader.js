@@ -15,6 +15,7 @@ import CIcon from '@coreui/icons-react'
 import { TheHeaderDropdown } from '.'
 // routes config
 import routes from '../routes'
+import { cidSignalCellularNoInternet0 } from '@coreui/icons-pro'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,10 @@ const TheHeader = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
     dispatch({ type: 'set', sidebarShow: val })
   }
+
+  var isConnected = false;
+  isConnected = window.navigator.onLine;
+  console.log("Connection is " + isConnected);
 
   return (
     <CHeader withSubheader>
@@ -76,6 +81,13 @@ const TheHeader = () => {
 
       <div style={{ position: "absolute", right: 0 }}>
         <CHeaderNav>
+          <CToggler
+            inHeader
+            style={{ display: (isConnected) ? "none" : "block" }}
+          >
+            <CIcon className="mr-2" size="lg" content={cidSignalCellularNoInternet0} />
+          </CToggler>
+
           <CToggler
             inHeader
             // className="ml-md-3 d-lg-none"

@@ -18,9 +18,10 @@ const Home = () => {
   var enteredQualifications = "";
   var enteredInsterest = "";
 
+  var isConnected = false;
+  isConnected = window.navigator.onLine;
+  console.log("Connection is " + isConnected);
 
-  var checkConnection = window.navigator.onLine;
-  console.log("Connection is " + checkConnection);
 
   var isEstablished = (getCookie("session") ? getCookie("session") : "Not established");
   console.log("Session is: " + isEstablished);
@@ -243,7 +244,7 @@ const Home = () => {
   return (
     <CRow >
 
-      <CCol xs="12" id="homeCarousel">
+      <CCol xs="12" id="homeCarousel" style={{ display: (isConnected) ? "block" : "none" }}>
         <CCarousel animate autoSlide={3000}>
           <CCarouselIndicators style={{ color: 'grey' }} />
           <CCarouselInner>
