@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
@@ -19,37 +19,31 @@ const Home = () => {
   var enteredInsterest = "";
 
 
-  var online = window.navigator.onLine;
-  console.log("online is " + online);
+  var checkConnection = window.navigator.onLine;
+  console.log("Connection is " + checkConnection);
+
+  var isEstablished = (getCookie("session") ? getCookie("session") : "Not established");
+  console.log("Session is: " + isEstablished);
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
-    document.cookie = "session=Established...";
-    setCookie("userEmail", user.email, 1);
-    console.log("User " + user.email + " is authenticated: " + isAuthenticated);
-    console.log("session is: " + getCookie("session"));
-    console.log("userEmail is: " + getCookie("userEmail"));
+    setCookie("session", "Established", 1);
+    setCookie("userEmail", user.email, 7);
 
-    // Get all firebase users
-    const getUsers = async (db) => {
-      const userSnapshot = await getDocs(collection(db, "users"));
-      const usersList = userSnapshot.docs.map(doc => doc.data());
+    console.log("User " + user.email + " is authenticated");
 
-      var memberFlag = false;
-      // Check if logged in user is not in firestore
-      usersList.forEach(userInList => {
-        if (user.email === userInList.email) {
-          console.log('User ' + user.email + ' exists in Firebase!');
-          memberFlag = true;
-        }
-      })
+    const getUser = async (db) => {
+      const docRef = doc(db, "users", user.email);
+      const docSnap = await getDoc(docRef);
 
-      // Add member (get values from prompt)
-      if (!memberFlag) {
+      if (docSnap.exists()) {
+        setFirebaseFlag(true);
+      } else {
+        console.log("User does not exist is firebase!");
         WelcomeAlert();
       }
     }
-    getUsers(firebaseDB);
+    getUser(firebaseDB);
     setFirebaseFlag(true);
   }
 
@@ -78,8 +72,6 @@ const Home = () => {
 
   function convertDate(updated_at) {
     var dateToString = "N/A";
-
-    console.log(updated_at);
     if (updated_at !== "N/A" || updated_at !== undefined) {
       var dateObject = new Date(updated_at);
       var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit" }).format(dateObject);
@@ -89,7 +81,6 @@ const Home = () => {
     return (
       dateToString
     )
-
   }
 
   const addUser = async (db) => {
@@ -130,7 +121,7 @@ const Home = () => {
 
   const GetName = () => {
     Swal.fire({
-      title: "What's your name?",
+      title: "What's your first name?",
       input: "text",
       inputPlaceholder: 'Enter your first name',
       showConfirmButton: true,
@@ -151,7 +142,7 @@ const Home = () => {
 
   const GetSurname = () => {
     Swal.fire({
-      title: "What's your surname?",
+      title: "What's your last name?",
       input: "text",
       inputPlaceholder: 'Enter your last name',
       showConfirmButton: true,

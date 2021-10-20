@@ -11,7 +11,6 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import { cilTrash } from '@coreui/icons';
 import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput } from '@coreui/react'
 import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
-import { v4 as uuidv4 } from 'uuid';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 
 const adminFields = [

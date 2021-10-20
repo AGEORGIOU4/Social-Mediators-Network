@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Firebase
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import {
@@ -18,7 +18,6 @@ import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
 import { cilNote } from '@coreui/icons-pro';
 
 // Check if Admin to display admin option
-var admins = [];
 var checkIfAdmin = false;
 var checkIfUser = false;
 
@@ -32,23 +31,18 @@ const TheHeaderDropdown = () => {
   if (isAuthenticated) {
 
     if (!checkIfAdmin) {
-      const getAdmins = async (db) => {
-        const adminCol = collection(db, 'admins');
-        const adminSnapshot = await getDocs(adminCol);
-        const adminList = adminSnapshot.docs.map(doc => doc.data());
-        admins = adminList;
+      const getAdmin = async (db) => {
+        const docRef = doc(db, "admins", user.email);
+        const docSnap = await getDoc(docRef);
 
-        admins.forEach(admin => {
-          if (admin.email === user.email) {
-            setAdmin({ isAdmin: true });
-            document.cookie = "admin=True";
-            console.log("User is admin!");
-            checkIfAdmin = true;
-          }
+        if (docSnap.exists()) {
+          setAdmin({ isAdmin: true });
+          document.cookie = "admin=True";
+          console.log("User is admin!");
+          checkIfAdmin = true;
         }
-        )
       }
-      getAdmins(firebaseDB);
+      getAdmin(firebaseDB);
     }
 
     if (!checkIfUser) {
@@ -59,16 +53,12 @@ const TheHeaderDropdown = () => {
         if (docSnap.exists()) {
           setUserFirebase(docSnap.data())
           setAvatar(userFirebase.picture);
-          console.log(avatar);
           checkIfUser = true;
-        } else {
-          console.log("No such document!");
         }
       }
       getUser(firebaseDB);
     }
   }
-
 
   return (
     <CDropdown
@@ -79,7 +69,7 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={avatar}
+            src={avatar ? avatar : "avatar.png"}
             className="c-avatar-img"
             alt="iclaim-avatar"
           />
