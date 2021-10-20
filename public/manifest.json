@@ -1,12 +1,12 @@
 {
   "theme_color": "#635dff",
   "background_color": "#ffffff",
-  "display": "standalone",
-  "scope": "",
-  "start_url": ".",
+  "display": "fullscreen",
+  "scope": ".",
+  "start_url": "/",
   "name": "Social Mediators' Network",
-  "short_name": "SMN",
-  "description": "Web Platform created by ICLAIM organisation",
+  "short_name": "ICLAIM",
+  "description": "Web App created by ICLAIM organisation as a Social Mediators' Network platform",
   "icons": [
     {
       "src": "/icon-192x192.png",
