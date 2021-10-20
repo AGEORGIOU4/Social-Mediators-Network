@@ -16,6 +16,7 @@ import { TheHeaderDropdown } from '.'
 // routes config
 import routes from '../routes'
 import { cidSignalCellularNoInternet0 } from '@coreui/icons-pro'
+import { SwalMixing } from 'src/reusable/SwalMixin'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
@@ -84,6 +85,7 @@ const TheHeader = () => {
           <CToggler
             inHeader
             style={{ display: (isConnected) ? "none" : "block" }}
+            onClick={() => SwalMixing("info", "No internet connection")}
           >
             <CIcon className="mr-2" size="lg" content={cidSignalCellularNoInternet0} />
           </CToggler>
