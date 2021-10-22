@@ -12,6 +12,7 @@ import {
   CTextarea,
   CSelect,
   CSpinner,
+  CInputFile,
 } from '@coreui/react'
 
 import { uploadBytes } from '@firebase/storage';
@@ -23,6 +24,8 @@ import Interests from 'src/reusable/interests';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from 'sweetalert2';
 import { SwalMixing } from 'src/reusable/SwalMixin';
+import { cilCloudUpload, cilSave } from '@coreui/icons-pro';
+import CIcon from '@coreui/icons-react';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -194,7 +197,7 @@ class ProfileForm extends React.Component {
           title: 'Updated successfully'
         })
 
-        let timer = setTimeout(() =>
+        setTimeout(() =>
           this.props.history.push('/profile')
           , 1000)
       }
@@ -330,7 +333,7 @@ class ProfileForm extends React.Component {
                 <div>
                   <div style={{ display: (this.state.loading) ? "none" : "block" }}>
                     <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
-                      <input type="file" onChange={(e) => {
+                      <CInputFile type="file" onChange={(e) => {
                         this.setState({ image: (e.target.files[0]) })
                         this.state.image = e.target.files[0];
                         if (this.state.image)
@@ -338,7 +341,7 @@ class ProfileForm extends React.Component {
                       }} />
                     </CCol>
                     <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
-                      <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
+                      <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
                     </CCol>
                   </div>
 
@@ -416,7 +419,8 @@ class ProfileForm extends React.Component {
 
               <CCardFooter>
                 <div style={{ textAlign: 'end' }}>
-                  <Route render={({ history }) => (<CButton color='danger' onClick={() => { history.goBack() }}>Go Back</CButton>)} /> <CButton color='primary' onClick={this.handleSubmit}>Update</CButton>
+                  {/* <Route render={({ history }) => (<CButton color='danger' onClick={() => { history.goBack() }}>Go Back</CButton>)} />  */}
+                  <CButton color='primary' onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
                 </div>
               </CCardFooter>
             </CCard>
