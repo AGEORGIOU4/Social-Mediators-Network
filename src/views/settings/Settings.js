@@ -82,7 +82,7 @@ class Settings extends React.Component {
     }
   }
 
-  removeAdmin(id, email) {
+  removeAdmin(email) {
     if (!email) {
       email = "this";
     }

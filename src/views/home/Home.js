@@ -100,7 +100,7 @@ const Home = () => {
     });
   }
 
-  const WelcomeAlert = () => {
+  const WelcomeAlert = async () => {
 
     Swal.fire({
       title: 'Welcome',
@@ -115,125 +115,114 @@ const Home = () => {
       footer: 'Firstly let`s create your profile...'
     }).then((result) => {
       if (result.isConfirmed) {
-        GetName();
+        CreateProfile();
       }
     })
-  }
 
-  const GetName = () => {
-    Swal.fire({
-      title: "What's your first name?",
-      input: "text",
-      inputPlaceholder: 'Enter your first name',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredFirstName = value;
+    const CreateProfile = async () => {
+      const steps = ['1', '2', '3', '4', '5']
+      const swalQueue = Swal.mixin({
+        progressSteps: steps,
+        confirmButtonText: 'Next',
+        confirmButtonColor: '#635dff',
+        allowOutsideClick: false,
+      })
 
-          GetSurname();
+      // await swalQueue.fire({
+      //   title: 'Welcome',
+      //   text: 'to Social Mediators Network',
+      //   imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
+      //   imageWidth: 80,
+      //   imageAlt: 'Social Mediators Network',
+      //   confirmButtonText: "Proceed",
+      //   footer: 'Let`s create your profile...',
+      //   currentProgressStep: -1
+      // })
+
+      await swalQueue.fire({
+        title: "What's your first name?",
+        input: "text",
+        inputPlaceholder: 'Enter your first name',
+        currentProgressStep: 0,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredFirstName = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetSurname = () => {
-    Swal.fire({
-      title: "What's your last name?",
-      input: "text",
-      inputPlaceholder: 'Enter your last name',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredLastName = value;
-
-          GetQualifications();
+      await swalQueue.fire({
+        title: "What's your last name?",
+        input: "text",
+        inputPlaceholder: 'Enter your last name',
+        currentProgressStep: 1,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredLastName = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetQualifications = () => {
-    Swal.fire({
-      title: "Any qualifications or experiences as a social mediator?",
-      input: "text",
-      inputPlaceholder: 'Enter qualifications',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredQualifications = value;
-
-          GetBio();
+      await swalQueue.fire({
+        title: "Any qualifications or experiences as a social mediator?",
+        input: "text",
+        inputPlaceholder: 'Enter qualifications',
+        currentProgressStep: 2,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredQualifications = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetBio = () => {
-    Swal.fire({
-      title: "Tell us bit about yourself...",
-      input: "textarea",
-      inputPlaceholder: 'Few words about you',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredBio = value;
-
-          GetInterest();
+      await swalQueue.fire({
+        title: "Tell us bit about yourself...",
+        input: "textarea",
+        inputPlaceholder: 'Few words about you',
+        currentProgressStep: 3,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredBio = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetInterest = () => {
-    Swal.fire({
-      title: "And last! Select an area of interest...",
-      input: "select",
-      inputPlaceholder: 'Select an area of interest',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputOptions: { Interest },
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to select something!'
-        } else {
-          enteredInsterest = value;
+      await swalQueue.fire({
+        title: "And last! Select an area of interest...",
+        input: "select",
+        inputPlaceholder: 'Select an area of interest',
+        showConfirmButton: true,
+        currentProgressStep: 4,
+        inputOptions: { Interest },
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to select something!'
+          } else {
+            enteredInsterest = value;
+            addUser(firebaseDB);
+            console.log("User ".concat(user.nickname).concat(" is added!"));
 
-          addUser(firebaseDB);
-          console.log("User ".concat(user.nickname).concat(" is added!"));
-
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'You are now a member!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'You are now a member!',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          }
         }
-      }
-    })
+      })
+    }
   }
+
 
   const slides = [
     'iclaim-slide1.jpg',
