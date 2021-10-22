@@ -194,7 +194,9 @@ class ProfileForm extends React.Component {
           title: 'Updated successfully'
         })
 
-        //window.location.href = "/";
+        let timer = setTimeout(() =>
+          this.props.history.push('/profile')
+          , 1000)
       }
     })
 

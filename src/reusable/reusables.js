@@ -18,10 +18,16 @@ export const getStatusBadge = status => {
 export const getInterestsBadge = interests => {
   switch (interests) {
     case 'Computing': return 'secondary'
-    case 'Technology': return 'success'
-    case 'Physics': return 'info'
+    case 'Volunteering': return 'primary'
+    case 'Photography': return 'info'
+    case 'Music': return 'info'
     case 'Law': return 'warning'
-    case 'Business': return 'danger'
+    case 'Physics': return 'secondary'
+    case 'Mathematics': return 'secondary'
+    case 'Technology': return 'secondary'
+    case 'Business': return 'primary'
+    case 'Blogging': return 'info'
+    case 'Sports': return 'warning'
     case 'Other': return 'primary'
 
     default: return 'primary'
