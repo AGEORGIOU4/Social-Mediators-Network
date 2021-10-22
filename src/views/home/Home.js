@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
@@ -18,38 +18,33 @@ const Home = () => {
   var enteredQualifications = "";
   var enteredInsterest = "";
 
+  var isConnected = false;
+  isConnected = window.navigator.onLine;
+  console.log("Connection is " + isConnected);
 
-  var online = window.navigator.onLine;
-  console.log("online is " + online);
+
+  var isEstablished = (getCookie("session") ? getCookie("session") : "Not established");
+  console.log("Session is: " + isEstablished);
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
-    document.cookie = "session=Established...";
-    setCookie("userEmail", user.email, 1);
-    console.log("User " + user.email + " is authenticated: " + isAuthenticated);
-    console.log("session is: " + getCookie("session"));
-    console.log("userEmail is: " + getCookie("userEmail"));
+    setCookie("session", "Established", 1);
+    setCookie("userEmail", user.email, 7);
 
-    // Get all firebase users
-    const getUsers = async (db) => {
-      const userSnapshot = await getDocs(collection(db, "users"));
-      const usersList = userSnapshot.docs.map(doc => doc.data());
+    console.log("User " + user.email + " is authenticated");
 
-      var memberFlag = false;
-      // Check if logged in user is not in firestore
-      usersList.forEach(userInList => {
-        if (user.email === userInList.email) {
-          console.log('User ' + user.email + ' exists in Firebase!');
-          memberFlag = true;
-        }
-      })
+    const getUser = async (db) => {
+      const docRef = doc(db, "users", user.email);
+      const docSnap = await getDoc(docRef);
 
-      // Add member (get values from prompt)
-      if (!memberFlag) {
+      if (docSnap.exists()) {
+        setFirebaseFlag(true);
+      } else {
+        console.log("User does not exist is firebase!");
         WelcomeAlert();
       }
     }
-    getUsers(firebaseDB);
+    getUser(firebaseDB);
     setFirebaseFlag(true);
   }
 
@@ -78,8 +73,6 @@ const Home = () => {
 
   function convertDate(updated_at) {
     var dateToString = "N/A";
-
-    console.log(updated_at);
     if (updated_at !== "N/A" || updated_at !== undefined) {
       var dateObject = new Date(updated_at);
       var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit" }).format(dateObject);
@@ -89,7 +82,6 @@ const Home = () => {
     return (
       dateToString
     )
-
   }
 
   const addUser = async (db) => {
@@ -108,7 +100,7 @@ const Home = () => {
     });
   }
 
-  const WelcomeAlert = () => {
+  const WelcomeAlert = async () => {
 
     Swal.fire({
       title: 'Welcome',
@@ -123,125 +115,114 @@ const Home = () => {
       footer: 'Firstly let`s create your profile...'
     }).then((result) => {
       if (result.isConfirmed) {
-        GetName();
+        CreateProfile();
       }
     })
-  }
 
-  const GetName = () => {
-    Swal.fire({
-      title: "What's your name?",
-      input: "text",
-      inputPlaceholder: 'Enter your first name',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredFirstName = value;
+    const CreateProfile = async () => {
+      const steps = ['1', '2', '3', '4', '5']
+      const swalQueue = Swal.mixin({
+        progressSteps: steps,
+        confirmButtonText: 'Next',
+        confirmButtonColor: '#635dff',
+        allowOutsideClick: false,
+      })
 
-          GetSurname();
+      // await swalQueue.fire({
+      //   title: 'Welcome',
+      //   text: 'to Social Mediators Network',
+      //   imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
+      //   imageWidth: 80,
+      //   imageAlt: 'Social Mediators Network',
+      //   confirmButtonText: "Proceed",
+      //   footer: 'Let`s create your profile...',
+      //   currentProgressStep: -1
+      // })
+
+      await swalQueue.fire({
+        title: "What's your first name?",
+        input: "text",
+        inputPlaceholder: 'Enter your first name',
+        currentProgressStep: 0,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredFirstName = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetSurname = () => {
-    Swal.fire({
-      title: "What's your surname?",
-      input: "text",
-      inputPlaceholder: 'Enter your last name',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredLastName = value;
-
-          GetQualifications();
+      await swalQueue.fire({
+        title: "What's your last name?",
+        input: "text",
+        inputPlaceholder: 'Enter your last name',
+        currentProgressStep: 1,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredLastName = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetQualifications = () => {
-    Swal.fire({
-      title: "Any qualifications or experiences as a social mediator?",
-      input: "text",
-      inputPlaceholder: 'Enter qualifications',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredQualifications = value;
-
-          GetBio();
+      await swalQueue.fire({
+        title: "Any qualifications or experiences as a social mediator?",
+        input: "text",
+        inputPlaceholder: 'Enter qualifications',
+        currentProgressStep: 2,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredQualifications = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetBio = () => {
-    Swal.fire({
-      title: "Tell us bit about yourself...",
-      input: "textarea",
-      inputPlaceholder: 'Few words about you',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
-          enteredBio = value;
-
-          GetInterest();
+      await swalQueue.fire({
+        title: "Tell us bit about yourself...",
+        input: "textarea",
+        inputPlaceholder: 'Few words about you',
+        currentProgressStep: 3,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          } else {
+            enteredBio = value;
+          }
         }
-      }
-    })
-  }
+      })
 
-  const GetInterest = () => {
-    Swal.fire({
-      title: "And last! Select an area of interest...",
-      input: "select",
-      inputPlaceholder: 'Select an area of interest',
-      showConfirmButton: true,
-      confirmButtonText: `Next`,
-      confirmButtonColor: "#635dff",
-      allowOutsideClick: false,
-      inputOptions: { Interest },
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to select something!'
-        } else {
-          enteredInsterest = value;
+      await swalQueue.fire({
+        title: "And last! Select an area of interest...",
+        input: "select",
+        inputPlaceholder: 'Select an area of interest',
+        showConfirmButton: true,
+        currentProgressStep: 4,
+        inputOptions: { Interest },
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to select something!'
+          } else {
+            enteredInsterest = value;
+            addUser(firebaseDB);
+            console.log("User ".concat(user.nickname).concat(" is added!"));
 
-          addUser(firebaseDB);
-          console.log("User ".concat(user.nickname).concat(" is added!"));
-
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'You are now a member!',
-            showConfirmButton: false,
-            timer: 3000
-          })
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'You are now a member!',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          }
         }
-      }
-    })
+      })
+    }
   }
+
 
   const slides = [
     'iclaim-slide1.jpg',
@@ -252,7 +233,7 @@ const Home = () => {
   return (
     <CRow >
 
-      <CCol xs="12" id="homeCarousel">
+      <CCol xs="12" id="homeCarousel" style={{ display: (isConnected) ? "block" : "none" }}>
         <CCarousel animate autoSlide={3000}>
           <CCarouselIndicators style={{ color: 'grey' }} />
           <CCarouselInner>
@@ -276,7 +257,7 @@ const Home = () => {
 
         </CCarousel>
       </CCol>
-      <CCol xs="12" style={{ textAlign: 'center', marginTop: '10px', marginBottom: '30px' }}>
+      <CCol xs="12" style={{ textAlign: 'center', marginTop: '10px', marginBottom: '20px' }}>
         <h2><strong>Welcome to Social Mediators' Network</strong></h2>
       </CCol>
 
@@ -309,14 +290,22 @@ const Home = () => {
       <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
-            News card
+            <LinesEllipsis
+              text='ICLAIM’S ‘SOCIAL MEDIATION IN PRACTICE’ PROJECT RECEIVES THE EUROPEAN CITIZEN PRIZE 2020 FROM THE EUROPEAN PARLIAMENT'
+              maxLine='1'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
-              maxLine='2'
+              text='The Interdisciplinary Centre for Law, Alternative and Innovative Methods (ICLAIM), an independent non-profit organisation working in close association with the School of Law at the University of Central Lancashire in Cyprus (UCLan Cyprus), is proud to announce that out of the 30 laureates of the European Parliament’s European Citizen Prize 2020 from 25 countries of the EU, ICLAIM is one of the two recipients from Cyprus! The laureates for Cyprus were announced by the European Parliament Office in Cyprus on 12 February 2021, being ICLAIM Founder, Prof. Stéphanie Laulhé Shaelou, on behalf of ICLAIM for its ‘Social Mediation in Practice’ programme, and Mr Costas Vichas for his long-term humanitarian assistance to those in need. Since 2008, the European Parliament awards the European Citizen’s Prize every year to projects and initiatives that facilitate cross-border cooperation or promote mutual understanding within the EU. The prize, which has symbolic value, is also intended to acknowledge the work of those who through their day-to-day activities promote European values.
+              ICLAIM is a non-profit organisation registered and established in Cyprus since 2017, whose primary objective is to serve communities. It is a social enterprise vehicle which benefits from the expertise of a pool of all-female resident experts, researchers and interns, from diverse backgrounds, primarily (but not exclusively) from the UCLan Cyprus School of Law. The organisation envisions a society where citizens are empowered and enjoy access to social justice, through alternative and innovative approaches in the application of the law to societal issues.
+              The ‘Social Mediation in Practice’ project, whose broader objective is to spread the use of social mediation as a tool for the resolution of conflicts in the Cypriot society and beyond, is one of ICLAIM’s long-term projects, under the overall coordination of Prof. Stéphanie Laulhé Shaelou. In 2018, Dr Natalie Alkiviadou supervised a group of UCLan Cyprus law students, interns at ICLAIM, to draft the first ‘Handbook for Professionals on Social Mediation’. Since July 2018, the Handbook and ICLAIM expertise have been disseminated in a series of training and workshops promoting the use of social mediation among individuals primarily from the education, the NGO and the law enforcement sectors, across communities. This ‘train the trainers’ approach was initially piloted through the Social Mediation project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Institute of Citizenship, Society and Change (UCLan ICSC). This was followed by a workshop series entitled ‘Social Mediation in Practice’ delivered in 2019 and 2020 by ICLAIM and supported by UCLan Cyprus, with a grant from the British High Commission in Nicosia. These workshops involved ICLAIM social mediation trainers Dr Katerina Antoniou and Ms Nadia Kornioti, with input from Dr Pinar Zubaroğlu-Ioannides, and facilitation by community members and students. All workshops encouraged the participation of a diverse group of individuals from all communities of Cyprus, and of varying professional or other background. The workshops led to the establishment of the Social Mediators Network in September 2020. Amid the pandemic, the ‘Social Mediation in Practice’ project swiftly reacted to the situation by offering collective and active reflection on the impact of COVID-19 on communities in Cyprus, and on the role that social mediation could play in this setting. The Prize therefore recognizes the active citizenship of almost 100 individuals across the island and beyond, as well as the trust showed by all institutions mentioned above. ICLAIM would like to thank them all.              
+              The next step in the programme’s development is a forthcoming workshop, part of a new ‘Social Mediation for Social Transitions’ project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Centre for Sustainable Transitions (UCLan CST). The workshop will take place on 26-27 February 2021 and more information is available on our www.social-mediation.org.  
+              Our congratulations to everyone involved in ICLAIM’s ‘Social Mediation in Practice’ programme and to the Laureates for the much-deserved recognition!'
+              maxLine='3'
               ellipsis='...'
               trimRight
               basedOn='letters'
@@ -331,14 +320,22 @@ const Home = () => {
       <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
-            News card
+            <LinesEllipsis
+              text='Upcoming Workshop on Social Mediation for Social Transitions'
+              maxLine='1'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
-              maxLine='2'
+              text='The COVID19 pandemic in 2020 reinforced the political polarisation and social uncertainty observed in the last decade. Within this context of weakening social cohesion and growing hostility in our societies, we hereby announce the delivery of an innovative Social Mediation training, under the ‘Social Mediation for Social Transitions’ project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Centre for Sustainable Transitions (UCLan CST).
+              Building on previous experience, the activities will train individuals interested in the implementation of Social Mediation as a conflict resolution tool, through a two-day online workshop on 26-27 February. Participants   will then have the opportunity to join previously trained Social Mediators through an online Roundtable Discussion, scheduled on 6 March, to set priorities and identify useful approaches in using Social Mediation in societies characterised by continuous social, political, economic and technological transitions.
+              The project aims to contribute towards the publication of a new Manual on Social Mediation for Social Transitions, which envisages to expand the contexts within which Social Mediation can be employed as a conflict resolution tool.               
+              For more information address any further questions to social-mediation@iclaimcentre.org
+              For all details regarding the workshop and roundtable meeting, please refer to the poster attached to the present announcement. Availability is limited and registration is compulsory through the following link: here'
+              maxLine='3'
               ellipsis='...'
               trimRight
               basedOn='letters'
@@ -352,14 +349,19 @@ const Home = () => {
       <CCol xs="12" sm="4" md="4">
         <CCard>
           <CCardHeader>
-            News card
+            <LinesEllipsis
+              text='Watch! Social Mediation Conference – Public Session'
+              maxLine='1'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
-              ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
-              maxLine='2'
+              text='On 12 September 2020, ICLAIM organised the Social Mediation Conference and launched the Social Mediators Network. Participants included trained Social Mediators from both Cyprus communities, who had participated in the workshops mentioned above. Based on the feedback, the ideas and the areas prioritised by the workshop participants, we produced a report summarising the main points on the conference.
+              You can now watch online the public session of the Social Mediation Conference in the video below and access the Conference Report here'
+              maxLine='3'
               ellipsis='...'
               trimRight
               basedOn='letters'

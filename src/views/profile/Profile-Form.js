@@ -12,18 +12,20 @@ import {
   CTextarea,
   CSelect,
   CSpinner,
+  CInputFile,
 } from '@coreui/react'
 
 import { uploadBytes } from '@firebase/storage';
 import { getStorage, ref, getDownloadURL } from '@firebase/storage';
-
 import { CButton, CCardFooter, CImg } from "@coreui/react";
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
 import LinesEllipsis from 'react-lines-ellipsis'
 import Interests from 'src/reusable/interests';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from 'sweetalert2';
 import { SwalMixing } from 'src/reusable/SwalMixin';
+import { cilCloudUpload, cilSave } from '@coreui/icons-pro';
+import CIcon from '@coreui/icons-react';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -55,6 +57,7 @@ class ProfileForm extends React.Component {
       createdAt: "",
 
       image: "",
+      firebaseFlag: false
     };
 
     if (props.location.state) { // Pass all attributes from profile
@@ -69,6 +72,31 @@ class ProfileForm extends React.Component {
       this.state.areaOfInterest = this.state.initialValues.areaOfInterest;
       this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
       this.state.createdAt = this.state.initialValues.createdAt;
+
+    } else { // fetch from firebase
+
+      if (!this.state.firebaseFlag) {
+        const getUser = async (db) => {
+          const docRef = doc(db, "users", this.getCookie("userEmail"));
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            this.state.initialValues = (docSnap.data());
+            this.setState({ firebaseFlag: true });
+            this.state.email = this.state.initialValues.email;
+            this.state.firstName = this.state.initialValues.firstName;
+            this.state.lastName = this.state.initialValues.lastName;
+            this.state.nickname = this.state.initialValues.nickname;
+            this.state.qualifications = this.state.initialValues.qualifications;
+            this.state.bio = this.state.initialValues.bio;
+            this.state.areaOfInterest = this.state.initialValues.areaOfInterest;
+            this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
+            this.state.createdAt = this.state.initialValues.createdAt;
+
+            this.componentDidMount();
+          }
+        }
+        getUser(firebaseDB);
+      }
     }
 
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
@@ -91,6 +119,9 @@ class ProfileForm extends React.Component {
       document.getElementById("nickname").value = this.state.initialValues.nickname;
       document.getElementById("qualifications").value = this.state.initialValues.qualifications;
       document.getElementById("bio").value = this.state.initialValues.bio;
+
+      this.setState({ areaOfInterest: this.state.initialValues.areaOfInterest })
+      this.setState({ picture: this.state.initialValues.picture })
     }
   }
 
@@ -166,7 +197,9 @@ class ProfileForm extends React.Component {
           title: 'Updated successfully'
         })
 
-        window.location.href = "/";
+        setTimeout(() =>
+          this.props.history.push('/profile')
+          , 1000)
       }
     })
 
@@ -300,7 +333,7 @@ class ProfileForm extends React.Component {
                 <div>
                   <div style={{ display: (this.state.loading) ? "none" : "block" }}>
                     <CCol lg="12" xs="12" md="12" style={{ textAlign: "left", paddingLeft: '0px' }}>
-                      <input type="file" onChange={(e) => {
+                      <CInputFile type="file" onChange={(e) => {
                         this.setState({ image: (e.target.files[0]) })
                         this.state.image = e.target.files[0];
                         if (this.state.image)
@@ -308,7 +341,7 @@ class ProfileForm extends React.Component {
                       }} />
                     </CCol>
                     <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
-                      <CButton color="secondary" onClick={this.uploadPhoto}>Upload</CButton>
+                      <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
                     </CCol>
                   </div>
 
@@ -386,8 +419,8 @@ class ProfileForm extends React.Component {
 
               <CCardFooter>
                 <div style={{ textAlign: 'end' }}>
-                  <CButton color='primary' onClick={this.handleSubmit}>
-                    Update</CButton>
+                  {/* <Route render={({ history }) => (<CButton color='danger' onClick={() => { history.goBack() }}>Go Back</CButton>)} />  */}
+                  <CButton color='primary' onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
                 </div>
               </CCardFooter>
             </CCard>

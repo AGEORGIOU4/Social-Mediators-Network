@@ -1,27 +1,7 @@
 {
-  "name": "@coreui/coreui-pro-react-admin-template-starter",
-  "version": "3.2.0",
-  "description": "CoreUI Pro React Admin Template Starter",
-  "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
-  },
-  "contributors": [
-    {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "homepage": ".",
-  "copyright": "Copyright 2017-2020 creativeLabs Łukasz Holeczek",
-  "license": "https://coreui.io/pro/license/",
+  "name": "ICLAIM",
+  "version": "1.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:coreui/coreui-pro-react-admin-template-starter.git"
-  },
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "@coreui/coreui-pro": "^3.2.0",
@@ -49,7 +29,8 @@
     "react-select": "^5.0.0",
     "react-text-mask-hoc": "^0.11.0",
     "redux": "4.0.5",
-    "sweetalert2": "^11.1.7"
+    "sweetalert2": "^11.1.7",
+    "web-vitals": "^2.1.2"
   },
   "devDependencies": {
     "auto-changelog": "2.2.0",

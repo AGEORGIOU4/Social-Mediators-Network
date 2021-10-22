@@ -6,8 +6,10 @@ import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
 import { LoginCard } from "src/containers/common";
 import { Route } from 'react-router';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Profile = props => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -15,6 +17,54 @@ const Profile = props => {
   const [userFirebase, setUserFirebase] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
+
+  function removeUser() {
+    Swal.fire({
+
+      text: 'Are you sure you want to delete your profile?',
+      showCancelButton: true,
+      icon: 'error',
+      iconColor: '#e55353',
+      confirmButtonText: `Yes, delete it!`,
+      confirmButtonColor: '#e55353'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        try {
+          const deleteUser = async (db) => {
+            await deleteDoc(doc(db, "users", user.email));
+          }
+
+          deleteUser(firebaseDB);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Deleted successfully'
+          })
+
+
+        } catch (error) {
+          console.log(error);
+        }
+
+        let timer = setTimeout(function () {
+          props.history.push('/logout')
+        }, 2000)
+      }
+    })
+  }
 
   if (isAuthenticated) {
     if (!firebaseFlag) {
@@ -87,21 +137,15 @@ const Profile = props => {
               <CSpinner color='primary' grow />
             </CCardBody>
             <CCardFooter>
-              <Route render={({ history }) => (
-                <div style={{ textAlign: 'end' }}>
-                  <CButton color='primary'
-                    onClick={() => {
-                      history.push({
-                        pathname: "/profile-form",
-                        state: userFirebase
-                      })
-                    }}
-                  ><CIcon content={cilPencil} /> Edit</CButton>
-
-                </div>
-              )} />
+              <div style={{ textAlign: 'end' }}>
+                <Route render={({ history }) => (<CButton color='primary' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
+              </div>
             </CCardFooter>
           </CCard>
+          <CCol style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <Link to="/profile" style={{ color: '#e55353' }} onClick={removeUser}> Permanently delete your account</Link>
+          </CCol>
+
         </CCol>
       </CRow >
     )
