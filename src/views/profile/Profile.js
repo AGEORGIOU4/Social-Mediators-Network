@@ -87,15 +87,14 @@ const Profile = props => {
       <CRow>
         <CCol>
           <CCard>
-            <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 55%, #dfcaf5 80%)', margin: '-10px', borderRadius: '3px' }}>
+              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 55%, #dfcaf5 80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="70" height="70"
+                  width="80" height="80"
                   shape="rounded-circle"
-                  style={{ margin: "12px 12px 20px 12px", border: '3px solid white ' }} />
+                  style={{ border: '3px solid white ' }} />
 
-                <strong style={{ fontSize: 'medium', marginRight: "15px" }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+                <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
 
 
