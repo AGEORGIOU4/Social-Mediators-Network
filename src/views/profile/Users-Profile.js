@@ -51,23 +51,24 @@ const UsersProfile = props => {
           <CCard>
             <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ padding: "10px" }}>
+              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 55%, #dfcaf5 80%)', margin: '-10px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="100" height="100"
-                  shape="rounded-circle" />
+                  width="70" height="70"
+                  shape="rounded-circle"
+                  style={{ margin: "12px 12px 20px 12px", border: '3px solid white ' }} />
 
-                <strong> {userFirebase.nickname}</strong>
+                <strong style={{ fontSize: 'medium', marginRight: "15px" }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
 
 
               <div>
-                <CCol style={{ padding: "10px" }}>
+                {/* <CCol style={{ padding: "10px" }}>
                   <span><strong>First name:</strong></span> {userFirebase.firstName}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Last name:</strong></span> {userFirebase.lastName}
-                </CCol>
+                </CCol> */}
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Nickname:</strong></span> {userFirebase.nickname}
