@@ -1,12 +1,10 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { CFooter, CToggler } from '@coreui/react'
-
-import CIcon from '@coreui/icons-react'
+// import { useSelector, useDispatch } from 'react-redux'
+import { CFooter } from '@coreui/react'
 
 const TheFooter = () => {
-  const dispatch = useDispatch()
-  const darkMode = useSelector(state => state.darkMode)
+  // const dispatch = useDispatch()
+  // const darkMode = useSelector(state => state.darkMode)
 
   return (
     <CFooter fixed={false}>
@@ -19,7 +17,7 @@ const TheFooter = () => {
         <a href="https://www.uclancyprus.ac.cy/research/research-centres/inspire/" target="_blank" rel="noopener noreferrer">InSPIRE Lab</a>
       </div>
 
-      <div style={{ position: "absolute", right: 0 }}>
+      {/* <div style={{ position: "absolute", right: 0 }}>
 
         <CToggler
           inHeader
@@ -31,7 +29,7 @@ const TheFooter = () => {
           <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
         </CToggler>
 
-      </div>
+      </div> */}
 
     </CFooter>
   )
