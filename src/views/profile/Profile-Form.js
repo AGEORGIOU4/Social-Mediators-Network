@@ -297,7 +297,7 @@ class ProfileForm extends React.Component {
                     name="bio"
                     size="md"
                     type="textarea"
-                    rows="7"
+                    rows="8"
                     onChange={this.handleChangeBio}
                   />
 
@@ -340,9 +340,18 @@ class ProfileForm extends React.Component {
                           this.uploadPhoto();
                       }} />
                     </CCol>
-                    <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
-                      <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
-                    </CCol>
+
+                    <CRow>
+                      <CCol lg="7" xs="7" md="7" style={{ textAlign: "left", marginTop: '4px' }}>
+                        <p style={{ color: '#e55353', fontStyle: 'italic' }}>*Upload a square photo</p>
+                      </CCol>
+
+                      <CCol lg="5" xs="5" md="5" style={{ textAlign: "end" }}>
+
+                        <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
+                      </CCol>
+
+                    </CRow>
                   </div>
 
                   <div style={{ display: (this.state.loading) ? "block" : "none" }}>
