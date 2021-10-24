@@ -60,13 +60,6 @@ const UsersProfile = props => {
               </div>
 
               <div>
-                {/* <CCol style={{ padding: "10px" }}>
-                  <span><strong>First name:</strong></span> {userFirebase.firstName}
-                </CCol>
-
-                <CCol style={{ padding: "10px" }}>
-                  <span><strong>Last name:</strong></span> {userFirebase.lastName}
-                </CCol> */}
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Nickname:</strong></span> {userFirebase.nickname}
@@ -95,7 +88,7 @@ const UsersProfile = props => {
 
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <CButton size="sm" color={"primary"}><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}></a> Message</CButton>
+                  <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}><CButton size="sm" color={"primary"}><CIcon size="lg" content={cilMail} />Message</CButton></a>
                 </div>
               )} />
             </CCardBody>
