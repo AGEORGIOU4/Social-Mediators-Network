@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CButton, CCardBody, CCardFooter, CRow, CCard, CCol, CImg } from "@coreui/react";
+import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
@@ -88,7 +88,7 @@ const Profile = props => {
         <CCol>
           <CCard>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 55%, #dfcaf5 80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #dccbf7  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
                   width="80" height="80"
                   shape="rounded-circle"
@@ -131,16 +131,15 @@ const Profile = props => {
                   <span><strong>Member since:</strong></span> {userFirebase.createdAt}
                 </CCol>
               </div>
+
+              <div style={{ textAlign: 'end' }}>
+                <Route render={({ history }) => (<CButton shape="pill" color='primary' size="sm" onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /></CButton>)} />
+              </div>
             </CCardBody>
 
             <CCardBody style={{ textAlign: 'center', display: (firebaseLoading) ? "block" : "none" }}>
               <CSpinner color='primary' grow />
             </CCardBody>
-            <CCardFooter>
-              <div style={{ textAlign: 'end' }}>
-                <Route render={({ history }) => (<CButton color='primary' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
-              </div>
-            </CCardFooter>
           </CCard>
           <CCol style={{ textAlign: 'center', marginBottom: '20px' }}>
             <Link to="/profile" style={{ color: '#e55353' }} onClick={removeUser}> Permanently delete your account</Link>

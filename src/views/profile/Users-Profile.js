@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CButton, CCardBody, CCardFooter, CRow, CCard, CCol, CImg } from "@coreui/react";
+import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { CSpinner } from "@coreui/react";
 import { Route } from 'react-router';
@@ -50,7 +50,7 @@ const UsersProfile = props => {
         <CCol>
           <CCard>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 55%, #dfcaf5 80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #dccbf7  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
                   width="80" height="80"
                   shape="rounded-circle"
@@ -92,18 +92,17 @@ const UsersProfile = props => {
                   <span><strong>Member since:</strong></span> {userFirebase.createdAt}
                 </CCol>
               </div>
+
+              <Route render={({ history }) => (
+                <div style={{ textAlign: 'end' }}>
+                  <CButton size="sm" color={"primary"}><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}></a> Message</CButton>
+                </div>
+              )} />
             </CCardBody>
 
             <CCardBody style={{ textAlign: 'center', display: (firebaseLoading) ? "block" : "none" }}>
               <CSpinner color='primary' grow />
             </CCardBody>
-            <CCardFooter>
-              <Route render={({ history }) => (
-                <div style={{ textAlign: 'end' }}>
-                  <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}> Send a mail</a></CButton>
-                </div>
-              )} />
-            </CCardFooter>
           </CCard>
         </CCol>
       </CRow >
