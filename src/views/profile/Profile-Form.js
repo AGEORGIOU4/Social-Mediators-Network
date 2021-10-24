@@ -17,7 +17,7 @@ import {
 
 import { uploadBytes } from '@firebase/storage';
 import { getStorage, ref, getDownloadURL } from '@firebase/storage';
-import { CButton, CCardFooter, CImg } from "@coreui/react";
+import { CButton, CImg } from "@coreui/react";
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import LinesEllipsis from 'react-lines-ellipsis'
 import Interests from 'src/reusable/interests';
@@ -304,7 +304,7 @@ class ProfileForm extends React.Component {
                     name="bio"
                     size="md"
                     type="textarea"
-                    rows="3"
+                    rows="4"
                     autoCapitalize
                     onChange={this.handleChangeBio}
                   />
@@ -391,7 +391,14 @@ class ProfileForm extends React.Component {
                   </CCol>
 
                   <CCol style={{ padding: "10px" }}>
-                    <span><strong>About:</strong></span> {this.state.bio}
+                    <span><strong>About you: </strong></span>
+                    <LinesEllipsis
+                      text={this.state.bio}
+                      maxLine='1'
+                      ellipsis='...'
+                      trimRight
+                      basedOn='letters'
+                    />
                   </CCol>
 
                   <CCol style={{ padding: "10px" }}>
