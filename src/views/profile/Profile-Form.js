@@ -236,7 +236,6 @@ class ProfileForm extends React.Component {
     return "";
   }
 
-
   render() {
     if (this.getCookie("session")) {
       return (
@@ -244,8 +243,6 @@ class ProfileForm extends React.Component {
           <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
 
             <CCard>
-              <CCardHeader><h4 style={{ margin: '0px' }}><strong>Edit Profile Card</strong></h4>
-              </CCardHeader>
               <CCardBody>
 
                 <CFormGroup>
@@ -257,47 +254,58 @@ class ProfileForm extends React.Component {
                     name="email"
                     readOnly />
 
-                  <CLabel>First Name</CLabel>
+                  <CLabel className="form-label">First Name</CLabel>
                   <CInput
                     required
                     type="text"
                     id="firstName"
                     name="firstName"
                     onChange={this.handleChangeFirstName}
+                    autoCapitalize
                   />
 
-                  <CLabel>Last Name</CLabel>
+                  <CLabel className="form-label">Last Name</CLabel>
                   <CInput
                     type="text"
                     id="lastName"
                     name="lastName"
                     onChange={this.handleChangeLastName}
+                    autoCapitalize
                   />
 
-                  <CLabel>Nickname</CLabel>
+                  <CLabel className="form-label">Nickname</CLabel>
                   <CInput
                     type="text"
                     id="nickname"
                     name="nickname"
                     onChange={this.handleChangeNickname}
+
                   />
 
-                  <CLabel>Qualifications/Experiences</CLabel>
+                  <CLabel className="form-label">Area of interest</CLabel>
+                  <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
+                    {Interests.map((option) => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </CSelect>
+
+                  <CLabel className="form-label">Qualifications/Experiences</CLabel>
                   <CInput
                     type="text"
                     id="qualifications"
                     name="qualifications"
                     onChange={this.handleChangeQualifications}
+                    autoCapitalize
                   />
 
-                  <CLabel>Few words about you</CLabel>
+                  <CLabel className="form-label">Few words about you</CLabel>
                   <CTextarea
-                    style={{ marginBottom: "23px" }}
                     id="bio"
                     name="bio"
                     size="md"
                     type="textarea"
-                    rows="7"
+                    rows="3"
+                    autoCapitalize
                     onChange={this.handleChangeBio}
                   />
 
@@ -308,21 +316,6 @@ class ProfileForm extends React.Component {
           </CCol>
 
           <CCol sm={12} md={6} style={{ flexBasis: 'auto' }}>
-            <CCard>
-              <CCardHeader>
-                Area of interest
-              </CCardHeader>
-              <CCardBody>
-
-
-                <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
-                  {Interests.map((option) => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </CSelect>
-
-              </CCardBody>
-            </CCard>
 
             <CCard>
               <CCardHeader>
@@ -340,9 +333,18 @@ class ProfileForm extends React.Component {
                           this.uploadPhoto();
                       }} />
                     </CCol>
-                    <CCol lg="12" xs="12" md="12" style={{ textAlign: "end", paddingRight: '0px' }}>
-                      <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
-                    </CCol>
+
+                    <CRow>
+                      <CCol lg="7" xs="7" md="7" style={{ textAlign: "left", marginTop: '4px' }}>
+                        <p style={{ color: '#e55353', fontStyle: 'italic' }}>*Upload a square photo</p>
+                      </CCol>
+
+                      <CCol lg="5" xs="5" md="5" style={{ textAlign: "end" }}>
+
+                        <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
+                      </CCol>
+
+                    </CRow>
                   </div>
 
                   <div style={{ display: (this.state.loading) ? "block" : "none" }}>
@@ -359,73 +361,55 @@ class ProfileForm extends React.Component {
             </CCard>
 
             <CCard>
-              <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
               <CCardBody>
 
-                <CRow>
-                  <CCol xs="12" md="12" lg="8">
-                    <div>
-                      <CCol>
-                        <span><strong>Email: </strong></span> {this.state.initialValues.email}
-                      </CCol>
+                <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #dccbf7  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+                  <CImg src={(this.state.picture) ? this.state.picture : "avatar.png"}
+                    width="80" height="80"
+                    shape="rounded-circle"
+                    style={{ border: '3px solid white ' }} />
 
-                      <CCol>
-                        <span><strong>First name: </strong></span> {this.state.firstName}
-                      </CCol>
+                  <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {this.state.firstName} {this.state.lastName}</strong>
+                </div>
 
-                      <CCol>
-                        <span><strong>Last name: </strong></span> {this.state.lastName}
-                      </CCol>
+                <div>
 
-                      <CCol>
-                        <span><strong>Nickname: </strong></span> {this.state.nickname}
-                      </CCol>
-
-
-                      <CCol>
-                        <span><strong>Qualifications/Experiences: </strong></span> {this.state.qualifications}
-                      </CCol>
-
-
-                      <CCol>
-                        <span><strong>Area of interest: </strong></span> {this.state.areaOfInterest}
-                      </CCol>
-
-                      <CCol>
-                        <span><strong>About you: </strong></span>
-                        <LinesEllipsis
-                          text={this.state.bio}
-                          maxLine='1'
-                          ellipsis='...'
-                          trimRight
-                          basedOn='letters'
-                        />
-                      </CCol>
-                    </div>
-
-
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Nickname:</strong></span> {this.state.nickname}
                   </CCol>
 
-                  <CCol xs="12" md="4" lg="4" style={{ textAlign: "center" }}>
-                    <div style={{ padding: "10px" }}>
-                      <CImg src={this.state.picture}
-                        width="100" height="100"
-                        shape="rounded-circle" />
-                    </div>
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Email:</strong></span> {this.state.email}
                   </CCol>
-                </CRow>
 
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Interests:</strong></span> {this.state.areaOfInterest}
+                  </CCol>
+
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Qualifications/Experiences:</strong></span> {this.state.qualifications}
+                  </CCol>
+
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>About:</strong></span> {this.state.bio}
+                  </CCol>
+
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Member since:</strong></span> {this.state.createdAt}
+                  </CCol>
+                </div>
+
+                <div style={{ textAlign: 'end' }}>
+                  <CButton color='primary' size="sm" onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
+                </div>
               </CCardBody>
 
-              <CCardFooter>
-                <div style={{ textAlign: 'end' }}>
-                  {/* <Route render={({ history }) => (<CButton color='danger' onClick={() => { history.goBack() }}>Go Back</CButton>)} />  */}
-                  <CButton color='primary' onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
-                </div>
-              </CCardFooter>
+              <CCardBody style={{ textAlign: 'center', display: (this.state.loading) ? "block" : "none" }}>
+                <CSpinner color='primary' grow />
+              </CCardBody>
             </CCard>
 
-          </CCol>
+          </CCol >
         </CRow >
 
       )

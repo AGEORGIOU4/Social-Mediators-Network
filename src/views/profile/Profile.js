@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CButton, CCardBody, CCardFooter, CCardHeader, CRow, CCard, CCol, CImg } from "@coreui/react";
+import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
@@ -59,7 +59,7 @@ const Profile = props => {
           console.log(error);
         }
 
-        let timer = setTimeout(function () {
+        setTimeout(function () {
           props.history.push('/logout')
         }, 2000)
       }
@@ -87,25 +87,25 @@ const Profile = props => {
       <CRow>
         <CCol>
           <CCard>
-            <CCardHeader><h4 style={{ margin: '0px' }}><strong>Profile Card</strong></h4></CCardHeader>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ padding: "10px" }}>
+              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #dccbf7  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="100" height="100"
-                  shape="rounded-circle" />
+                  width="80" height="80"
+                  shape="rounded-circle"
+                  style={{ border: '3px solid white ' }} />
 
-                <strong> {userFirebase.nickname}</strong>
+                <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
 
 
               <div>
-                <CCol style={{ padding: "10px" }}>
+                {/* <CCol style={{ padding: "10px" }}>
                   <span><strong>First name:</strong></span> {userFirebase.firstName}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Last name:</strong></span> {userFirebase.lastName}
-                </CCol>
+                </CCol> */}
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Nickname:</strong></span> {userFirebase.nickname}
@@ -131,16 +131,15 @@ const Profile = props => {
                   <span><strong>Member since:</strong></span> {userFirebase.createdAt}
                 </CCol>
               </div>
+
+              <div style={{ textAlign: 'end' }}>
+                <Route render={({ history }) => (<CButton shape="pill" color='primary' size="sm" onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /></CButton>)} />
+              </div>
             </CCardBody>
 
             <CCardBody style={{ textAlign: 'center', display: (firebaseLoading) ? "block" : "none" }}>
               <CSpinner color='primary' grow />
             </CCardBody>
-            <CCardFooter>
-              <div style={{ textAlign: 'end' }}>
-                <Route render={({ history }) => (<CButton color='primary' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
-              </div>
-            </CCardFooter>
           </CCard>
           <CCol style={{ textAlign: 'center', marginBottom: '20px' }}>
             <Link to="/profile" style={{ color: '#e55353' }} onClick={removeUser}> Permanently delete your account</Link>

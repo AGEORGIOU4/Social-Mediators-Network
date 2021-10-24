@@ -53,9 +53,6 @@ class Settings extends React.Component {
   }
 
   assignAdmin(event) {
-    // var autoID = uuidv4();
-    // console.log(autoID);
-
     let isAdmin = false;
     this.state.admins.forEach(admin => {
       if (admin.email === this.state.newAdminEmail) {
@@ -86,6 +83,7 @@ class Settings extends React.Component {
     if (!email) {
       email = "this";
     }
+    console.log(email);
     Swal.fire({
 
       text: 'Delete '.concat(email).concat(' from admin? '),
@@ -308,7 +306,7 @@ class Settings extends React.Component {
                             color="danger"
                             variant="outline"
                             onClick={() => {
-                              this.removeAdmin(item.id, item.email)
+                              this.removeAdmin(item.email)
                             }}
 
                           ><CIcon content={cilTrash} /></CButton>
