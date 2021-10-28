@@ -1,13 +1,11 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CButton, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CBadge } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import LinesEllipsis from 'react-lines-ellipsis';
-import CIcon from '@coreui/icons-react';
-import { cilMail } from '@coreui/icons-pro';
 import { getInterestsBadge } from '../reusables';
 
 export const socialMediatorFields = [
@@ -100,17 +98,18 @@ export class SocialMediatorsBasicTable extends React.Component {
                           <CCardHeader>
                             <div style={{ width: "80%", float: "left" }}>
                               <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                                width="40" height="40"
+                                width="30" height="30"
                                 shape="rounded-circle" />
 
                               <strong> {item.nickname}</strong>
                             </div>
-                            <div style={{ width: "20%", float: "left", textAlign: "end" }}>
+                            {/* <div style={{ width: "20%", float: "left", textAlign: "end" }}>
                               <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}> Mail</a></CButton>
-                            </div>
+                            </div> */}
 
                           </CCardHeader>
                           <CCardBody>
+
                             <LinesEllipsis
                               text={item.bio}
                               maxLine='2'
@@ -119,9 +118,10 @@ export class SocialMediatorsBasicTable extends React.Component {
                               basedOn='letters'
                             />
 
-                            <CCol style={{ textAlign: 'end' }}>
-                              <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
-                            </CCol>
+
+                            {/* <CCol style={{ textAlign: 'end' }}> */}
+                            <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
+                            {/* </CCol> */}
                           </CCardBody>
                         </CCard>
                       </td>

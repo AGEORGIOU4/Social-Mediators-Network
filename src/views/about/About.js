@@ -23,8 +23,8 @@ const About = () => {
     <CRow>
       <CCol xs="12" md="12">
 
-        <CCol xs="12" style={{ textAlign: 'center', paddingBottom: "2rem" }}>
-          <h2 style={{ marginTop: '0.5rem' }}><strong>About us</strong></h2>
+        <CCol xs="12" style={{ textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '20px' }}><strong>About us</strong></h2>
         </CCol>
 
         <CCard>
