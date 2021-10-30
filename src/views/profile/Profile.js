@@ -18,6 +18,8 @@ const Profile = props => {
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
 
+  const [trainings, setTrainings] = useState(["1", "3"]);
+
   function removeUser() {
     Swal.fire({
 
@@ -76,6 +78,10 @@ const Profile = props => {
           setUserFirebase(docSnap.data())
           setFirebaseFlag(true);
           setFirebaseLoading(false);
+          console.log(userFirebase);
+          if (userFirebase.trainings) {
+            setTrainings(userFirebase.trainings);
+          }
         } else {
           console.log("No such document!");
         }
@@ -90,11 +96,11 @@ const Profile = props => {
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
               <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="80" height="80"
+                  width="70" height="70"
                   shape="rounded-circle"
-                  style={{ border: '3px solid white ' }} />
+                  style={{ border: '3px solid white ', marginLeft: "-10px" }} />
 
-                <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+                <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
 
 
@@ -121,6 +127,10 @@ const Profile = props => {
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Qualifications/Experiences:</strong></span> {userFirebase.qualifications}
+                </CCol>
+
+                <CCol style={{ padding: "10px" }}>
+                  <span><strong>Trainings:</strong></span> {trainings.map((item, index) => ((index ? ', ' : '') + item))}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>

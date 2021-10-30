@@ -9,6 +9,9 @@ import {
   TheHeader
 } from './index'
 
+import TheFloatingButton from './TheFloatingButton'
+import TheBottomNavigation from './TheBottomNavigation'
+
 const TheLayout = () => {
   const darkMode = useSelector(state => state.darkMode)
   const classes = classNames(
@@ -26,6 +29,10 @@ const TheLayout = () => {
           <TheContent />
         </div>
         <TheFooter />
+        <TheFloatingButton />
+
+        <TheBottomNavigation />
+
       </div>
     </div>
   )

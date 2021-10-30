@@ -16,7 +16,9 @@ const Home = () => {
   var enteredLastName = "";
   var enteredBio = "";
   var enteredQualifications = "";
+  var enteredTrainings = [];
   var enteredInsterest = "";
+
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
@@ -95,6 +97,7 @@ const Home = () => {
       lastName: enteredLastName,
       bio: enteredBio,
       qualifications: enteredQualifications,
+      trainings: [],
       areaOfInterest: enteredInsterest,
       createdAt: createdAt,
     });

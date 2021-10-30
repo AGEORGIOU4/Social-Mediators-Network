@@ -26,6 +26,7 @@ import Swal from 'sweetalert2';
 import { SwalMixing } from 'src/reusable/SwalMixin';
 import { cilCloudUpload, cilSave } from '@coreui/icons-pro';
 import CIcon from '@coreui/icons-react';
+import Select from 'react-select'
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -298,13 +299,22 @@ class ProfileForm extends React.Component {
                     autoCapitalize
                   />
 
+                  <CLabel className="form-label">Trainings</CLabel>
+                  <Select options={[
+                    { value: 'chocolate', label: 'Chocolate' },
+                    { value: 'strawberry', label: 'Strawberry' },
+                    { value: 'vanilla', label: 'Vanilla' }
+                  ]} />
+
+
+
                   <CLabel className="form-label">Few words about you</CLabel>
                   <CTextarea
                     id="bio"
                     name="bio"
                     size="md"
                     type="textarea"
-                    rows="4"
+                    rows="1"
                     autoCapitalize
                     onChange={this.handleChangeBio}
                   />
@@ -363,13 +373,13 @@ class ProfileForm extends React.Component {
             <CCard>
               <CCardBody>
 
-                <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #dccbf7  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+                <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                   <CImg src={(this.state.picture) ? this.state.picture : "avatar.png"}
-                    width="80" height="80"
+                    width="70" height="70"
                     shape="rounded-circle"
-                    style={{ border: '3px solid white ' }} />
+                    style={{ border: '3px solid white ', marginLeft: "-10px" }} />
 
-                  <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {this.state.firstName} {this.state.lastName}</strong>
+                  <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {this.state.firstName} {this.state.lastName}</strong>
                 </div>
 
                 <div>

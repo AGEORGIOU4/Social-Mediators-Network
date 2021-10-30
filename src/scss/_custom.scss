@@ -66,3 +66,43 @@ h1, h2, h3, h4, h5, h6 {
 .form-label {
   margin-top: 0.5rem;
 }
+
+// .custom-fab-container {
+//   display: none;
+// }
+
+// .custom-bottom-nav {
+//   display: none;
+// }
+
+
+  .bottom-nav-item {
+    width:  33%;
+  }
+
+  .custom-fab-container {
+    display: block;
+    bottom: 9vh;
+    right: -1vw;
+    position: fixed;
+    margin: 1em;
+  }
+
+
+@media only screen and (max-width: 600px) {
+  .custom-bottom-nav {
+    display: block;
+  }
+
+  .c-footer {
+    margin-bottom: 64px;
+    height: 115px;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  .custom-bottom-nav {
+    display: none;
+  }
+}
+

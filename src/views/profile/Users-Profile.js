@@ -52,11 +52,11 @@ const UsersProfile = props => {
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
               <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="80" height="80"
+                  width="70" height="70"
                   shape="rounded-circle"
-                  style={{ border: '3px solid white ' }} />
+                  style={{ border: '3px solid white ', marginLeft: "-10px" }} />
 
-                <strong style={{ fontSize: 'medium', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+                <strong style={{ fontSize: 'large' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
 
               <div>
