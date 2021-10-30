@@ -1,10 +1,9 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
-import Swal from 'sweetalert2';
 import { Route } from 'react-router';
 
 // Firebase
-import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import LinesEllipsis from 'react-lines-ellipsis'
