@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .bottom-nav {
     height: 50px !important;
-    background-color: #d16767ee    !important;
+    background-color: #d14040de    !important;
   }
 
   .custom-fab-container {
@@ -102,6 +102,10 @@ h1, h2, h3, h4, h5, h6 {
     right: 0vw;
     position: fixed;
     margin: 1em;
+  }
+
+  .fab-item {
+     background-color: #d14040de;
   }
 
   .c-footer {
