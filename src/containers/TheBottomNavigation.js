@@ -30,18 +30,18 @@ const TheBottomNavigation = () => {
   const bottomNavItems = [
     {
       title: 'Home',
-      icon: <CIcon color={"#3C4B64"} size="sm" content={cilHome} />,
-      activeIcon: <CIcon style={{ color: '#3C4B64' }} size="sm" content={cilHome} />
+      icon: <CIcon color={"#fff"} size="sm" content={cilHome} />,
+      activeIcon: <CIcon style={{ color: '#fff' }} size="sm" content={cilHome} />
     },
     {
       title: 'Blog',
-      icon: <CIcon color={"#3C4B64"} size="sm" content={cilNotes} />,
-      activeIcon: <CIcon style={{ color: '#3C4B64' }} size="sm" content={cilNotes} />
+      icon: <CIcon color={"#fff"} size="sm" content={cilNotes} />,
+      activeIcon: <CIcon style={{ color: '#fff' }} size="sm" content={cilNotes} />
     },
     {
       title: 'Social Mediators',
-      icon: <CIcon color={"#3C4B64"} size="sm" content={cilPeople} />,
-      activeIcon: <CIcon style={{ color: '#3C4B64' }} size="sm" content={cilPeople} />,
+      icon: <CIcon color={"#fff"} size="sm" content={cilPeople} />,
+      activeIcon: <CIcon style={{ color: '#fff' }} size="sm" content={cilPeople} />,
     }
   ]
 
@@ -49,7 +49,7 @@ const TheBottomNavigation = () => {
     <div className="custom-bottom-nav">
       <BottomNavigation
         activeBgColor={"#ffffff00"}
-        activeTextColor={"#3C4B64"}
+        activeTextColor={"#fff"}
         items={bottomNavItems}
         onItemClick={(item) => { setDefaultNav(item) }}
       >
