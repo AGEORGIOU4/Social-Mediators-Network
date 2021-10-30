@@ -27,6 +27,8 @@ import { SwalMixing } from 'src/reusable/SwalMixin';
 import { cilCloudUpload, cilSave } from '@coreui/icons-pro';
 import CIcon from '@coreui/icons-react';
 import Select from 'react-select'
+import { trainingOptions } from 'src/reusable/trainingOptions';
+import { multiSelectCustomStyles } from './multiSelectCustomStyles';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -40,6 +42,7 @@ class ProfileForm extends React.Component {
         nickname: "",
         qualifications: "",
         areaOfInterest: "",
+        trainings: [],
         bio: "",
         picture: "avatar.png",
         createdAt: "",
@@ -53,6 +56,7 @@ class ProfileForm extends React.Component {
       nickname: "",
       qualifications: "",
       areaOfInterest: "",
+      selectedTrainings: [],
       bio: "",
       picture: "avatar.png",
       createdAt: "",
@@ -71,8 +75,11 @@ class ProfileForm extends React.Component {
       this.state.qualifications = this.state.initialValues.qualifications;
       this.state.bio = this.state.initialValues.bio;
       this.state.areaOfInterest = this.state.initialValues.areaOfInterest;
+      this.state.selectedTrainings = this.state.initialValues.trainings;
       this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
       this.state.createdAt = this.state.initialValues.createdAt;
+
+      console.log(this.state.selectedTrainings);
 
     } else { // fetch from firebase
 
@@ -90,6 +97,7 @@ class ProfileForm extends React.Component {
             this.state.qualifications = this.state.initialValues.qualifications;
             this.state.bio = this.state.initialValues.bio;
             this.state.areaOfInterest = this.state.initialValues.areaOfInterest;
+            this.state.selectedTrainings = this.state.initialValues.trainings;
             this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
             this.state.createdAt = this.state.initialValues.createdAt;
 
@@ -106,6 +114,7 @@ class ProfileForm extends React.Component {
     this.handleChangeQualifications = this.handleChangeQualifications.bind(this);
     this.handleChangeBio = this.handleChangeBio.bind(this);
     this.handleChangeAreaOfInterest = this.handleChangeAreaOfInterest.bind(this);
+    this.handleChangeTrainings = this.handleChangeTrainings.bind(this);
     this.handleChangePicture = this.handleChangePicture.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -122,6 +131,7 @@ class ProfileForm extends React.Component {
       document.getElementById("bio").value = this.state.initialValues.bio;
 
       this.setState({ areaOfInterest: this.state.initialValues.areaOfInterest })
+      this.setState({ selectedTrainings: this.state.initialValues.trainings })
       this.setState({ picture: this.state.initialValues.picture })
     }
   }
@@ -132,6 +142,11 @@ class ProfileForm extends React.Component {
   handleChangeQualifications(event) { this.setState({ qualifications: event.target.value }) }
   handleChangeBio(event) { this.setState({ bio: event.target.value }) }
   handleChangeAreaOfInterest(event) { this.setState({ areaOfInterest: event.target.value }) }
+
+  handleChangeTrainings = (e) => {
+    this.setState({ selectedTrainings: Array.isArray(e) ? e.map(x => x.value) : [] });
+    this.setState({ trainings: this.selectedTrainings });
+  }
   handleChangePicture(event) { this.setState({ picture: event.target.value }) }
 
 
@@ -166,7 +181,6 @@ class ProfileForm extends React.Component {
 
 
   handleSubmit(event) {
-
 
     Swal.fire({
 
@@ -215,6 +229,7 @@ class ProfileForm extends React.Component {
       nickname: this.state.nickname,
       qualifications: this.state.qualifications,
       areaOfInterest: this.state.areaOfInterest,
+      trainings: this.state.selectedTrainings,
       bio: this.state.bio,
       picture: this.state.picture,
       createdAt: this.state.createdAt
@@ -262,7 +277,6 @@ class ProfileForm extends React.Component {
                     id="firstName"
                     name="firstName"
                     onChange={this.handleChangeFirstName}
-                    autoCapitalize
                   />
 
                   <CLabel className="form-label">Last Name</CLabel>
@@ -271,7 +285,6 @@ class ProfileForm extends React.Component {
                     id="lastName"
                     name="lastName"
                     onChange={this.handleChangeLastName}
-                    autoCapitalize
                   />
 
                   <CLabel className="form-label">Nickname</CLabel>
@@ -296,17 +309,21 @@ class ProfileForm extends React.Component {
                     id="qualifications"
                     name="qualifications"
                     onChange={this.handleChangeQualifications}
-                    autoCapitalize
                   />
 
                   <CLabel className="form-label">Trainings</CLabel>
-                  <Select options={[
-                    { value: 'chocolate', label: 'Chocolate' },
-                    { value: 'strawberry', label: 'Strawberry' },
-                    { value: 'vanilla', label: 'Vanilla' }
-                  ]} />
+                  <Select
+                    // defaultValue={this.state.trainings}
+                    value={(this.state.selectedTrainings) ? trainingOptions.filter(training => this.state.selectedTrainings.includes(training.value)) : ""} // set selected values
+                    name="trainingOptions"
+                    onChange={this.handleChangeTrainings}
+                    isMulti
+                    options={trainingOptions}
+                    styles={multiSelectCustomStyles}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
 
-
+                  />
 
                   <CLabel className="form-label">Few words about you</CLabel>
                   <CTextarea
@@ -314,8 +331,7 @@ class ProfileForm extends React.Component {
                     name="bio"
                     size="md"
                     type="textarea"
-                    rows="1"
-                    autoCapitalize
+                    rows="2"
                     onChange={this.handleChangeBio}
                   />
 
@@ -394,6 +410,11 @@ class ProfileForm extends React.Component {
 
                   <CCol style={{ padding: "10px" }}>
                     <span><strong>Interests:</strong></span> {this.state.areaOfInterest}
+                  </CCol>
+
+                  <CCol style={{ padding: "10px" }}>
+                    <span><strong>Trainings:</strong></span> {
+                      (this.state.selectedTrainings) ? this.state.selectedTrainings.map((training, index) => (index ? ', ' : ' ') + training) : ""}
                   </CCol>
 
                   <CCol style={{ padding: "10px" }}>

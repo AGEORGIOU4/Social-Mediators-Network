@@ -35,7 +35,6 @@ const TheHeader = () => {
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
-  console.log("Connection is " + isConnected);
 
   return (
     <CHeader withSubheader>

@@ -8,15 +8,11 @@ import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore'
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import LinesEllipsis from 'react-lines-ellipsis'
-import { cilTrash } from '@coreui/icons';
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow, CInput } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow } from '@coreui/react'
 import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
-
-const adminFields = [
-  { key: 'email', _style: { width: '10%' }, label: 'Email' },
-  { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
-]
+import { SocialMediatorsAdvancedTable } from 'src/reusable/Tables/SocialMediatorsAdvancedTable';
+import { AdminsTable } from 'src/reusable/Tables/AdminsTable';
 
 const postFields = [
   { key: 'username' },
@@ -28,104 +24,15 @@ const postFields = [
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
 
-
-
 class Settings extends React.Component {
   constructor(props) {
     super(props);
 
-    // Common state
     this.state = {
-      admins: [],
-      newAdminEmail: "",
       loading: false,
     };
-
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.removeAdmin = this.removeAdmin.bind(this);
-    this.assignAdmin = this.assignAdmin.bind(this);
-
   }
 
-
-  handleChangeEmail(event) {
-    this.setState({ newAdminEmail: event.target.value });
-  }
-
-  assignAdmin(event) {
-    let isAdmin = false;
-    this.state.admins.forEach(admin => {
-      if (admin.email === this.state.newAdminEmail) {
-        alert('Admin ' + this.state.newAdminEmail + ' already exists!');
-        isAdmin = true;
-      }
-    })
-
-    if (this.state.newAdminEmail === '') {
-      alert('Enter new admin`s email!');
-    }
-
-    if (!isAdmin && this.state.newAdminEmail) {
-
-      const setAdmin = async (db) => {
-        await setDoc(doc(db, "admins", this.state.newAdminEmail), {
-          email: this.state.newAdminEmail,
-        });
-        event.preventDefault();
-      }
-      setAdmin(firebaseDB);
-      this.componentDidMount();
-      this.setState({ newAdminEmail: "" })
-    }
-  }
-
-  removeAdmin(email) {
-    if (!email) {
-      email = "this";
-    }
-    console.log(email);
-    Swal.fire({
-
-      text: 'Delete '.concat(email).concat(' from admin? '),
-      showCancelButton: true,
-      icon: 'error',
-      iconColor: '#e55353',
-      confirmButtonText: `Yes, delete it!`,
-      confirmButtonColor: '#e55353'
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        try {
-          const deleteAdmin = async (db) => {
-            await deleteDoc(doc(db, "admins", email));
-          }
-
-          deleteAdmin(firebaseDB);
-
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: false,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-
-          Toast.fire({
-            icon: 'success',
-            title: 'Deleted successfully'
-          })
-
-          this.componentDidMount();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    })
-  }
 
   getCookie(cname) {
     let name = cname + "=";
@@ -146,29 +53,15 @@ class Settings extends React.Component {
   componentDidMount() {
     this.setState({ loading: true })
 
-    const getAdmins = async (db) => {
-      const adminCol = collection(db, 'admins');
-      const adminSnapshot = await getDocs(adminCol);
-      const adminList = adminSnapshot.docs.map(doc => doc.data());
-      this.setState({ admins: adminList });
+    const getPosts = async (db) => {
+      const postCol = collection(db, 'posts');
+      const postSnapshot = await getDocs(postCol);
+      const postList = postSnapshot.docs.map(doc => doc.data());
+      this.setState({ posts: postList });
 
       this.setState({ loading: false })
-
-      this.setState({ loading: true })
-
-      const getPosts = async (db) => {
-        const postCol = collection(db, 'posts');
-        const postSnapshot = await getDocs(postCol);
-        const postList = postSnapshot.docs.map(doc => doc.data());
-        this.setState({ posts: postList });
-
-        this.setState({ loading: false })
-      };
-
-      getPosts(firebaseDB);
     };
-
-    getAdmins(firebaseDB);
+    getPosts(firebaseDB);
   }
 
   render() {
@@ -265,76 +158,10 @@ class Settings extends React.Component {
             </CCard>
           </CCol>
 
-
-          <CCol xs={12}>
-            <CCard>
-              <CCardHeader>
-                <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
-              </CCardHeader>
-              <CCardBody>
-
-              </CCardBody>
-              <CCardFooter style={{ textAlign: 'right' }}>
-                <CButton color="primary">Create User
-                </CButton>
-
-              </CCardFooter>
-            </CCard>
-          </CCol>
-
+          <SocialMediatorsAdvancedTable />
 
           {/* Admins */}
-          <CCol xs={12}>
-            <CCard id="table">
-              <CCardHeader>
-                <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
-              </CCardHeader>
-              <CCardBody>
-                <CDataTable
-                  items={this.state.admins}
-                  fields={adminFields}
-                  loading={this.state.loading}
-                  itemsPerPage={10}
-                  striped
-                  pagination
-                  scopedSlots={{
-                    'remove':
-                      (item) => (
-                        <td>
-                          <CButton
-                            size="sm"
-                            color="danger"
-                            variant="outline"
-                            onClick={() => {
-                              this.removeAdmin(item.email)
-                            }}
-
-                          ><CIcon content={cilTrash} /></CButton>
-                        </td>
-                      )
-                  }}
-                />
-              </CCardBody>
-              <CCardFooter style={{ textAlign: 'right' }}>
-
-
-                <CRow>
-                  <CCol xs="8">
-                    <CInput type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
-                  </CCol>
-
-                  <CCol xs="4">
-                    <CButton onClick={this.assignAdmin} color="primary">
-                      Assign
-                    </CButton>
-                  </CCol>
-                </CRow>
-
-
-
-              </CCardFooter>
-            </CCard>
-          </CCol>
+          <AdminsTable />
 
         </CRow >
       )

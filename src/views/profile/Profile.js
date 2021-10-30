@@ -18,8 +18,6 @@ const Profile = props => {
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
 
-  const [trainings, setTrainings] = useState(["1", "3"]);
-
   function removeUser() {
     Swal.fire({
 
@@ -78,10 +76,8 @@ const Profile = props => {
           setUserFirebase(docSnap.data())
           setFirebaseFlag(true);
           setFirebaseLoading(false);
+
           console.log(userFirebase);
-          if (userFirebase.trainings) {
-            setTrainings(userFirebase.trainings);
-          }
         } else {
           console.log("No such document!");
         }
@@ -105,13 +101,6 @@ const Profile = props => {
 
 
               <div>
-                {/* <CCol style={{ padding: "10px" }}>
-                  <span><strong>First name:</strong></span> {userFirebase.firstName}
-                </CCol>
-
-                <CCol style={{ padding: "10px" }}>
-                  <span><strong>Last name:</strong></span> {userFirebase.lastName}
-                </CCol> */}
 
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Nickname:</strong></span> {userFirebase.nickname}
@@ -130,7 +119,8 @@ const Profile = props => {
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
-                  <span><strong>Trainings:</strong></span> {trainings.map((item, index) => ((index ? ', ' : '') + item))}
+                  <span><strong>Trainings:</strong></span> {
+                    (userFirebase.trainings) ? userFirebase.trainings.map((training, index) => (index ? ', ' : ' ') + training) : ""}
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>

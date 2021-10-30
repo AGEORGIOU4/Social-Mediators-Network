@@ -48,7 +48,7 @@ const TheBottomNavigation = () => {
   return (
     <div className="custom-bottom-nav">
       <BottomNavigation
-        activeBgColor={"#ffffff"}
+        activeBgColor={"#ffffff00"}
         activeTextColor={"#3C4B64"}
         items={bottomNavItems}
         onItemClick={(item) => { setDefaultNav(item) }}

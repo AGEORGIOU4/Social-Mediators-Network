@@ -5,7 +5,6 @@ import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 import Interest from 'src/reusable/Tables/Interest';
 
 const Home = () => {
@@ -16,17 +15,12 @@ const Home = () => {
   var enteredLastName = "";
   var enteredBio = "";
   var enteredQualifications = "";
-  var enteredTrainings = [];
+  // var enteredTrainings = [{}];
   var enteredInsterest = "";
 
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
-  console.log("Connection is " + isConnected);
-
-
-  var isEstablished = (getCookie("session") ? getCookie("session") : "Not established");
-  console.log("Session is: " + isEstablished);
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
@@ -378,11 +372,11 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
+      {/* <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2><strong>Social Mediators</strong></h2>
-      </CCol>
+      </CCol> */}
 
-      <SocialMediatorsBasicTable />
+      {/* <SocialMediatorsBasicTable /> */}
 
     </CRow >
 

@@ -1,10 +1,9 @@
 import React from 'react'
-
-import { SocialMediatorsAdvancedTable } from 'src/reusable/Tables/SocialMediatorsAdvancedTable'
+import { SocialMediatorsBasicTable } from 'src/reusable/Tables/SocialMediatorsBasicTable'
 
 const SocialMediators = () => {
   return (
-    <SocialMediatorsAdvancedTable />
+    <SocialMediatorsBasicTable />
   )
 }
 

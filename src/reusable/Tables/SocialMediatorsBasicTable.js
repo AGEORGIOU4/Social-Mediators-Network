@@ -86,7 +86,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                 }
                 clickableRows
                 header={false}
-                tableFilter={{ 'placeholder': 'Search by name or interest...' }}
+                tableFilter={{ 'placeholder': 'Search by name or field...' }}
                 size="sm"
                 itemsPerPage={5}
                 pagination
