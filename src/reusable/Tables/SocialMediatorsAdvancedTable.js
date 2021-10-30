@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CCardFooter, CImg, CButton, CCollapse } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CImg, CButton, CCollapse } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
@@ -7,12 +7,11 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import { Route } from 'react-router';
 import CIcon from '@coreui/icons-react';
-import { cilEye, cilMail } from '@coreui/icons-pro';
+import { cilEye } from '@coreui/icons-pro';
 import { cilTrash } from '@coreui/icons';
 import Swal from 'sweetalert2';
 
 const socialMediatorFields = [
-  { key: 'picture', label: "", sorter: false, filter: false },
   { key: 'email' },
   {
     key: 'show_details',
@@ -127,19 +126,12 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                 fields={socialMediatorFields}
                 tableFilter={{ 'placeholder': 'Search by email...' }}
                 cleaner
-                itemsPerPage={10}
+                itemsPerPage={50}
                 sorter
                 pagination
                 loading={this.state.loading}
                 scopedSlots={{
-                  'picture':
-                    (item) => (
-                      <td>
-                        <CImg src={(item.picture !== "") ? item.picture : "avatar.png"}
-                          width="40" height="40"
-                          shape="rounded-circle" />
-                      </td>
-                    ),
+
                   'show_details':
                     (item, index) => {
                       return (
@@ -175,7 +167,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                               </CCol>
 
                               <CCol style={{ padding: "10px" }}>
-                                <span><strong>Email:</strong></span> {item.email}
+                                <span><strong>Email:</strong></span> <a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}>{item.email}</a>
                               </CCol>
 
                               <CCol style={{ padding: "10px" }}>
@@ -194,12 +186,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                                 <span><strong>Member since:</strong></span> {item.createdAt}
                               </CCol>
                             </div>
-
-                            <Route render={({ history }) => (
-                              <div style={{ textAlign: 'end' }}>
-                                <a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}><CButton color={"primary"}><CIcon size="lg" content={cilMail} /></CButton></a>
-                              </div>
-                            )} />
                           </CCardBody>
                         </CCollapse>
                       )
@@ -223,9 +209,9 @@ export class SocialMediatorsAdvancedTable extends React.Component {
             )} />
 
           </CCardBody>
-          <CCardFooter style={{ textAlign: 'right' }}>
+          {/* <CCardFooter style={{ textAlign: 'right' }}>
             <CButton color="primary">Create User</CButton>
-          </CCardFooter>
+          </CCardFooter> */}
         </CCard>
       </CCol>
     )

@@ -168,7 +168,7 @@ export class AdminsTable extends React.Component {
 
             <CRow>
               <CCol xs="8">
-                <CInput type="email" placeholder="Enter new admin's email" value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
+                <CInput type="email" placeholder="Enter new admin's email..." value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
               </CCol>
 
               <CCol xs="4">
