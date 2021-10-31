@@ -38,6 +38,7 @@ const UsersProfile = props => {
           setUserFirebase(docSnap.data())
           setFirebaseFlag(true);
           setFirebaseLoading(false);
+          console.log(userFirebase);
         } else {
           console.log("No such document!");
         }

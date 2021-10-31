@@ -86,6 +86,11 @@ h1, h2, h3, h4, h5, h6 {
   display:none;
 }
 
+
+.select__input {
+  display: none !important;
+}
+
 @media only screen and (max-width: 600px) {
   .custom-bottom-nav {
     display: block;
@@ -93,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .bottom-nav {
     height: 50px !important;
-    background-color: #d16768f5 !important;
+    background-color: #dd7e80 !important;
     color: #fff !important;
   }
 
@@ -106,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .fab-item {
-     background-color: #d16768f5 !important;
+     background-color: #dd7e80 !important;
   }
 
   .c-footer {

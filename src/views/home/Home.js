@@ -15,7 +15,6 @@ const Home = () => {
   var enteredLastName = "";
   var enteredBio = "";
   var enteredQualifications = "";
-  // var enteredTrainings = [{}];
   var enteredInsterest = "";
 
 
@@ -142,17 +141,6 @@ const Home = () => {
         allowOutsideClick: false,
       })
 
-      // await swalQueue.fire({
-      //   title: 'Welcome',
-      //   text: 'to Social Mediators Network',
-      //   imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
-      //   imageWidth: 80,
-      //   imageAlt: 'Social Mediators Network',
-      //   confirmButtonText: "Proceed",
-      //   footer: 'Let`s create your profile...',
-      //   currentProgressStep: -1
-      // })
-
       await swalQueue.fire({
         title: "What's your first name?",
         input: "text",
@@ -236,7 +224,6 @@ const Home = () => {
       })
     }
   }
-
 
   const slides = [
     'iclaim-slide1.jpg',
@@ -385,15 +372,9 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" style={{ margin: "30px 0" }}>
+      <CCol xs="12" style={{ margin: "30px 0 45px" }}>
         <hr style={{ width: "70%" }} />
       </CCol>
-
-      {/* <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h2><strong>Social Mediators</strong></h2>
-      </CCol> */}
-
-      {/* <SocialMediatorsBasicTable /> */}
 
     </CRow >
 
