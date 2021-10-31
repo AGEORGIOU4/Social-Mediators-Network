@@ -38,11 +38,11 @@ const TheHeader = () => {
 
   return (
     <CHeader withSubheader>
-      <CToggler
+      {/* <CToggler
         inHeader
         className="ml-md-3 d-lg-none"
         onClick={toggleSidebarMobile}
-      />
+      /> */}
       <CToggler
         inHeader
         className="ml-3 d-md-down-none"
