@@ -4,6 +4,8 @@ import React from 'react'
 import BottomNavigation from 'reactjs-bottom-navigation'
 import 'reactjs-bottom-navigation/dist/index.css'
 import { useHistory } from 'react-router'
+import _nav from './_nav'
+import { Link, Redirect } from 'react-router-dom';
 
 const TheBottomNavigation = () => {
 
@@ -13,7 +15,7 @@ const TheBottomNavigation = () => {
 
     switch (item.title) {
       case "Home":
-        history.push('/Home')
+        <Link to='/home' />
         break;
       case "Blog":
         history.push('/Blog')
@@ -36,7 +38,8 @@ const TheBottomNavigation = () => {
     {
       title: 'Blog',
       icon: <CIcon style={{ color: '#fff' }} size="sm" content={cilNotes} />,
-      activeIcon: <CIcon style={{ color: '#fff' }} size="sm" content={cilNotes} />
+      activeIcon: <CIcon style={{ color: '#fff' }} size="sm" content={cilNotes} />,
+      to: "/Home"
     },
     {
       title: 'Social Mediators',
@@ -51,7 +54,11 @@ const TheBottomNavigation = () => {
         activeBgColor={"#ffffff00"}
         activeTextColor={"#fff"}
         items={bottomNavItems}
-        onItemClick={(item) => { setDefaultNav(item) }}
+        // onItemClick={(item) => { setDefaultNav(item) }}
+        onItemClick={item => (item.title === "Social Mediators") ?
+          window.location.href = '/#/social-mediators' :
+          window.location.href = '/#/'.concat(item.title)}
+        component
       >
       </BottomNavigation>
     </div>

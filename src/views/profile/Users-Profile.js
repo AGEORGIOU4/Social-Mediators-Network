@@ -78,6 +78,11 @@ const UsersProfile = props => {
                 </CCol>
 
                 <CCol style={{ padding: "10px" }}>
+                  <span><strong>Trainings:</strong></span> {
+                    (userFirebase.trainings) ? userFirebase.trainings.map((training, index) => (index ? ', ' : ' ') + training) : ""}
+                </CCol>
+
+                <CCol style={{ padding: "10px" }}>
                   <span><strong>About:</strong></span> {userFirebase.bio}
                 </CCol>
 
