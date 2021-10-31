@@ -29,6 +29,23 @@ const Home = () => {
 
     console.log("User " + user.email + " is authenticated");
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Signed in successfully'
+    })
+
     const getUser = async (db) => {
       const docRef = doc(db, "users", user.email);
       const docSnap = await getDoc(docRef);

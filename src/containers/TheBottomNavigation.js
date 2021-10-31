@@ -3,33 +3,9 @@ import CIcon from '@coreui/icons-react'
 import React from 'react'
 import BottomNavigation from 'reactjs-bottom-navigation'
 import 'reactjs-bottom-navigation/dist/index.css'
-import { useHistory } from 'react-router'
-import _nav from './_nav'
-import { Link } from 'react-router-dom';
 import { cilHome, cilInfoCircle, cilPhone } from '@coreui/icons-pro'
 
 const TheBottomNavigation = () => {
-
-  let history = useHistory();
-
-  const setDefaultNav = (item) => {
-
-    switch (item.title) {
-      case "Home":
-        <Link to='/home' />
-        break;
-      case "Blog":
-        history.push('/Blog')
-        break;
-      case "Social Mediators":
-        history.push('/social-mediators')
-        break;
-      default:
-        return 0;
-    }
-  }
-
-
   const bottomNavItems = [
     {
       title: 'Home',
@@ -63,14 +39,13 @@ const TheBottomNavigation = () => {
   return (
     <div className="custom-bottom-nav">
       <BottomNavigation
-        activeBgColor={"#635dff"}
+        activeBgColor={"#d1676800"}
         activeTextColor={"#fff"}
         items={bottomNavItems}
         // onItemClick={(item) => { setDefaultNav(item) }}
-        onItemClick={item => (item.title === "Social Mediators") ?
+        onItemClick={item => (item.title === "Mediators") ?
           window.location.href = '/#/social-mediators' :
           window.location.href = '/#/'.concat(item.title)}
-        component
       >
       </BottomNavigation>
     </div>
