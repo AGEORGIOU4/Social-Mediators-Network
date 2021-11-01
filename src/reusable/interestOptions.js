@@ -1,4 +1,4 @@
-export const Interests = [
+export const interestOptions = [
   {
     label: "Computing", value: 'Computing',
   },
@@ -36,4 +36,4 @@ export const Interests = [
     label: "Other", value: 'Other',
   }
 ]
-export default Interests
+export default interestOptions

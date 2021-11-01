@@ -10,8 +10,8 @@ import LinesEllipsis from 'react-lines-ellipsis'
 import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow } from '@coreui/react'
 import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
-import { SocialMediatorsAdvancedTable } from 'src/reusable/Tables/SocialMediatorsAdvancedTable';
-import { AdminsTable } from 'src/reusable/Tables/AdminsTable';
+import { SocialMediatorsAdvancedTable } from 'src/Tables/SocialMediatorsAdvancedTable';
+import { AdminsTable } from 'src/Tables/AdminsTable';
 
 const postFields = [
   { key: 'username' },
