@@ -14,9 +14,8 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilNotes } from '@coreui/icons';
+import { cilLockLocked } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
-import { cilNote } from '@coreui/icons-pro';
 
 // Check if Admin to display admin option
 var checkIfAdmin = false;

@@ -91,6 +91,10 @@ h1, h2, h3, h4, h5, h6 {
   display: none !important;
 }
 
+.c-datatable-filter {
+  margin-left: 8px !important;
+}
+
 @media only screen and (max-width: 600px) {
   .custom-bottom-nav {
     display: block;

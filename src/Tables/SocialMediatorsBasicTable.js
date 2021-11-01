@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CBadge } from '@coreui/react'
+import { CDataTable, CCol, CCard, CCardHeader, CImg, CCardBody, CBadge, CRow } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
@@ -7,10 +7,17 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { getInterestsBadge } from 'src/reusable/reusables';
+import CIcon from '@coreui/icons-react';
+import { cilMail } from '@coreui/icons-pro';
 
 export const socialMediatorFields = [
-  { key: 'firstName', label: "", sorter: false, filter: false },
   { key: 'card', label: "", sorter: false, filter: false },
+  { key: 'email', label: "", sorter: false, filter: false },
+  { key: 'firstName', label: "", sorter: false, filter: false },
+  { key: 'lastName', label: "", sorter: false, filter: false },
+  { key: 'nickname', label: "", sorter: false, filter: false },
+  { key: 'trainings', label: "", sorter: false, filter: false },
+  { key: 'qualifications', label: "", sorter: false, filter: false },
   { key: 'areaOfInterest', label: "", sorter: false, filter: false },
 ]
 
@@ -60,91 +67,124 @@ export class SocialMediatorsBasicTable extends React.Component {
 
   render() {
     return (
-      <CCol >
-        <CCard id="table">
-          <CCardHeader>
-            <h4 style={{ margin: '0' }}><strong>Meet the Social Mediators</strong></h4>
-          </CCardHeader>
-          <CCardBody>
-            <Route render={({ history }) => (
-              <CDataTable
-                items={this.state.users}
-                fields={socialMediatorFields}
-                loading={this.state.loading}
-                onRowClick={(item, index, col, e) => {
-                  if (this.getCookie("userEmail") === item.email) {
 
-                    history.push("/profile")
+      <CRow>
+        <CCol xs="12" style={{ textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '20px' }}><strong>Social Mediators</strong></h2>
+        </CCol>
 
-                  } else {
-                    history.push({
-                      pathname: "/users-profile",
-                      state: item
-                    })
-                  }
-                }
-                }
-                clickableRows
-                header={false}
-                tableFilter={{ 'placeholder': 'Search by name or field...' }}
-                size="sm"
-                itemsPerPage={5}
-                pagination
-                scopedSlots={{
-                  'card':
-                    (item) => (
-                      <td>
-                        <CCard style={{ padding: "0" }}>
-                          <CCardHeader>
-                            <div style={{ width: "80%", float: "left" }}>
-                              <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                                width="30" height="30"
-                                shape="rounded-circle" />
+        <Route render={({ history }) => (
+          <CDataTable
+            items={this.state.users}
+            fields={socialMediatorFields}
+            loading={this.state.loading}
+            header={false}
+            tableFilter={{ 'placeholder': 'Search...' }}
+            itemsPerPage={20}
+            pagination
+            clickableRows
+            onRowClick={(item, index, col, e) => {
+              if (this.getCookie("userEmail") === item.email) {
 
-                              <strong> {item.nickname}</strong>
-                            </div>
-                            {/* <div style={{ width: "20%", float: "left", textAlign: "end" }}>
-                              <CButton variant="ghost"><CIcon size="lg" content={cilMail} /><a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}> Mail</a></CButton>
-                            </div> */}
+                history.push("/profile")
 
-                          </CCardHeader>
-                          <CCardBody>
+              } else {
+                history.push({
+                  pathname: "/users-profile",
+                  state: item
+                })
+              }
+            }
+            }
+            scopedSlots={{
+              'card':
+                (item) => (
+                  <td>
+                    <CCard style={{ padding: "0", margin: "0 8px 8px" }}>
+                      <CCardBody>
 
-                            <LinesEllipsis
-                              text={item.bio}
-                              maxLine='2'
-                              ellipsis='...'
-                              trimRight
-                              basedOn='letters'
-                            />
+                        <div style={{ width: "20%", float: 'left' }}>
+                          <CImg src={(item.picture) ? item.picture : "avatar.png"}
+                            width="50" height="50"
+                            shape="rounded-circle" />
+                        </div>
+
+                        <div style={{ width: "80%", float: 'left' }}>
+                          <strong style={{ fontSize: 'medium', marginLeft: '4px' }}> {item.firstName} {item.lastName}</strong>
+                        </div>
+
+                        <div style={{ width: "10%", float: 'left' }}>
+                          <CIcon content={cilMail} style={{ marginLeft: '4px' }} />
+                        </div>
+
+                        <CCol xs="12" style={{ margin: "8px 0", paddingLeft: '0' }}>
+                          <LinesEllipsis
+                            text={item.bio}
+                            maxLine='2'
+                            ellipsis='...'
+                            trimRight
+                            basedOn='letters'
+                          />
+                        </CCol>
 
 
-                            {/* <CCol style={{ textAlign: 'end' }}> */}
-                            <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
-                            {/* </CCol> */}
-                          </CCardBody>
-                        </CCard>
-                      </td>
-                    ),
-                  'firstName':
-                    (item) => (
-                      <td style={{ display: "none" }}>
 
-                      </td>
-                    ),
-                  'areaOfInterest':
-                    (item) => (
-                      <td
-                        style={{ display: "none" }}>
+                        <CCol style={{ textAlign: 'end', paddingRight: '0px' }}>
+                          <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
+                        </CCol>
 
-                      </td>
-                    ),
-                }}
-              />
-            )} />
-          </CCardBody>
-        </CCard>
-      </CCol>
+
+                      </CCardBody>
+                    </CCard>
+                  </td>
+                ),
+              'email':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'firstName':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'lastName':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'nickname':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'trainings':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'qualifications':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+              'areaOfInterest':
+                (item) => (
+                  <td
+                    style={{ display: "none" }}>
+                  </td>
+                ),
+            }
+            }
+          />
+        )} />
+      </CRow >
 
     )
   }

@@ -4,7 +4,6 @@ import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilPencil } from "@coreui/icons";
 import { CSpinner } from "@coreui/react";
-import { LoginCard } from "src/containers/common";
 import { Route } from 'react-router';
 import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
@@ -82,7 +81,7 @@ const Profile = props => {
     })
   }
 
-  if (getCookie("session")) {
+  if (isAuthenticated && getCookie("session")) {
     if (!firebaseFlag) {
       const getUser = async (db) => {
         const docRef = doc(db, "users", user.email);
