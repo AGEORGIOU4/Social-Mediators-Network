@@ -18,6 +18,22 @@ const Profile = props => {
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
 
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   function removeUser() {
     Swal.fire({
 
@@ -66,7 +82,7 @@ const Profile = props => {
     })
   }
 
-  if (isAuthenticated) {
+  if (getCookie("session")) {
     if (!firebaseFlag) {
       const getUser = async (db) => {
         const docRef = doc(db, "users", user.email);
@@ -150,9 +166,10 @@ const Profile = props => {
     )
   } else {
     return (
-      <div>
-        <LoginCard />
-      </div>
+      <Route render={({ history }) => (
+        history.push("/")
+      )} />
+
     )
   }
 }

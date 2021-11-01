@@ -95,7 +95,7 @@ const TheHeaderDropdown = () => {
             Profile
           </CDropdownItem>
 
-          <CDropdownItem
+          {/* <CDropdownItem
             header
             tag="div"
             color="light"
@@ -113,16 +113,16 @@ const TheHeaderDropdown = () => {
           <CDropdownItem to="/blog">
             <CIcon content={cilNotes} className="mfe-2" />
             Blog
-          </CDropdownItem>
+          </CDropdownItem> */}
 
-          <CDropdownItem
+          {/* <CDropdownItem
             header
             tag="div"
             color="light"
             className="text-center"
           >
             <strong>Authentication</strong>
-          </CDropdownItem>
+          </CDropdownItem> */}
 
           <CDropdownItem to="/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
             <CIcon content={cilArrowCircleRight} className="mfe-2" />

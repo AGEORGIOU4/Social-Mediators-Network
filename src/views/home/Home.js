@@ -23,14 +23,14 @@ const Home = () => {
 
   // Check if user is logged in
   if (isAuthenticated && !firebaseFlag && !getCookie("session")) {
-    setCookie("session", "Established", 1);
+    setCookie("session", "Established", 7);
     setCookie("userEmail", user.email, 7);
 
     console.log("User " + user.email + " is authenticated");
 
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       showConfirmButton: false,
       timer: 3000,
 
