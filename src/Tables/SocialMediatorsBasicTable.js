@@ -101,7 +101,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                 'card':
                   (item) => (
                     <td>
-                      <CCard style={{ padding: "0", margin: "0 8px 8px" }}>
+                      <CCard style={{ padding: "0", margin: "0" }}>
                         <CCardBody>
 
                           <div style={{ width: '100%' }}>
@@ -116,8 +116,7 @@ export class SocialMediatorsBasicTable extends React.Component {
                             </div>
 
                             <div style={{ width: "10%", float: 'left', textAlign: 'end', paddingRight: '0px' }}>
-                              <a target="_blank" rel="noopener noreferrer" href={`mailto:${item.email}`}><CIcon content={cilMail} style={{ marginLeft: '4px' }} /></a>
-                              {/* <CIcon content={cilMail}  /> */}
+                              <a href={`mailto:${item.email}`}><CIcon content={cilMail} style={{ marginLeft: '4px' }} /></a>
                             </div>
                           </div>
 
