@@ -36,7 +36,7 @@ const TheHeaderDropdown = () => {
         const docRef = doc(db, "admins", user.email);
         const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
+        if (docSnap.exists() && !checkIfAdmin) {
           setAdmin({ isAdmin: true });
           document.cookie = "admin=True";
           console.log("User is admin!");

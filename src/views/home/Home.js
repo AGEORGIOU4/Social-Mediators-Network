@@ -5,7 +5,7 @@ import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIndicators, CCarouselInner, CCarouselItem, CCol, CRow, CButton, CImg } from '@coreui/react'
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
-import Interest from 'src/reusable/Tables/Interest';
+import interestsSwal from 'src/reusable/interestsSwal';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -51,6 +51,8 @@ const Home = () => {
 
       if (docSnap.exists()) {
         setFirebaseFlag(true);
+        console.log("User exists is firebase!");
+
       } else {
         console.log("User does not exist is firebase!");
         WelcomeAlert();
@@ -203,7 +205,7 @@ const Home = () => {
         inputPlaceholder: 'Select an area of interest',
         showConfirmButton: true,
         currentProgressStep: 4,
-        inputOptions: { Interest },
+        inputOptions: { interestsSwal },
         inputValidator: (value) => {
           if (!value) {
             return 'You need to select something!'

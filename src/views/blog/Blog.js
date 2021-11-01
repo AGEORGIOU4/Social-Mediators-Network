@@ -1,9 +1,10 @@
 import React from 'react'
+import { ProposalsTable } from 'src/Tables/ProposalsTable'
 
 const Blog = () => {
 
   return (
-    <h1>Blog</h1>
+    <ProposalsTable />
   )
 }
 

@@ -1,4 +1,4 @@
-export const Interest =
+export const interestsSwal =
 {
   Computing: 'Computing',
   Volunteering: 'Volunteering',
@@ -13,4 +13,4 @@ export const Interest =
   Sports: 'Sports',
   Other: 'Other',
 }
-export default Interest
+export default interestsSwal

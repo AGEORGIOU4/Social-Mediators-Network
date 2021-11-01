@@ -6,7 +6,7 @@ import { Route } from 'react-router';
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import LinesEllipsis from 'react-lines-ellipsis';
-import { getInterestsBadge } from '../reusables';
+import { getInterestsBadge } from 'src/reusable/reusables';
 
 export const socialMediatorFields = [
   { key: 'firstName', label: "", sorter: false, filter: false },

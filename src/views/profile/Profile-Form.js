@@ -20,7 +20,7 @@ import { getStorage, ref, getDownloadURL } from '@firebase/storage';
 import { CButton, CImg } from "@coreui/react";
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import LinesEllipsis from 'react-lines-ellipsis'
-import Interests from 'src/reusable/interests';
+import interestOptions from 'src/reusable/interestOptions';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from 'sweetalert2';
 import { SwalMixing } from 'src/reusable/SwalMixin';
@@ -298,7 +298,7 @@ class ProfileForm extends React.Component {
 
                   <CLabel className="form-label">Area of interest</CLabel>
                   <CSelect value={this.state.areaOfInterest} onChange={this.handleChangeAreaOfInterest}>
-                    {Interests.map((option) => (
+                    {interestOptions.map((option) => (
                       <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                   </CSelect>
