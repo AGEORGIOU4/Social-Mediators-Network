@@ -7,7 +7,7 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import { Route } from 'react-router';
 import CIcon from '@coreui/icons-react';
-import { cilEye } from '@coreui/icons-pro';
+import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 import { cilTrash } from '@coreui/icons';
 import Swal from 'sweetalert2';
 
@@ -20,7 +20,13 @@ const socialMediatorFields = [
     sorter: false,
     filter: false
   },
-  { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
+  {
+    key: 'remove',
+    label: '',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  },
 ]
 
 export class SocialMediatorsAdvancedTable extends React.Component {
@@ -31,6 +37,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
       users: [],
       loading: false,
       details: [],
+      openDetails: false,
       items: []
     };
   }
@@ -44,6 +51,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
       newDetails = [...this.state.details, index]
     }
     this.setState({ details: newDetails })
+    this.setState({ openDetails: !this.state.openDetails })
   }
 
   removeUser(email) {
@@ -129,9 +137,11 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                 itemsPerPage={50}
                 sorter
                 pagination
+                clickableRows
+                hover
+                onRowClick={((item, index, col, e) => { this.toggleDetails(index) })}
                 loading={this.state.loading}
                 scopedSlots={{
-
                   'show_details':
                     (item, index) => {
                       return (
@@ -185,25 +195,50 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                               <CCol style={{ padding: "10px" }}>
                                 <span><strong>Member since:</strong></span> {item.createdAt}
                               </CCol>
+
+                              <CCol style={{ paddingRight: "0", textAlign: "end" }}>
+                                <CButton
+                                  style={{ margin: '5px' }}
+                                  size="sm"
+                                  color="danger"
+                                  variant="outline"
+                                  onClick={() => {
+                                    this.removeUser(item.email)
+                                  }}
+
+                                >Delete <CIcon content={cilTrash} /></CButton>
+
+                                <CButton
+                                  style={{ margin: '5px' }}
+                                  size="sm"
+                                  color="primary"
+                                  variant="outline"
+                                  onClick={() => { this.toggleDetails(index) }}
+
+                                >Hide <CIcon content={cilEyeSlash} /> </CButton>
+                              </CCol>
                             </div>
                           </CCardBody>
                         </CCollapse>
                       )
                     },
                   'remove':
-                    (item) => (
-                      <td>
-                        <CButton
-                          size="sm"
-                          color="danger"
-                          variant="outline"
-                          onClick={() => {
-                            this.removeUser(item.email)
-                          }}
+                    (item, index) => {
+                      return (
+                        <td className="py-2">
+                          <CButton
+                            size="sm"
+                            color="danger"
+                            variant="outline"
+                            onClick={() => {
+                              this.removeUser(item.email)
+                            }}
 
-                        ><CIcon content={cilTrash} /></CButton>
-                      </td>
-                    )
+                          ><CIcon content={cilTrash} /></CButton>
+                        </td>
+                      )
+                    },
+
                 }}
               />
             )} />

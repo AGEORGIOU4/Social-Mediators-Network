@@ -4,20 +4,19 @@ import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CInput, CCardFooter, C
 // Firebase
 import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-import { cilTrash } from '@coreui/icons';
+import { cilCommentBubble, cilShare, cilTrash } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import Swal from 'sweetalert2';
-
+import { CImg } from '@coreui/react';
+import { Route } from 'react-router';
+import { FormatTimestamp } from 'src/reusable/reusables';
 
 const proposalFields = [
-  { key: 'proposalID', _style: { width: '10%' }, label: 'ID' },
+  { key: 'card', label: "", sorter: false, filter: false },
   { key: 'author' },
-  { key: 'title' },
-  { key: 'comments' },
-  { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
+  { key: 'content' },
+  // { key: 'comments' },
 ]
-
-
 
 export class ProposalsTable extends React.Component {
   constructor(props) {
@@ -25,65 +24,177 @@ export class ProposalsTable extends React.Component {
 
     this.state = {
       proposals: [],
+      proposalID: "",
+      comments: [],
       loading: false,
     };
-
   }
 
   componentDidMount() {
     this.setState({ loading: true })
 
     const getProposals = async (db) => {
-      const proposalCol = collection(db, 'proposals/tC3wGwj0Joi3sSgGihj2/comments')
+      const proposalCol = collection(db, 'proposals/')
       const proposalSnapshot = await getDocs(proposalCol);
       const proposalList = proposalSnapshot.docs.map(doc => doc.data());
       this.setState({ proposals: proposalList });
-      this.setState({ loading: false })
-      console.log(this.state.proposals[0].commentID)
+      this.setState({ loading: false });
+      console.log(this.state.proposals);
     };
 
     getProposals(firebaseDB);
   }
 
+  getComment(proposalID) {
+    const fetchComments = async (db) => {
+      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
+      const commentsSnapshot = await getDocs(commentsCol);
+      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
+      this.setState({ comments: commentsList });
+      this.setState({ loading: false })
+      console.log(this.state.comments)
+    };
+    fetchComments(firebaseDB);
+  }
+
+
+
   render() {
     return (
 
-      <CCol xs="12">
-        <CCard className="advanced-table">
-          <CCardHeader>
-            <h4 style={{ margin: '0' }}><strong>Proposals</strong></h4>
-          </CCardHeader>
-          <CCardBody>
+      <CRow className="basic-table">
+        <CCol xs="12" style={{ textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '20px' }}><strong>Proposals</strong></h2>
+        </CCol>
+
+        <CCol xs="12">
+          <Route render={({ history }) => (
             <CDataTable
-              className="advanced-table"
               items={this.state.proposals}
               fields={proposalFields}
-              tableFilter={{ 'placeholder': 'Search by email...' }}
-              cleaner
-              itemsPerPage={10}
-              sorter
-              pagination
               loading={this.state.loading}
+              header={false}
+              tableFilter={{ 'placeholder': 'Search...' }}
+              itemsPerPage={20}
+              pagination
+              clickableRows
+              sorterValue="createdAt"
+              onRowClick={(item, index, col, e) => {
+                if (this.getCookie("userEmail") === item.email) {
+                  // history.push("/profile")
+                } else {
+                  history.push({
+                    // pathname: "/users-profile",
+                    // state: item
+                  })
+                }
+              }
+              }
               scopedSlots={{
-                'remove':
+                'card':
                   (item) => (
                     <td>
-                      <CButton
-                        size="sm"
-                        color="danger"
-                        variant="outline"
-                        onClick={() => {
-                          // this.removeAdmin(item.email)
-                        }}
+                      <CCard style={{ padding: "0", margin: "0" }}>
+                        <CCardBody>
 
-                      ><CIcon content={cilTrash} /></CButton>
+                          <div style={{ width: '100%' }}>
+                            <div style={{ width: "20%", float: 'left', marginLeft: '-6px', marginRight: '6px' }}>
+                              <CImg src={(item.picture) ? item.picture : "avatar.png"}
+                                width="44" height="44"
+                                shape="rounded-circle" />
+                            </div>
+
+                            <div style={{ width: "80%", float: 'left' }}>
+                              <strong style={{ fontSize: 'medium' }}> {item.author}</strong>
+                            </div>
+                          </div>
+
+                          <div style={{ width: "80%" }}>
+                            <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={item.createdAt.seconds} />}</p>
+                          </div>
+
+                          <div style={{ width: "100%" }}>
+                            <hr></hr>
+                          </div>
+
+                          <div style={{ width: "100%" }}>
+                            <p>{item.content}</p>
+                          </div>
+
+                          <div style={{ width: "100%", textAlign: "end" }}>
+                            <a href="www.google.com"><p style={{ color: "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>13 comments</p></a>
+                          </div>
+
+                          <div style={{ width: "100%" }}>
+                            <hr></hr>
+                          </div>
+
+                          <div style={{ width: "50%", float: 'left', textAlign: 'center' }}>
+                            <CButton
+                              style={{ margin: '5px' }}
+                              size="sm"
+                              color="dark"
+                              variant="ghost"
+                              onClick={() => {
+
+                              }}
+
+                            >Share <CIcon size={"lg"} content={cilShare} /></CButton>
+                          </div>
+
+                          <div style={{ width: "50%", float: 'left', textAlign: 'center' }}>
+                            <CButton
+                              style={{ margin: '5px' }}
+                              size="sm"
+                              color="dark"
+                              variant="ghost"
+                              onClick={() => {
+
+                              }}
+
+                            >Comment <CIcon size={"lg"} content={cilCommentBubble} /></CButton>
+                          </div>
+
+
+
+
+
+
+
+                          {/* <CCol style={{ textAlign: 'end', paddingRight: '0' }}>
+                          <CBadge color={getInterestsBadge(item.areaOfInterest)}>{item.areaOfInterest}</CBadge>
+                        </CCol> */}
+
+
+                        </CCardBody>
+                      </CCard>
                     </td>
-                  )
-              }}
+                  ),
+                'author':
+                  (item) => (
+                    <td
+                      style={{ display: "none" }}>
+                    </td>
+                  ),
+                'content':
+                  (item) => (
+                    <td
+                      style={{ display: "none" }}>
+                    </td>
+                  ),
+                'createdAt':
+                  (item) => (
+                    <td
+                      style={{ display: "none" }}>
+                    </td>
+                  ),
+              }
+              }
             />
-          </CCardBody>
-        </CCard>
-      </CCol>
+          )} />
+        </CCol>
+      </CRow >
+
     )
   }
 }
