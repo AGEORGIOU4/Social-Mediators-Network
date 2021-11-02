@@ -134,7 +134,7 @@ export class AdminsTable extends React.Component {
           <CCardHeader>
             <h4 style={{ margin: '0' }}><strong>Admins</strong></h4>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className="settings-table">
             <CDataTable
               className="advanced-table"
               items={this.state.admins}

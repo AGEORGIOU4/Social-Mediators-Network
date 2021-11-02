@@ -75,7 +75,7 @@ class Settings extends React.Component {
               <CCardHeader>
                 <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
               </CCardHeader>
-              <CCardBody>
+              <CCardBody className="settings-table">
                 <CDataTable
                   items={this.state.posts}
                   fields={postFields}
@@ -159,7 +159,6 @@ class Settings extends React.Component {
 
           <SocialMediatorsAdvancedTable />
 
-          {/* Admins */}
           <AdminsTable />
 
         </CRow >

@@ -116,7 +116,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
           <CCardHeader>
             <h4 style={{ margin: '0' }}><strong>Users</strong></h4>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className="settings-table">
 
             <Route render={({ history }) => (
 
@@ -213,7 +213,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
             <CButton color="primary">Create User</CButton>
           </CCardFooter> */}
         </CCard>
-      </CCol>
+      </CCol >
     )
   }
 }

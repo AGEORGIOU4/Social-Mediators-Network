@@ -94,6 +94,9 @@ const Profile = props => {
 
           console.log(userFirebase);
         } else {
+          setTimeout(function () {
+            props.history.push('/logout')
+          }, 1000)
           console.log("No such document!");
         }
       }

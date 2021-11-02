@@ -112,6 +112,43 @@ padding-right: 0;
   background-color: #635dff !important;
 }
 
+.swal-custom-input-textarea {
+  min-width: 50%;
+  max-width: 100%;
+  padding: 0.75em;
+  background: inherit;
+  color: inherit;
+  font-size: 1.0em;
+  width: 100%;
+  transition: border-color .1s,box-shadow .1s;
+  border: 1px solid #d9d9d9;
+  border-radius: 0.1875em;
+}
+
+.swal-custom-input::placeholder {
+  color: #d0d0d0;
+}
+
+.swal-custom-input-select {
+  min-width: 50%;
+  max-width: 100%;
+  padding: 0.375em 0.625em;
+  background: inherit;
+  color: inherit;
+  font-size: 1.0em;
+}
+
+.swal-custom-input:focus{
+  outline: none !important;
+  border:4px solid #b1cae3;
+  //box-shadow: 0 0 10px #719ECE;
+
+}
+
+.settings-table {
+  padding: 0.25rem;
+}
+
 @media only screen and (max-width: 600px) {
   .custom-bottom-nav {
     display: block;

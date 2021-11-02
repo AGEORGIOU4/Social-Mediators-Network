@@ -14,7 +14,7 @@ const Home = () => {
   var enteredFirstName = "";
   var enteredLastName = "";
   var enteredBio = "";
-  var enteredQualifications = "";
+  var enteredQualifications = "None";
   var enteredTrainings = [];
   var enteredInsterest = "";
 
@@ -172,18 +172,18 @@ const Home = () => {
       })
 
       await swalQueue.fire({
-        title: "Any qualifications or trainings as a social mediator?",
+        title: "Any qualifications or attend trainings as a social mediator?",
         currentProgressStep: 2,
         html:
-          '<textarea id="qualifications-input1" style="width: 100%" rows="4" placeholder="Enter your qualifications and experiences..."></textarea>' +
+          '<textarea id="qualifications-input1" class="swal-custom-input swal-custom-input-textarea" style="width: 100%" rows="4" placeholder="Enter your qualifications and experiences. Leave empty if none..."></textarea>' +
           '<br><br>' +
-          '<select style="width: 100%" name="trainings-input2" id="trainings-input2" value="N/A"><option value="N/A">Select a training if any</option>  <option value="SM1">SM1</option>  <option value="SM2">SM2</option>  <option value="SM3">SM3</option>  <option value="SM4">SM4</option> <option value="SM5">SM5</option> <option value="SM6">SM6</option> <option value="SM7">SM7</option> <option value="SM8">SM8</option><option value="SM9">SM9</option> <option value="SM10">SM10</option> <option value="SM11">SM11</option></select>' +
+          '<select style="width: 100%" class="swal-custom-input swal-custom-input-select" name="trainings-input2-select" id="trainings-input2" value="N/A"><option value="N/A">Select a training if any</option>  <option value="SM1">SM1</option>  <option value="SM2">SM2</option>  <option value="SM3">SM3</option>  <option value="SM4">SM4</option> <option value="SM5">SM5</option> <option value="SM6">SM6</option> <option value="SM7">SM7</option> <option value="SM8">SM8</option><option value="SM9">SM9</option> <option value="SM10">SM10</option> <option value="SM11">SM11</option></select>' +
           '<br>' +
-          '<p style="color: #e55353; font-style: italic; font-size: small" >*You can add more trainings attended later</p>',
+          '<p style="color: #e55353; font-style: italic; font-size: small; margin-top:5px;" >*You can add more trainings attended later</p>',
         focusConfirm: false,
         preConfirm: () => {
           return [
-            enteredQualifications = (document.getElementById('qualifications-input1').value) ? document.getElementById('qualifications-input1').value : "",
+            enteredQualifications = (document.getElementById('qualifications-input1').value) ? document.getElementById('qualifications-input1').value : "None",
             enteredTrainings.push(document.getElementById('trainings-input2').value)
           ]
         }
