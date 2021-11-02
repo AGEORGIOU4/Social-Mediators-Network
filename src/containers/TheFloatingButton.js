@@ -1,22 +1,46 @@
 import React from 'react'
 
-import { Route } from 'react-router';
 import { Button } from 'react-floating-action-button'
 import { cilNote } from '@coreui/icons-pro';
 import CIcon from '@coreui/icons-react';
-
+import Swal from 'sweetalert2';
 const TheFloatingButton = () => {
+
+  var enteredProposal = "";
+
+
+  const postProposal = async () => {
+    const swalQueue = Swal.mixin({
+      confirmButtonText: 'Post',
+      showCancelButton: true,
+      confirmButtonColor: '#635dff',
+      allowOutsideClick: true,
+    })
+
+    await swalQueue.fire({
+      title: "What your proposal?",
+      input: "text",
+      inputPlaceholder: 'Write your proposal',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          enteredProposal = value;
+          console.log(enteredProposal);
+        }
+      }
+    })
+  }
+
   return (
 
 
     <div className="custom-fab-container">
-      <Route render={({ history }) => (
-        <Button
-          tooltip="Post a proposal"
-          rotate={true}
-          onClick={() => { history.push("/blog") }} >
-          <CIcon content={cilNote} />
-        </Button>)} />
+      <Button
+        tooltip="Post a proposal"
+        onClick={() => { postProposal() }} >
+        <CIcon content={cilNote} />
+      </Button>
     </div>
 
   )
