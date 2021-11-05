@@ -181,7 +181,7 @@ export class ProposalsTable extends React.Component {
 
                           {/* Comments */}
                           <div style={{ display: (this.state.showComments) ? 'block' : 'none' }}>
-                            <CommentsTable comments={""} loading={this.state.commentsLoading} showComments={this.state.showComments} />
+                            <CommentsTable comments={this.state.comments} loading={this.state.commentsLoading} showComments={this.state.showComments} />
                           </div>
 
                         </CCardBody>
