@@ -152,24 +152,28 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: 'center' }}>
-                              <CButton
-                                style={{ margin: '0 10px 10px' }}
-                                size="sm"
-                                color="dark"
-                                variant="ghost"
-                                onClick={() => {
+                              <div style={{ width: '50%', float: 'left' }} >
+                                <CButton
+                                  style={{ margin: '0 2px', fontSize: 'smaller' }}
+                                  size="sm"
+                                  color="dark"
+                                  variant="ghost"
+                                  onClick={() => {
 
-                                }}
+                                  }}
 
-                              >Share <CIcon size={"lg"} content={cilShare} /></CButton>
+                                >Share <CIcon size={"lg"} content={cilShare} /></CButton>
+                              </div>
 
-                              <CButton
-                                style={{ margin: '0 10px 10px' }}
-                                size="sm"
-                                color="dark"
-                                variant="ghost"
-                                onClick={() => { }}
-                              >Comment <CIcon size={"lg"} content={cilCommentBubble} /></CButton>
+                              <div style={{ width: '50%', float: 'left' }} >
+                                <CButton
+                                  style={{ margin: '0 2px', fontSize: 'smaller' }}
+                                  size="sm"
+                                  color="dark"
+                                  variant="ghost"
+                                  onClick={() => { }}
+                                >Comment <CIcon size={"lg"} content={cilCommentBubble} /></CButton>
+                              </div>
                             </div>
 
                           </div>
@@ -177,7 +181,7 @@ export class ProposalsTable extends React.Component {
 
                           {/* Comments */}
                           <div style={{ display: (this.state.showComments) ? 'block' : 'none' }}>
-                            <CommentsTable comments={this.state.comments} loading={this.state.commentsLoading} showComments={this.state.showComments} />
+                            <CommentsTable comments={""} loading={this.state.commentsLoading} showComments={this.state.showComments} />
                           </div>
 
                         </CCardBody>

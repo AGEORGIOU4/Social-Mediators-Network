@@ -151,7 +151,7 @@ export class AdminsTable extends React.Component {
                     <td>
                       <CButton
                         size="sm"
-                        color="danger"
+                        style={{ color: "#e55353" }}
                         variant="outline"
                         onClick={() => {
                           this.removeAdmin(item.email)
@@ -165,13 +165,12 @@ export class AdminsTable extends React.Component {
           </CCardBody>
           <CCardFooter style={{ textAlign: 'right' }}>
 
-
             <CRow>
-              <CCol xs="8">
+              <CCol xs="6">
                 <CInput type="email" placeholder="Enter new admin's email..." value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
               </CCol>
 
-              <CCol xs="4">
+              <CCol xs="6" style={{ textAlign: 'end', paddingRight: '8px' }}>
                 <CButton onClick={this.assignAdmin} color="dark" variant='outline'>
                   Assign
                 </CButton>

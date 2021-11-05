@@ -203,7 +203,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                                 <CButton
                                   style={{ margin: '5px' }}
                                   size="sm"
-                                  color="danger"
+                                  style={{ color: "#e55353" }}
                                   variant="outline"
                                   onClick={() => {
                                     this.removeUser(item.email)
@@ -231,7 +231,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                         <td className="py-2">
                           <CButton
                             size="sm"
-                            color="danger"
+                            style={{ color: "#e55353" }}
                             variant="outline"
                             onClick={() => {
                               this.removeUser(item.email)
