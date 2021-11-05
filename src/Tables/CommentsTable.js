@@ -1,9 +1,8 @@
 import React from 'react'
-import { CButton, CCol, CDataTable, CCard, CCardBody, CImg } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilPencil, cilTrash } from '@coreui/icons'
+import { CCol, CDataTable, CImg } from '@coreui/react'
+
 import { Route } from "react-router-dom";
-import { cisEye } from '@coreui/icons-pro';
+
 import { FormatTimestamp } from 'src/reusable/reusables';
 
 

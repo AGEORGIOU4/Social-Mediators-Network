@@ -108,16 +108,16 @@ const Profile = props => {
         <CCol>
           <CCard>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+              <div style={{
+                margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
+              }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
                   width="70" height="70"
                   shape="rounded-circle"
-                  style={{ border: '3px solid white ', marginLeft: "-10px" }} />
-
+                  className="profile-photo"
+                />
                 <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
-
-
               <div>
 
                 <CCol style={{ padding: "10px" }}>
@@ -151,7 +151,7 @@ const Profile = props => {
               </div>
 
               <div style={{ textAlign: 'end' }}>
-                <Route render={({ history }) => (<CButton color='primary' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
+                <Route render={({ history }) => (<CButton color='dark' variant='outline' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
               </div>
             </CCardBody>
 

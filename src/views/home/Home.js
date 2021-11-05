@@ -281,7 +281,7 @@ const Home = () => {
 
           <p className="backgroundP" style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
           <p style={{ textAlign: 'center', marginTop: '30px', marginBottom: '0px' }}>
-            <CButton href='https://www.social-mediation.org/' color="primary" size="lg">Learn More</CButton>
+            <CButton href='https://www.social-mediation.org/' color="dark" variant="outline" size="lg">Learn More</CButton>
           </p>
         </CCol>
       </CCol>
@@ -318,7 +318,7 @@ const Home = () => {
               basedOn='letters'
             />
 
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton color="primary">Read</CButton></div>
+            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
           </CCardBody>
 
         </CCard>
@@ -347,7 +347,7 @@ const Home = () => {
               trimRight
               basedOn='letters'
             />
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton color="primary">Read</CButton></div>
+            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
           </CCardBody>
 
         </CCard>
@@ -373,7 +373,7 @@ const Home = () => {
               trimRight
               basedOn='letters'
             />
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton color="primary">Read</CButton></div>
+            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
           </CCardBody>
         </CCard>
       </CCol>

@@ -13,13 +13,13 @@ import Swal from 'sweetalert2';
 
 const socialMediatorFields = [
   { key: 'email' },
-  {
-    key: 'show_details',
-    label: '',
-    _style: { width: '1%' },
-    sorter: false,
-    filter: false
-  },
+  // {
+  //   key: 'show_details',
+  //   label: '',
+  //   _style: { width: '1%' },
+  //   sorter: false,
+  //   filter: false
+  // },
   {
     key: 'remove',
     label: '',
@@ -139,20 +139,22 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                 pagination
                 clickableRows
                 hover
-                onRowClick={((item, index, col, e) => { this.toggleDetails(index) })}
+                // onRowClick={((item, index, col, e) => { this.toggleDetails(index) })}
                 loading={this.state.loading}
                 scopedSlots={{
-                  'show_details':
+                  'email':
                     (item, index) => {
                       return (
-                        <td className="py-2">
-                          <CButton
+
+                        <td className="py-2" onClick={() => { this.toggleDetails(index) }}>
+                          {item.email}
+                          {/* <CButton
                             size="sm"
                             color="primary"
                             variant="outline"
-                            onClick={() => { this.toggleDetails(index) }}
+                         
 
-                          ><CIcon content={cilEye} /></CButton>
+                          ><CIcon content={cilEye} /></CButton> */}
                         </td>
                       )
                     },
@@ -161,15 +163,16 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                       return (
                         <CCollapse show={this.state.details.includes(index)}>
                           <CCardBody style={{ display: (this.state.loading) ? "none" : "block" }}>
-                            <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+                            <div style={{
+                              margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
+                            }}>
                               <CImg src={(item.picture) ? item.picture : "avatar.png"}
                                 width="70" height="70"
                                 shape="rounded-circle"
-                                style={{ border: '3px solid white ', marginLeft: "-10px" }} />
-
-                              <strong style={{ fontSize: 'large' }}> {item.firstName} {item.lastName}</strong>
+                                className="profile-photo"
+                              />
+                              <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {item.firstName} {item.lastName}</strong>
                             </div>
-
                             <div>
 
                               <CCol style={{ padding: "10px" }}>

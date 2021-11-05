@@ -367,7 +367,7 @@ class ProfileForm extends React.Component {
 
                       <CCol lg="5" xs="5" md="5" style={{ textAlign: "end" }}>
 
-                        <CButton color="secondary" onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /> Upload</CButton>
+                        <CButton color="secondary" size='sm' onClick={this.uploadPhoto}><CIcon content={cilCloudUpload} /></CButton>
                       </CCol>
 
                     </CRow>
@@ -388,16 +388,16 @@ class ProfileForm extends React.Component {
 
             <CCard>
               <CCardBody>
-
-                <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+                <div style={{
+                  margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
+                }}>
                   <CImg src={(this.state.picture) ? this.state.picture : "avatar.png"}
                     width="70" height="70"
                     shape="rounded-circle"
-                    style={{ border: '3px solid white ', marginLeft: "-10px" }} />
-
+                    className="profile-photo"
+                  />
                   <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {this.state.firstName} {this.state.lastName}</strong>
                 </div>
-
                 <div>
 
                   <CCol style={{ padding: "10px" }}>
@@ -438,7 +438,7 @@ class ProfileForm extends React.Component {
                 </div>
 
                 <div style={{ textAlign: 'end' }}>
-                  <CButton color='primary' onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
+                  <CButton color='dark' variant="outline" onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
                 </div>
               </CCardBody>
 

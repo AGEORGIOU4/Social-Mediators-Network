@@ -74,7 +74,7 @@ const TheHeaderDropdown = () => {
           <div className="c-avatar">
             <CImg
               src={avatar ? avatar : "avatar.png"}
-              className="c-avatar-img"
+              className="c-avatar-img profile-photo"
               alt="iclaim-avatar"
             />
           </div>

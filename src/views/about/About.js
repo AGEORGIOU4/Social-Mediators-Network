@@ -50,15 +50,15 @@ const About = () => {
               <CTabContent>
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{uclan}</p>
-                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
                 </CTabPane>
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{iclaim}</p>
-                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
                 </CTabPane>
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{icsc}</p>
-                  <CButton style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" color="primary">More</CButton>
+                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
                 </CTabPane>
               </CTabContent>
             </CTabs>

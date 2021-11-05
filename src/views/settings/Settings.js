@@ -149,7 +149,7 @@ class Settings extends React.Component {
                 />
               </CCardBody>
               <CCardFooter style={{ textAlign: 'right' }}>
-                <CButton color="primary">
+                <CButton color="dark" variant='outline'>
                   Create Post
                 </CButton>
 

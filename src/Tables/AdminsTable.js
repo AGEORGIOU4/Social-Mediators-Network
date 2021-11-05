@@ -172,7 +172,7 @@ export class AdminsTable extends React.Component {
               </CCol>
 
               <CCol xs="4">
-                <CButton onClick={this.assignAdmin} color="primary">
+                <CButton onClick={this.assignAdmin} color="dark" variant='outline'>
                   Assign
                 </CButton>
               </CCol>

@@ -51,15 +51,15 @@ const UsersProfile = props => {
         <CCol>
           <CCard>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{ background: 'linear-gradient(0deg, rgb(255, 255, 255) 10%, #f3ecfe  80%)', margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px' }}>
+              <div style={{
+                margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
+              }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
                   width="70" height="70"
                   shape="rounded-circle"
-                  style={{ border: '3px solid white ', marginLeft: "-10px" }} />
-
-                <strong style={{ fontSize: 'large' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+                  className='profile-photo' />
+                <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </div>
-
               <div>
 
                 <CCol style={{ padding: "10px" }}>
@@ -94,7 +94,7 @@ const UsersProfile = props => {
 
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}><CButton color={"primary"}><CIcon size="lg" content={cilMail} /> Message</CButton></a>
+                  <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}><CButton color={"dark"} variant="outline"><CIcon size="md" content={cilMail} /> Message</CButton></a>
                 </div>
               )} />
             </CCardBody>

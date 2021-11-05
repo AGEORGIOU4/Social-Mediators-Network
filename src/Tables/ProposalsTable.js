@@ -1,22 +1,21 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CInput, CCardFooter, CButton, CRow } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CButton, CRow } from '@coreui/react'
 
 // Firebase
-import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-import { cilCommentBubble, cilShare, cilTrash } from '@coreui/icons';
+import { cilCommentBubble, cilShare, } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import Swal from 'sweetalert2';
 import { CImg } from '@coreui/react';
 import { Route } from 'react-router';
 import { FormatTimestamp } from 'src/reusable/reusables';
 import { CommentsTable } from './CommentsTable';
+import { v4 as uuidv4 } from 'uuid';
 
 const proposalFields = [
   { key: 'card', label: "", sorter: false, filter: false },
   { key: 'author' },
   { key: 'content' },
-  // { key: 'comments' },
 ]
 
 export class ProposalsTable extends React.Component {
@@ -49,6 +48,7 @@ export class ProposalsTable extends React.Component {
   }
 
   getComment(proposalID) {
+
     this.setState({ commentsLoading: true })
     this.state.showComments = true;
     this.setState({ showComments: true });
@@ -65,8 +65,32 @@ export class ProposalsTable extends React.Component {
     fetchComments(firebaseDB);
   }
 
+  addComment(proposalID) {
+    const insertComment = async (db) => {
+      let createdAt = this.convertDate(Date.now());
+      let commentID = uuidv4();
 
+      await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
+        commentID: commentID,
+        createdAt: createdAt,
+      });
+    }
+    insertComment(firebaseDB);
+    console.log("added")
+  }
 
+  convertDate(updated_at) {
+    var dateToString = "N/A";
+    if (updated_at !== "N/A" || updated_at !== undefined) {
+      var dateObject = new Date(updated_at);
+      var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(dateObject);
+      dateToString = date.toString();
+    }
+
+    return (
+      dateToString
+    )
+  }
 
   render() {
     return (
@@ -120,7 +144,7 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <p onClick={() => { this.getComment(item.proposalID) }} style={{ color: "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>13 comments</p>
+                              <p onClick={() => { this.getComment(item.proposalID) }} style={{ color: (this.state.showComments) ? "#635dff" : "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>13 comments</p>
                             </div>
 
                             <div style={{ width: "100%" }}>
@@ -164,6 +188,8 @@ export class ProposalsTable extends React.Component {
                   (item) => (
                     <td
                       style={{ display: "none" }}>
+
+                      {/* <CButton onClick={() => this.addComment(item.proposalID)}>Comment</CButton> */}
                     </td>
                   ),
                 'content':

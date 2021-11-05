@@ -1,4 +1,5 @@
 // Here you can add other styles
+// Components
 .c-sidebar {
   background: #3d3d3d;
 }
@@ -18,16 +19,13 @@
 
 .c-footer {
   color: #fafafa;
-  background: #dd7e80;
+  background:black;
 }
 
 .c-footer a {
   color: #635dff;
 }
 
-#homeCarousel {
-margin-bottom: 20px;
-}
 
 .table th, .table td {
   vertical-align: baseline;
@@ -46,6 +44,16 @@ margin-bottom: 20px;
   border-color: #c4c9d0 #c4c9d0 #ebedef;
 }
 
+.bottom-nav-item {
+  width:  20%;
+}
+
+// Home
+#homeCarousel {
+  margin-bottom: 20px;
+  }
+
+// Common
 .back-photo{
  
   background: url("./../assets/background.png");
@@ -77,10 +85,6 @@ p {
 
 .form-label {
   margin-top: 0.5rem;
-}
-
-.bottom-nav-item {
-  width:  20%;
 }
 
 .css-1g8ily9-Control {
@@ -152,10 +156,27 @@ padding-right: 0;
 
 }
 
+.profile-photo {
+  box-shadow: 0 3px 10px #00000033;
+  border: 1px solid #80808021; 
+}
+
+.btn {
+  border-radius: 2rem;
+  padding: 6px 30px;
+  color: #808080;
+  border: 2px solid;
+  font-size: small;
+  
+}
+
+// Settings-Admin page
 .settings-table {
   padding: 0.25rem;
 }
 
+
+// Mobile - Desktop
 @media only screen and (max-width: 600px) {
   .custom-bottom-nav {
     display: block;
