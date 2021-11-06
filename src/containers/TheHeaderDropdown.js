@@ -62,7 +62,7 @@ const TheHeaderDropdown = () => {
 
   return (
     <div>
-      <CButton onClick={() => loginWithRedirect()} color="primary" style={{ marginRight: '10px', display: (isAuthenticated) ? "none" : "block" }}>Login</CButton>
+      <CButton onClick={() => loginWithRedirect()} color="primary" style={{ marginRight: '10px', color: 'white', display: (isAuthenticated) ? "none" : "block" }}>Login</CButton>
 
       <CDropdown
         inNav

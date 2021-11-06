@@ -18,9 +18,8 @@ const TheFloatingButton = () => {
     })
 
     await swalQueue.fire({
-      title: "What your proposal?",
       input: "text",
-      inputPlaceholder: 'Write your proposal',
+      inputPlaceholder: "What do you have in mind?",
       inputValidator: (value) => {
         if (!value) {
           return 'You need to write something!'

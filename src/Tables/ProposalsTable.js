@@ -11,6 +11,7 @@ import { Route } from 'react-router';
 import { FormatTimestamp } from 'src/reusable/reusables';
 import { CommentsTable } from './CommentsTable';
 import { v4 as uuidv4 } from 'uuid';
+import Swal from 'sweetalert2';
 
 const proposalFields = [
   { key: 'card', label: "", sorter: false, filter: false },
@@ -63,6 +64,28 @@ export class ProposalsTable extends React.Component {
       console.log(this.state.comments)
     };
     fetchComments(firebaseDB);
+  }
+
+  postComment = async () => {
+    const swalQueue = Swal.mixin({
+      confirmButtonText: 'Comment',
+      showCancelButton: true,
+      confirmButtonColor: '#635dff',
+      allowOutsideClick: true,
+    })
+
+    await swalQueue.fire({
+      input: "textarea",
+      inputPlaceholder: 'Write a comment...',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          // enteredComment = value;
+          // console.log(enteredComment);
+        }
+      }
+    })
   }
 
   addComment(proposalID) {
@@ -144,7 +167,7 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <p onClick={() => { this.getComment(item.proposalID) }} style={{ color: (this.state.showComments) ? "#635dff" : "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>13 comments</p>
+                              <p onClick={() => { this.getComment(item.proposalID) }} style={{ color: (this.state.showComments) ? "#635dff" : "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</p>
                             </div>
 
                             <div style={{ width: "100%" }}>
@@ -162,7 +185,7 @@ export class ProposalsTable extends React.Component {
 
                                   }}
 
-                                >Share <CIcon size={"lg"} content={cilShare} /></CButton>
+                                >Share <CIcon size={"sm"} content={cilShare} /></CButton>
                               </div>
 
                               <div style={{ width: '50%', float: 'left' }} >
@@ -171,8 +194,8 @@ export class ProposalsTable extends React.Component {
                                   size="sm"
                                   color="dark"
                                   variant="ghost"
-                                  onClick={() => { }}
-                                >Comment <CIcon size={"lg"} content={cilCommentBubble} /></CButton>
+                                  onClick={() => { this.postComment() }}
+                                >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
                               </div>
                             </div>
 

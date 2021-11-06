@@ -166,11 +166,11 @@ export class AdminsTable extends React.Component {
           <CCardFooter style={{ textAlign: 'right' }}>
 
             <CRow>
-              <CCol xs="6">
+              <CCol xs="8" style={{ padding: '0' }}>
                 <CInput type="email" placeholder="Enter new admin's email..." value={this.state.newAdminEmail} onChange={this.handleChangeEmail} />
               </CCol>
 
-              <CCol xs="6" style={{ textAlign: 'end', paddingRight: '8px' }}>
+              <CCol xs="4" style={{ textAlign: 'end', padding: '0' }}>
                 <CButton onClick={this.assignAdmin} color="dark" variant='outline'>
                   Assign
                 </CButton>

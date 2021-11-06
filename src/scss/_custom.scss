@@ -123,6 +123,9 @@ padding-right: 0;
   background-color: #635dff !important;
 }
 
+.swal2-input {
+  border-radius: 2rem !important;
+}
 .swal-custom-input-textarea {
   min-width: 50%;
   max-width: 100%;
@@ -156,12 +159,16 @@ padding-right: 0;
 
 }
 
+#swal2-title {
+  font-size: x-large;
+}
+
 .profile-photo {
   box-shadow: 0 3px 10px #00000033;
   border: 1px solid #80808021; 
 }
 
-.btn {
+.btn-outline-dark, .btn-outline-undefined {
   border-radius: 2rem;
   padding: 6px 30px;
   color: #808080;
