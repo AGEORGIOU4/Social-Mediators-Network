@@ -73,21 +73,21 @@ const Proposal = props => {
           <CCardBody>
 
             <CRow>
-              <CCol xs="12" style={{ textAlign: 'center' }}>
+              <CCol xs="4" md="2" lg="2" style={{ textAlign: 'center' }}>
                 <CImg src={(proposal.picture) ? proposal.picture : "avatar.png"}
-                  width="120" height="120"
+                  width="60" height="60"
                   shape="rounded-circle" />
               </CCol>
 
-              <CCol xs="12" style={{ textAlign: 'center', marginTop: '6px' }}>
-                <strong style={{ fontSize: 'x-large' }}> {proposal.author}</strong>
+              <CCol xs="8" md="10" lg="10" style={{ textAlign: 'left', paddingLeft: '0', marginTop: '16px' }}>
+                <strong style={{ fontSize: 'medium' }}> {proposal.author}</strong>
+              </CCol>
+
+
+              <CCol xs="12" md="10" lg="10" style={{ textAlign: 'end' }}>
+                {/* <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={proposal.createdAt.seconds} />}</p> */}
               </CCol>
             </CRow>
-
-
-            <div style={{ width: "80%" }}>
-              {/* <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={proposal.createdAt.seconds} />}</p> */}
-            </div>
 
             <div style={{ width: "100%" }}>
               <hr></hr>

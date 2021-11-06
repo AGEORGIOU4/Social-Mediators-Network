@@ -183,27 +183,6 @@ export class ProposalsTable extends React.Component {
                               <hr></hr>
                             </div>
 
-
-                            <div style={{ width: "100%", textAlign: 'center' }}>
-                              <div style={{ width: '50%', float: 'left' }} >
-                                <CButton
-                                  style={{ margin: '0 2px', fontSize: 'smaller' }}
-                                  size="sm"
-                                  color="dark"
-                                  variant="ghost"
-                                >Share <CIcon size={"sm"} content={cilShare} /></CButton>
-                              </div>
-
-                              <div style={{ width: '50%', float: 'left' }} >
-                                <CButton
-                                  style={{ margin: '0 2px', fontSize: 'smaller' }}
-                                  size="sm"
-                                  color="dark"
-                                  variant="ghost"
-                                  onClick={() => { this.postComment(item.proposalID) }}
-                                >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
-                              </div>
-                            </div>
                           </div>
 
                         </CCardBody>
