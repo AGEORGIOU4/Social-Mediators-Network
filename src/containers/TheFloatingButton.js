@@ -8,7 +8,6 @@ const TheFloatingButton = () => {
 
   var enteredProposal = "";
 
-
   const postProposal = async () => {
     const swalQueue = Swal.mixin({
       confirmButtonText: 'Post',

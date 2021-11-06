@@ -2,8 +2,9 @@ import React from 'react'
 import { CCardBody, CDataTable, CCol, CCard, CButton, CRow } from '@coreui/react'
 
 // Firebase
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
+
 import { cilCommentBubble, cilShare, } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
 import { CImg } from '@coreui/react';
@@ -18,6 +19,8 @@ const proposalFields = [
   { key: 'author' },
   { key: 'content' },
 ]
+
+var enteredComment = "";
 
 export class ProposalsTable extends React.Component {
   constructor(props) {
@@ -66,12 +69,13 @@ export class ProposalsTable extends React.Component {
     fetchComments(firebaseDB);
   }
 
-  postComment = async () => {
+  postComment = async (proposalID) => {
     const swalQueue = Swal.mixin({
       confirmButtonText: 'Comment',
       showCancelButton: true,
       confirmButtonColor: '#635dff',
       allowOutsideClick: true,
+      backdrop: true,
     })
 
     await swalQueue.fire({
@@ -81,8 +85,9 @@ export class ProposalsTable extends React.Component {
         if (!value) {
           return 'You need to write something!'
         } else {
-          // enteredComment = value;
-          // console.log(enteredComment);
+
+          enteredComment = value;
+          this.addComment(proposalID);
         }
       }
     })
@@ -90,12 +95,13 @@ export class ProposalsTable extends React.Component {
 
   addComment(proposalID) {
     const insertComment = async (db) => {
-      let createdAt = this.convertDate(Date.now());
+
       let commentID = uuidv4();
 
       await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
         commentID: commentID,
-        createdAt: createdAt,
+        createdAt: Timestamp.now(),
+        commentContent: enteredComment,
       });
     }
     insertComment(firebaseDB);
@@ -194,18 +200,17 @@ export class ProposalsTable extends React.Component {
                                   size="sm"
                                   color="dark"
                                   variant="ghost"
-                                  onClick={() => { this.postComment() }}
+                                  onClick={() => { this.postComment(item.proposalID) }}
                                 >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
                               </div>
                             </div>
-
                           </div>
-
 
                           {/* Comments */}
                           <div style={{ display: (this.state.showComments) ? 'block' : 'none' }}>
                             <CommentsTable comments={this.state.comments} loading={this.state.commentsLoading} showComments={this.state.showComments} />
                           </div>
+
 
                         </CCardBody>
                       </CCard>

@@ -4,7 +4,10 @@ import { CCol, CDataTable, CImg } from '@coreui/react'
 import { Route } from "react-router-dom";
 
 import { FormatTimestamp } from 'src/reusable/reusables';
-
+import { CButton } from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilShare } from '@coreui/icons';
+import { cilCommentBubble } from '@coreui/icons';
 
 export const commentsFields = [
   { key: 'card', label: "", sorter: false, filter: false },
@@ -32,7 +35,7 @@ export const CommentsTable = (props) => {
                 <td>
                   {/* <CCard style={{ padding: "0", margin: "0" }}>
                     <CCardBody> */}
-                  <div style={{ backgroundColor: "#f2f2f2", borderRadius: "5px", padding: '15px' }}>
+                  <div style={{ backgroundColor: "#f2f2f2", borderRadius: "5px", padding: '10px 10px 30px' }}>
                     <div style={{ width: '100%' }}>
                       <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                         <CImg src={(item.picture) ? item.picture : "avatar.png"}
@@ -56,9 +59,34 @@ export const CommentsTable = (props) => {
                     <div style={{ width: "100%", fontSize: 'small' }}>
                       <p>{item.commentContent}</p>
                     </div>
+
+
+                    <div style={{ width: "100%", textAlign: 'center' }}>
+                      <div style={{ width: '50%', float: 'left' }} >
+                        <CButton
+                          style={{ margin: '0 2px', fontSize: 'smaller' }}
+                          size="sm"
+                          color="dark"
+                          variant="ghost"
+                          onClick={() => {
+
+                          }}
+
+                        >Share <CIcon size={"sm"} content={cilShare} /></CButton>
+                      </div>
+
+                      <div style={{ width: '50%', float: 'left' }} >
+                        <CButton
+                          style={{ margin: '0 2px', fontSize: 'smaller' }}
+                          size="sm"
+                          color="dark"
+                          variant="ghost"
+                          onClick={() => { this.postComment(item.proposalID) }}
+                        >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
+                      </div>
+                    </div>
                   </div>
-                  {/* </CCardBody>
-                  </CCard> */}
+
                 </td>
               ),
             'author':
