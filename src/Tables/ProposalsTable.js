@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CButton, CRow, CCollapse } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CButton, CRow, CCollapse, CSpinner } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -17,7 +17,9 @@ import Swal from 'sweetalert2';
 const proposalFields = [
   { key: 'card', label: "", sorter: false, filter: false },
   { key: 'author' },
-  { key: 'content' },
+  { key: 'title' },
+  { key: 'description' },
+  { key: 'createdAt' },
 ]
 
 export class ProposalsTable extends React.Component {
@@ -124,7 +126,7 @@ export class ProposalsTable extends React.Component {
         </CCol>
 
 
-        <CCol xs="12">
+        <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block" }}>
           <Route render={({ history }) => (
             <CDataTable
               items={this.state.proposals}
@@ -134,6 +136,8 @@ export class ProposalsTable extends React.Component {
               tableFilter={{ 'placeholder': 'Search...' }}
               itemsPerPage={20}
               pagination
+              sorter
+              sorterValue={{ column: "createdAt", asc: false }}
               clickableRows
               onRowClick={(item, index, col, e) => {
                 history.push({
@@ -172,7 +176,10 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%" }}>
-                              <h3 style={{ fontWeight: '900' }}>{item.content}</h3>
+                              <h3 style={{ fontWeight: '900' }}>{item.title}</h3>
+                            </div>
+                            <div style={{ width: "100%" }}>
+                              <p >{item.description}</p>
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
@@ -195,7 +202,13 @@ export class ProposalsTable extends React.Component {
                       style={{ display: "none" }}>
                     </td>
                   ),
-                'content':
+                'title':
+                  (item) => (
+                    <td
+                      style={{ display: "none" }}>
+                    </td>
+                  ),
+                'description':
                   (item) => (
                     <td
                       style={{ display: "none" }}>
@@ -212,7 +225,9 @@ export class ProposalsTable extends React.Component {
             />
           )} />
         </CCol>
-
+        <CCol xs="12" style={{ textAlign: 'center', display: (this.state.loading) ? "block" : "none" }}>
+          <CSpinner color='primary' grow />
+        </CCol>
 
       </CRow >
 

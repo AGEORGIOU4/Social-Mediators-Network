@@ -12,9 +12,11 @@ import { v4 as uuidv4 } from 'uuid';
 const TheFloatingButton = () => {
 
   const { user, isAuthenticated } = useAuth0();
-  // const [userFirebase, setUserFirebase] = useState([]);
-  var userFirebase = [];
+  const [userFirebase, setUserFirebase] = useState([]);
+  // var userFirebase = [];
 
+  var enteredTitle = "";
+  var enteredDescription = "";
   var enteredProposal = "";
 
   const postProposal = async () => {
@@ -24,8 +26,8 @@ const TheFloatingButton = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        // setUserFirebase(docSnap.data());
-        userFirebase = docSnap.data();
+        setUserFirebase(docSnap.data());
+        //userFirebase = docSnap.data();
       } else {
         console.log("User does not exist is firebase!");
       }
@@ -39,7 +41,8 @@ const TheFloatingButton = () => {
       var proposalID = uuidv4();
       await setDoc(doc(db, "proposals", proposalID), {
         author: userFirebase.firstName + " " + userFirebase.lastName,
-        content: enteredProposal,
+        title: enteredTitle,
+        description: enteredDescription,
         createdAt: Timestamp.now(),
         email: user.email,
         picture: userFirebase.picture,
@@ -49,23 +52,66 @@ const TheFloatingButton = () => {
       });
     }
 
+    const steps = ['1', '2']
+    const swalQueue = Swal.mixin({
+      progressSteps: steps,
+      confirmButtonText: 'Next',
+      confirmButtonColor: '#635dff',
+      allowOutsideClick: true,
+      backdrop: true
+    })
+
     Swal.fire({
+      currentProgressStep: 0,
       input: "text",
-      inputPlaceholder: "What do you have in mind?",
-      imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
+      inputPlaceholder: "Enter your proposal's title...",
+      imageUrl: userFirebase.picture,
       imageWidth: 80,
-      imageAlt: 'Social Mediators Network',
       showConfirmButton: true,
-      confirmButtonText: "Post",
+      confirmButtonText: "Next",
       inputValidator: (value) => {
         if (!value) {
           return 'You need to write something!'
         } else {
-          enteredProposal = value;
-          console.log(enteredProposal);
-          console.log(userFirebase);
-          addProposal(firebaseDB);
+          enteredTitle = value;
+          console.log(enteredTitle);
+          Swal.fire({
+            currentProgressStep: 1,
+            input: "textarea",
+            inputPlaceholder: "Enter your proposal's description...",
+            imageUrl: userFirebase.picture,
+            imageWidth: 80,
+            showConfirmButton: true,
+            confirmButtonText: "Post",
+            inputValidator: (value) => {
+              if (!value) {
+                return 'You need to write something!'
+              } else {
+                enteredDescription = value;
+                console.log(enteredDescription);
+                console.log(userFirebase);
+                addProposal(firebaseDB);
 
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'bottom-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: false,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Proposal added successfully'
+                })
+
+              }
+            }
+          })
         }
       }
     })

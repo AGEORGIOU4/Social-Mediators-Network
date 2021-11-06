@@ -94,7 +94,11 @@ const Proposal = props => {
             </div>
 
             <div style={{ width: "100%" }}>
-              <h3 style={{ fontWeight: '900' }}>{proposal.content}</h3>
+              <h3 style={{ fontWeight: '900' }}>{proposal.title}</h3>
+            </div>
+
+            <div style={{ width: "100%" }}>
+              <p>{proposal.description}</p>
             </div>
 
             <div style={{ width: "100%", textAlign: "end" }}>

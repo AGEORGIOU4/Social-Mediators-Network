@@ -1,5 +1,5 @@
 import React from 'react'
-import { CDataTable, CCol, CCard, CImg, CCardBody, CBadge, CRow } from '@coreui/react'
+import { CDataTable, CCol, CCard, CImg, CCardBody, CBadge, CRow, CSpinner } from '@coreui/react'
 import { Route } from 'react-router';
 
 // Firebase
@@ -72,7 +72,7 @@ export class SocialMediatorsBasicTable extends React.Component {
           <h2 style={{ marginBottom: '20px' }}><strong>Social Mediators</strong></h2>
         </CCol>
 
-        <CCol xs="12">
+        <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block" }}>
           <Route render={({ history }) => (
             <CDataTable
               items={this.state.users}
@@ -188,6 +188,11 @@ export class SocialMediatorsBasicTable extends React.Component {
             />
           )} />
         </CCol>
+
+        <CCol xs="12" style={{ textAlign: 'center', display: (this.state.loading) ? "block" : "none" }}>
+          <CSpinner color='primary' grow />
+        </CCol>
+
       </CRow >
 
     )
