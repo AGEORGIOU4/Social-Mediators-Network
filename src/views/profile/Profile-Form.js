@@ -388,16 +388,23 @@ class ProfileForm extends React.Component {
 
             <CCard>
               <CCardBody>
-                <div style={{
-                  margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
-                }}>
+                <CCol xs="12" style={{ textAlign: 'center' }}>
                   <CImg src={(this.state.picture) ? this.state.picture : "avatar.png"}
-                    width="70" height="70"
+                    width="120" height="120"
                     shape="rounded-circle"
                     className="profile-photo"
                   />
-                  <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {this.state.firstName} {this.state.lastName}</strong>
+                </CCol>
+
+
+                <CCol xs="12" style={{ textAlign: 'center', margin: '6px 0' }}>
+                  <strong style={{ fontSize: 'x-large' }}> {this.state.firstName} {this.state.lastName}</strong>
+                </CCol>
+
+                <div style={{ width: "100%" }}>
+                  <hr></hr>
                 </div>
+
                 <div>
 
                   <CCol style={{ padding: "10px" }}>
@@ -435,6 +442,10 @@ class ProfileForm extends React.Component {
                   <CCol style={{ padding: "10px" }}>
                     <span><strong>Member since:</strong></span> {this.state.createdAt}
                   </CCol>
+
+                  <div style={{ width: "100%" }}>
+                    <hr></hr>
+                  </div>
                 </div>
 
                 <div style={{ textAlign: 'end' }}>

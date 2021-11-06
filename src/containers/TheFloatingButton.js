@@ -9,16 +9,15 @@ const TheFloatingButton = () => {
   var enteredProposal = "";
 
   const postProposal = async () => {
-    const swalQueue = Swal.mixin({
-      confirmButtonText: 'Post',
-      showCancelButton: true,
-      confirmButtonColor: '#635dff',
-      allowOutsideClick: true,
-    })
 
-    await swalQueue.fire({
+    Swal.fire({
       input: "text",
       inputPlaceholder: "What do you have in mind?",
+      imageUrl: 'https://www.social-mediation.org/wp-content/uploads/2018/06/social-mediation-logoX2.png',
+      imageWidth: 80,
+      imageAlt: 'Social Mediators Network',
+      showConfirmButton: true,
+      confirmButtonText: "Post",
       inputValidator: (value) => {
         if (!value) {
           return 'You need to write something!'

@@ -13,13 +13,6 @@ import Swal from 'sweetalert2';
 
 const socialMediatorFields = [
   { key: 'email' },
-  // {
-  //   key: 'show_details',
-  //   label: '',
-  //   _style: { width: '1%' },
-  //   sorter: false,
-  //   filter: false
-  // },
   {
     key: 'remove',
     label: '',
@@ -163,15 +156,21 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                       return (
                         <CCollapse show={this.state.details.includes(index)}>
                           <CCardBody style={{ display: (this.state.loading) ? "none" : "block" }}>
-                            <div style={{
-                              margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
-                            }}>
+                            <CCol xs="12" style={{ textAlign: 'center' }}>
                               <CImg src={(item.picture) ? item.picture : "avatar.png"}
-                                width="70" height="70"
+                                width="120" height="120"
                                 shape="rounded-circle"
                                 className="profile-photo"
                               />
-                              <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {item.firstName} {item.lastName}</strong>
+                            </CCol>
+
+
+                            <CCol xs="12" style={{ textAlign: 'center', margin: '6px 0' }}>
+                              <strong style={{ fontSize: 'x-large' }}> {item.firstName} {item.lastName}</strong>
+                            </CCol>
+
+                            <div style={{ width: "100%" }}>
+                              <hr></hr>
                             </div>
                             <div>
 
@@ -199,7 +198,11 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                                 <span><strong>Member since:</strong></span> {item.createdAt}
                               </CCol>
 
-                              <CCol style={{ paddingRight: "0", textAlign: "end" }}>
+                              <div style={{ width: "100%" }}>
+                                <hr></hr>
+                              </div>
+
+                              <CCol style={{ paddingRight: "0", textAlign: "center" }}>
                                 <CButton
                                   style={{ margin: '5px' }}
                                   size="sm"
@@ -214,7 +217,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                                 <CButton
                                   style={{ margin: '5px' }}
                                   size="sm"
-                                  color="primary"
+                                  color="dark"
                                   variant="outline"
                                   onClick={() => { this.toggleDetails(index) }}
 
@@ -247,9 +250,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
             )} />
 
           </CCardBody>
-          {/* <CCardFooter style={{ textAlign: 'right' }}>
-            <CButton color="primary">Create User</CButton>
-          </CCardFooter> */}
         </CCard>
       </CCol >
     )

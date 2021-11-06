@@ -79,6 +79,15 @@ p {
   Segoe UI Symbol,Lucida Grande,Helvetica,Arial,sans-serif;
 }
 
+a:hover {
+  background-color: rgb(230, 230, 230);
+  text-decoration: underline;
+}
+
+.my-5 {
+  display: none;
+}
+
 .c-main {
   padding-top: 20px;
 }

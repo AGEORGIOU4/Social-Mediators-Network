@@ -25,7 +25,6 @@ export class SocialMediatorsBasicTable extends React.Component {
   constructor(props) {
     super(props);
 
-    // Common state
     this.state = {
       users: [],
       details: [],

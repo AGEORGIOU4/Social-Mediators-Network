@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CButton, CRow } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CButton, CRow, CCollapse } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
@@ -20,8 +20,6 @@ const proposalFields = [
   { key: 'content' },
 ]
 
-var enteredComment = "";
-
 export class ProposalsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -29,97 +27,93 @@ export class ProposalsTable extends React.Component {
     this.state = {
       proposals: [],
       proposalID: "",
-      comments: [],
-      showComments: false,
-      proposalsLoading: false,
-      commentsLoading: false,
+      loading: false,
     };
   }
 
   componentDidMount() {
+    this.setState({ loading: true })
 
     const getProposals = async (db) => {
-      this.setState({ proposalsLoading: true })
-
       const proposalCol = collection(db, 'proposals/')
       const proposalSnapshot = await getDocs(proposalCol);
       const proposalList = proposalSnapshot.docs.map(doc => doc.data());
       this.setState({ proposals: proposalList });
-      this.setState({ proposalsLoading: false });
+      this.setState({ loading: false });
       console.log(this.state.proposals);
     };
     getProposals(firebaseDB);
   }
 
-  getComment(proposalID) {
+  // getComment(proposalID) {
 
-    this.setState({ commentsLoading: true })
-    this.state.showComments = true;
-    this.setState({ showComments: true });
+  //   this.setState({ commentsLoading: true })
+  //   this.state.showComments = true;
+  //   this.setState({ showComments: true });
 
-    console.log(proposalID);
-    const fetchComments = async (db) => {
-      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
-      const commentsSnapshot = await getDocs(commentsCol);
-      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
-      this.setState({ comments: commentsList });
-      this.setState({ commentsLoading: false })
-      console.log(this.state.comments)
-    };
-    fetchComments(firebaseDB);
-  }
+  //   console.log(proposalID);
+  //   const fetchComments = async (db) => {
+  //     const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
+  //     const commentsSnapshot = await getDocs(commentsCol);
+  //     const commentsList = commentsSnapshot.docs.map(doc => doc.data());
+  //     this.setState({ comments: commentsList });
+  //     this.setState({ commentsLoading: false })
+  //     console.log(this.state.comments)
+  //   };
+  //   fetchComments(firebaseDB);
+  // }
 
-  postComment = async (proposalID) => {
-    const swalQueue = Swal.mixin({
-      confirmButtonText: 'Comment',
-      showCancelButton: true,
-      confirmButtonColor: '#635dff',
-      allowOutsideClick: true,
-      backdrop: true,
-    })
+  // postComment = async (proposalID) => {
+  //   const swalQueue = Swal.mixin({
+  //     confirmButtonText: 'Comment',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#635dff',
+  //     allowOutsideClick: true,
+  //     backdrop: true,
+  //   })
 
-    await swalQueue.fire({
-      input: "textarea",
-      inputPlaceholder: 'Write a comment...',
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        } else {
+  //   await swalQueue.fire({
+  //     input: "textarea",
+  //     inputPlaceholder: 'Write a comment...',
+  //     inputValidator: (value) => {
+  //       if (!value) {
+  //         return 'You need to write something!'
+  //       } else {
 
-          enteredComment = value;
-          this.addComment(proposalID);
-        }
-      }
-    })
-  }
+  //         enteredComment = value;
+  //         this.addComment(proposalID);
+  //       }
+  //     }
+  //   })
+  // }
 
-  addComment(proposalID) {
-    const insertComment = async (db) => {
+  // addComment(proposalID) {
+  //   const insertComment = async (db) => {
 
-      let commentID = uuidv4();
+  //     let commentID = uuidv4();
 
-      await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
-        commentID: commentID,
-        createdAt: Timestamp.now(),
-        commentContent: enteredComment,
-      });
-    }
-    insertComment(firebaseDB);
-    console.log("added")
-  }
+  //     await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
+  //       commentID: commentID,
+  //       createdAt: Timestamp.now(),
+  //       commentContent: enteredComment,
+  //     });
+  //   }
+  //   insertComment(firebaseDB);
+  //   console.log("added")
+  // }
 
-  convertDate(updated_at) {
-    var dateToString = "N/A";
-    if (updated_at !== "N/A" || updated_at !== undefined) {
-      var dateObject = new Date(updated_at);
-      var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(dateObject);
-      dateToString = date.toString();
-    }
+  // convertDate(updated_at) {
+  //   var dateToString = "N/A";
+  //   if (updated_at !== "N/A" || updated_at !== undefined) {
+  //     var dateObject = new Date(updated_at);
+  //     var date = new Intl.DateTimeFormat("en-UK", { year: "2-digit", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(dateObject);
+  //     dateToString = date.toString();
+  //   }
 
-    return (
-      dateToString
-    )
-  }
+  //   return (
+  //     dateToString
+  //   )
+  // }
 
   render() {
     return (
@@ -129,21 +123,30 @@ export class ProposalsTable extends React.Component {
           <h2 style={{ marginBottom: '20px' }}><strong>Proposals</strong></h2>
         </CCol>
 
+
         <CCol xs="12">
           <Route render={({ history }) => (
             <CDataTable
               items={this.state.proposals}
               fields={proposalFields}
-              loading={this.state.proposalsLoading}
+              loading={this.state.loading}
               header={false}
               tableFilter={{ 'placeholder': 'Search...' }}
               itemsPerPage={20}
               pagination
               clickableRows
-              sorterValue="createdAt"
+              onRowClick={(item, index, col, e) => {
+                history.push({
+                  pathname: "/proposal",
+                  state: item
+                })
+              }
+              }
+
+              sorter
               scopedSlots={{
                 'card':
-                  (item) => (
+                  (item, index) => (
                     <td>
                       <CCard style={{ padding: "0", margin: "0" }}>
                         <CCardBody>
@@ -169,16 +172,17 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%" }}>
-                              <p>{item.content}</p>
+                              <h3 style={{ fontWeight: '900' }}>{item.content}</h3>
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <p onClick={() => { this.getComment(item.proposalID) }} style={{ color: (this.state.showComments) ? "#635dff" : "#00000066", fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</p>
+                              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</a>
                             </div>
 
                             <div style={{ width: "100%" }}>
                               <hr></hr>
                             </div>
+
 
                             <div style={{ width: "100%", textAlign: 'center' }}>
                               <div style={{ width: '50%', float: 'left' }} >
@@ -187,10 +191,6 @@ export class ProposalsTable extends React.Component {
                                   size="sm"
                                   color="dark"
                                   variant="ghost"
-                                  onClick={() => {
-
-                                  }}
-
                                 >Share <CIcon size={"sm"} content={cilShare} /></CButton>
                               </div>
 
@@ -206,12 +206,6 @@ export class ProposalsTable extends React.Component {
                             </div>
                           </div>
 
-                          {/* Comments */}
-                          <div style={{ display: (this.state.showComments) ? 'block' : 'none' }}>
-                            <CommentsTable comments={this.state.comments} loading={this.state.commentsLoading} showComments={this.state.showComments} />
-                          </div>
-
-
                         </CCardBody>
                       </CCard>
                     </td>
@@ -220,8 +214,6 @@ export class ProposalsTable extends React.Component {
                   (item) => (
                     <td
                       style={{ display: "none" }}>
-
-                      {/* <CButton onClick={() => this.addComment(item.proposalID)}>Comment</CButton> */}
                     </td>
                   ),
                 'content':
@@ -241,6 +233,8 @@ export class ProposalsTable extends React.Component {
             />
           )} />
         </CCol>
+
+
       </CRow >
 
     )
