@@ -83,24 +83,44 @@ const TheFloatingButton = () => {
                 enteredDescription = value;
                 console.log(enteredDescription);
                 console.log(userFirebase);
-                addProposal(firebaseDB);
 
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'bottom-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-                  timerProgressBar: false,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                })
+                if (userFirebase.picture && userFirebase.firstName && userFirebase.lastName != undefined) {
+                  addProposal(firebaseDB);
 
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Proposal added successfully'
-                })
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Proposal added successfully'
+                  })
+                } else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+
+                  Toast.fire({
+                    icon: 'error',
+                    title: 'Oops, something went wrong. Please try again'
+                  })
+                }
 
               }
             }
