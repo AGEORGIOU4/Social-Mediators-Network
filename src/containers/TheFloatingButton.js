@@ -11,6 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 const TheFloatingButton = () => {
 
+  var isConnected = false;
+  isConnected = window.navigator.onLine;
+
   const { user, isAuthenticated } = useAuth0();
   //const [userFirebase, setUserFirebase] = useState([]);
   var userFirebase = [];
@@ -110,7 +113,7 @@ const TheFloatingButton = () => {
   return (
 
 
-    <div className="custom-fab-container" style={{ display: (isAuthenticated) ? "block" : "none" }}>
+    <div className="custom-fab-container" style={{ display: (isAuthenticated && isConnected) ? "block" : "none" }}>
       <Button
         tooltip="Post a proposal"
         onClick={() => { postProposal() }} >
