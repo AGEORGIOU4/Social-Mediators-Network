@@ -89,7 +89,7 @@ const TheFloatingButton = () => {
                 console.log(enteredDescription);
                 console.log(userFirebase);
 
-                if (userFirebase.picture && userFirebase.firstName && userFirebase.lastName != undefined) {
+                if (userFirebase.picture && userFirebase.firstName && userFirebase.lastName !== undefined) {
                   addProposal(firebaseDB);
 
                   const Toast = Swal.mixin({

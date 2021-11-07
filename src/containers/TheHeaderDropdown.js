@@ -82,6 +82,7 @@ const TheHeaderDropdown = () => {
               src={avatar ? avatar : "avatar.png"}
               className="c-avatar-img profile-photo"
               alt="iclaim-avatar"
+              style={{ maxHeight: '2.5em' }}
             />
           </div>
         </CDropdownToggle>

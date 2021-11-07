@@ -1,5 +1,5 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CRow, CSpinner } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CRow, CSpinner, CLink } from '@coreui/react'
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
@@ -175,7 +175,7 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <a href="" style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</a>
+                              <CLink style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</CLink>
                             </div>
 
                             <div style={{ width: "100%" }}>

@@ -26,6 +26,14 @@
   color: #635dff;
 }
 
+.custom-sub-header {
+  position: fixed;
+  top: 56px;
+  width: 100%;
+  display: block;
+  z-index: 1028;
+  transition: top 0.3s;
+}
 
 .table th, .table td {
   vertical-align: baseline;
