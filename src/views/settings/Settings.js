@@ -1,27 +1,15 @@
 import React from 'react'
-import CIcon from '@coreui/icons-react';
 import { Route } from 'react-router';
 
 // Firebase
 import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import LinesEllipsis from 'react-lines-ellipsis'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow } from '@coreui/react'
-import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
-import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
+import { CRow } from '@coreui/react'
+
 import { SocialMediatorsAdvancedTable } from 'src/Tables/SocialMediatorsAdvancedTable';
 import { AdminsTable } from 'src/Tables/AdminsTable';
-
-const postFields = [
-  { key: 'username' },
-  { key: 'content', _style: { width: '50%' } },
-  { key: 'createdOn', label: "Created on" },
-  { key: 'status', _style: { width: '10%' } },
-  { key: 'visibility', label: '', _style: { width: '0%' }, sorter: false, filter: false },
-  { key: 'edit', label: '', _style: { width: '0%' }, sorter: false, filter: false },
-  { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
-]
+import ProposalsTableAdmin from 'src/Tables/ProposalsTableAdmin';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -70,96 +58,9 @@ class Settings extends React.Component {
 
         <CRow>
 
-          <CCol xs={12}>
-            <CCard>
-              <CCardHeader>
-                <h4 style={{ margin: '0' }}><strong>Posts</strong></h4>
-              </CCardHeader>
-              <CCardBody className="settings-table">
-                <CDataTable
-                  items={this.state.posts}
-                  fields={postFields}
-                  loading={this.state.loading}
-                  columnFilter
-                  tableFilter
-                  cleaner
-                  itemsPerPageSelect
-                  itemsPerPage={5}
-                  hover
-                  sorter
-                  pagination
-                  clickableRows
-                  // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
-                  // onPageChange={(val) => console.log('new page:', val)}
-                  // onPagesChange={(val) => console.log('new pages:', val)}
-                  // onPaginationChange={(val) => console.log('new pagination:', val)}
-                  // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-                  // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-                  // onTableFilterChange={(val) => console.log('new table filter:', val)}
-                  // onColumnFilterChange={(val) => console.log('new column filter:', val)}
-                  scopedSlots={{
-                    'content':
-                      (item) => (
-                        <td>
-                          <LinesEllipsis
-                            text={item.content}
-                            maxLine='2'
-                            ellipsis='...'
-                            trimRight
-                            basedOn='letters'
-                          />
-                        </td>
-                      ),
-                    'createdOn':
-                      (item) => (
-                        <td>
-                          <FormatTimestamp seconds={(item.createdOn != null ? item.createdOn.seconds : "N/A")} />
-                        </td>
-                      ),
-                    'status':
-                      (item) => (
-                        <td>
-                          <CBadge color={getStatusBadge(item.status)}>
-                            {item.status}
-                          </CBadge>
-                        </td>
-                      ),
-                    'visibility':
-                      (item) => (
-                        <td>
-                          <CButton
-                            color="#4638c2"
-                            variant="outline"
-                            size="sm"><CIcon content={(item.status === "Active") ? cilEye : cilEyeSlash} /></CButton>
-                        </td>
-                      ),
-                    'edit':
-                      (item) => (
-                        <td>
-                          <EditBtn EditRoute="/customer-form" />
-                        </td>
-                      ),
-                    'remove':
-                      (item) => (
-                        <td>
-                          <RemoveBtn />
-                        </td>
-                      )
-                  }}
-                />
-              </CCardBody>
-              <CCardFooter style={{ textAlign: 'right' }}>
-                <CButton color="dark" variant='outline'>
-                  Create Post
-                </CButton>
-
-              </CCardFooter>
-            </CCard>
-          </CCol>
-
-          <SocialMediatorsAdvancedTable />
-
           <AdminsTable />
+          <SocialMediatorsAdvancedTable />
+          <ProposalsTableAdmin />
 
         </CRow >
       )

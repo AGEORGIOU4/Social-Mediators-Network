@@ -51,15 +51,24 @@ const UsersProfile = props => {
         <CCol>
           <CCard>
             <CCardBody style={{ display: (firebaseLoading || isLoading) ? "none" : "block" }}>
-              <div style={{
-                margin: '-20px -20px 0px', padding: '20px', borderRadius: '3px'
-              }}>
+              <CCol xs="12" style={{ textAlign: 'center' }}>
                 <CImg src={(userFirebase.picture) ? userFirebase.picture : "avatar.png"}
-                  width="70" height="70"
+                  width="120" height="120"
                   shape="rounded-circle"
-                  className='profile-photo' />
-                <strong style={{ fontSize: 'large', paddingLeft: '10px' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+                  className="profile-photo"
+                />
+              </CCol>
+
+
+              <CCol xs="12" style={{ textAlign: 'center', margin: '6px 0' }}>
+                <strong style={{ fontSize: 'x-large' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
+              </CCol>
+
+              <div style={{ width: "100%" }}>
+                <hr></hr>
               </div>
+
+
               <div>
 
                 <CCol style={{ padding: "10px" }}>
@@ -90,6 +99,11 @@ const UsersProfile = props => {
                 <CCol style={{ padding: "10px" }}>
                   <span><strong>Member since:</strong></span> {userFirebase.createdAt}
                 </CCol>
+
+                <div style={{ width: "100%" }}>
+                  <hr></hr>
+                </div>
+
               </div>
 
               <Route render={({ history }) => (
