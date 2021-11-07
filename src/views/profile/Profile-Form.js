@@ -79,8 +79,6 @@ class ProfileForm extends React.Component {
       this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
       this.state.createdAt = this.state.initialValues.createdAt;
 
-      console.log(this.state.selectedTrainings);
-
     } else { // fetch from firebase
 
       if (!this.state.firebaseFlag) {
@@ -199,8 +197,8 @@ class ProfileForm extends React.Component {
           toast: true,
           position: 'bottom-end',
           showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: false,
+          timer: 1000,
+          timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
             toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -213,7 +211,8 @@ class ProfileForm extends React.Component {
         })
 
         setTimeout(() =>
-          this.props.history.push('/profile')
+          // this.props.history.push('/profile')
+          window.location.href = "/"
           , 1000)
       }
     })

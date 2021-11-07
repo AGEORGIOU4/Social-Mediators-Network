@@ -8,8 +8,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { getDoc, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-
+import { getCookie } from 'src/reusable/reusables';
 const TheFloatingButton = () => {
+
+
+  var pic = getCookie("userPicture");
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
@@ -54,12 +57,14 @@ const TheFloatingButton = () => {
       });
     }
 
-
-
     Swal.fire({
+      customClass: {
+        image: 'proposalSwal'
+      },
+
       input: "text",
       inputPlaceholder: "Enter your proposal's title...",
-      imageUrl: userFirebase.picture,
+      imageUrl: pic,
       imageWidth: 80,
       showConfirmButton: true,
       confirmButtonText: "Next",
@@ -83,24 +88,44 @@ const TheFloatingButton = () => {
                 enteredDescription = value;
                 console.log(enteredDescription);
                 console.log(userFirebase);
-                addProposal(firebaseDB);
 
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'bottom-end',
-                  showConfirmButton: false,
-                  timer: 3000,
-                  timerProgressBar: false,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                  }
-                })
+                if (userFirebase.picture && userFirebase.firstName && userFirebase.lastName != undefined) {
+                  addProposal(firebaseDB);
 
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Proposal added successfully'
-                })
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Proposal added successfully'
+                  })
+                } else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: false,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+
+                  Toast.fire({
+                    icon: 'error',
+                    title: 'Oops, something went wrong. Please try again'
+                  })
+                }
 
               }
             }

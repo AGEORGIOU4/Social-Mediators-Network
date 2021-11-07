@@ -48,6 +48,14 @@
   width:  20%;
 }
 
+.proposalSwal {
+  box-shadow: 0 3px 10px #00000033;
+    border: 1px solid #80808021;
+    width: 100%;
+    height: auto;
+    border-radius: 50em;
+}
+
 // Home
 #homeCarousel {
   margin-bottom: 20px;
@@ -77,11 +85,6 @@ p {
   Roboto,Helvetica Neue,Fira Sans,Ubuntu,Oxygen,Oxygen Sans,
   Cantarell,Droid Sans,Apple Color Emoji,Segoe UI Emoji,Segoe UI Emoji,
   Segoe UI Symbol,Lucida Grande,Helvetica,Arial,sans-serif;
-}
-
-a:hover {
-  background-color: rgb(230, 230, 230);
-  text-decoration: underline;
 }
 
 .my-5 {
