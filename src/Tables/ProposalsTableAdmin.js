@@ -5,8 +5,8 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import LinesEllipsis from 'react-lines-ellipsis'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CRow } from '@coreui/react'
-import { EditBtn, RemoveBtn, getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter } from '@coreui/react'
+import { getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 import Swal from 'sweetalert2';
 import { cilTrash } from '@coreui/icons';

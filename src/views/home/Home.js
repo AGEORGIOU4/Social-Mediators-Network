@@ -18,6 +18,7 @@ const Home = () => {
   var enteredTrainings = [];
   var enteredInsterest = "";
 
+
   var isConnected = false;
   isConnected = window.navigator.onLine;
 
@@ -225,6 +226,11 @@ const Home = () => {
               showConfirmButton: false,
               timer: 3000
             })
+
+            setTimeout(() =>
+              window.location.reload(false)
+              , 2000)
+
           }
         }
       })

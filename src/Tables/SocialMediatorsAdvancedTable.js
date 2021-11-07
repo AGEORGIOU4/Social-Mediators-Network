@@ -7,7 +7,7 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import { Route } from 'react-router';
 import CIcon from '@coreui/icons-react';
-import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
+import { cilEyeSlash } from '@coreui/icons-pro';
 import { cilTrash } from '@coreui/icons';
 import Swal from 'sweetalert2';
 
@@ -204,9 +204,8 @@ export class SocialMediatorsAdvancedTable extends React.Component {
 
                               <CCol style={{ paddingRight: "0", textAlign: "center" }}>
                                 <CButton
-                                  style={{ margin: '5px' }}
+                                  style={{ margin: '5px', color: "#e55353" }}
                                   size="sm"
-                                  style={{ color: "#e55353" }}
                                   variant="outline"
                                   onClick={() => {
                                     this.removeUser(item.email)

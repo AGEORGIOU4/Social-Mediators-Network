@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Button } from 'react-floating-action-button'
 import { cilNote } from '@coreui/icons-pro';
@@ -12,12 +12,11 @@ import { v4 as uuidv4 } from 'uuid';
 const TheFloatingButton = () => {
 
   const { user, isAuthenticated } = useAuth0();
-  const [userFirebase, setUserFirebase] = useState([]);
-  // var userFirebase = [];
+  //const [userFirebase, setUserFirebase] = useState([]);
+  var userFirebase = [];
 
   var enteredTitle = "";
   var enteredDescription = "";
-  var enteredProposal = "";
 
   const postProposal = async () => {
 
@@ -26,8 +25,8 @@ const TheFloatingButton = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setUserFirebase(docSnap.data());
-        //userFirebase = docSnap.data();
+        //setUserFirebase = docSnap.data();
+        userFirebase = docSnap.data();
       } else {
         console.log("User does not exist is firebase!");
       }
@@ -45,24 +44,16 @@ const TheFloatingButton = () => {
         description: enteredDescription,
         createdAt: Timestamp.now(),
         email: user.email,
-        picture: userFirebase.picture,
+        picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
         proposalID: proposalID,
         totalComments: 0,
         visibility: "active",
       });
     }
 
-    const steps = ['1', '2']
-    const swalQueue = Swal.mixin({
-      progressSteps: steps,
-      confirmButtonText: 'Next',
-      confirmButtonColor: '#635dff',
-      allowOutsideClick: true,
-      backdrop: true
-    })
+
 
     Swal.fire({
-      currentProgressStep: 0,
       input: "text",
       inputPlaceholder: "Enter your proposal's title...",
       imageUrl: userFirebase.picture,
@@ -76,7 +67,6 @@ const TheFloatingButton = () => {
           enteredTitle = value;
           console.log(enteredTitle);
           Swal.fire({
-            currentProgressStep: 1,
             input: "textarea",
             inputPlaceholder: "Enter your proposal's description...",
             imageUrl: userFirebase.picture,

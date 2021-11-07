@@ -1,13 +1,7 @@
 import React from 'react'
 import { CCol, CDataTable, CImg } from '@coreui/react'
-
 import { Route } from "react-router-dom";
-
 import { FormatTimestamp } from 'src/reusable/reusables';
-import { CButton } from '@coreui/react';
-import CIcon from '@coreui/icons-react';
-import { cilShare } from '@coreui/icons';
-import { cilCommentBubble } from '@coreui/icons';
 
 export const commentsFields = [
   { key: 'card', label: "", sorter: false, filter: false },

@@ -4,22 +4,14 @@ import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { CSpinner } from "@coreui/react";
 import { Route } from 'react-router';
-
-import { getDoc, doc } from 'firebase/firestore';
-import { firebaseDB } from 'src/reusable/firebaseConfig';
-import { cilMail, cilShare, cilCommentBubble } from "@coreui/icons-pro";
-import { LoginCard } from "src/containers/common";
-import {
-  FormatTimestamp
-
-} from "src/reusable/reusables";
+import { cilShare, cilCommentBubble } from "@coreui/icons-pro";
 
 const Proposal = props => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const [proposal, setProposal] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const { proposalID } =
     (props.location.state) || {};

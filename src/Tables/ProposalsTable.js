@@ -1,18 +1,12 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CButton, CRow, CCollapse, CSpinner } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CRow, CSpinner } from '@coreui/react'
 
 // Firebase
-import { collection, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
-
-import { cilCommentBubble, cilShare, } from '@coreui/icons';
-import CIcon from '@coreui/icons-react';
 import { CImg } from '@coreui/react';
 import { Route } from 'react-router';
 import { FormatTimestamp } from 'src/reusable/reusables';
-import { CommentsTable } from './CommentsTable';
-import { v4 as uuidv4 } from 'uuid';
-import Swal from 'sweetalert2';
 
 const proposalFields = [
   { key: 'card', label: "", sorter: false, filter: false },
@@ -146,8 +140,6 @@ export class ProposalsTable extends React.Component {
                 })
               }
               }
-
-              sorter
               scopedSlots={{
                 'card':
                   (item, index) => (
@@ -183,7 +175,7 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</a>
+                              <a href="" style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</a>
                             </div>
 
                             <div style={{ width: "100%" }}>
