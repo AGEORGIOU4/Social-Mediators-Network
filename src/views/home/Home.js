@@ -6,6 +6,7 @@ import { CCard, CCardBody, CCardHeader, CCarousel, CCarouselControl, CCarouselIn
 import Swal from 'sweetalert2';
 import LinesEllipsis from 'react-lines-ellipsis'
 import interests from 'src/reusable/interestsSwal';
+import { getCookie, setCookie } from 'src/reusable/reusables';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -63,28 +64,7 @@ const Home = () => {
     setFirebaseFlag(true);
   }
 
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
 
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
 
   function convertDate(updated_at) {
     var dateToString = "N/A";
@@ -224,7 +204,8 @@ const Home = () => {
               icon: 'success',
               title: 'You are now a member!',
               showConfirmButton: false,
-              timer: 3000
+              timerProgressBar: true,
+              timer: 2000
             })
 
             setTimeout(() =>

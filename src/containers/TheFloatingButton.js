@@ -8,8 +8,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { getDoc, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-
+import { getCookie } from 'src/reusable/reusables';
 const TheFloatingButton = () => {
+
+
+  var pic = getCookie("userPicture");
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
@@ -54,12 +57,14 @@ const TheFloatingButton = () => {
       });
     }
 
-
-
     Swal.fire({
+      customClass: {
+        image: 'proposalSwal'
+      },
+
       input: "text",
       inputPlaceholder: "Enter your proposal's title...",
-      imageUrl: userFirebase.picture,
+      imageUrl: pic,
       imageWidth: 80,
       showConfirmButton: true,
       confirmButtonText: "Next",

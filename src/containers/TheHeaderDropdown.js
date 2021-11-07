@@ -16,6 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
+import { useCookies } from 'react-cookie';
 
 // Check if Admin to display admin option
 var checkIfAdmin = false;
@@ -23,6 +24,7 @@ var checkIfUser = false;
 
 const TheHeaderDropdown = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
   const [isAdmin, setAdmin] = useState("");
   const [userFirebase, setUserFirebase] = useState([]);
@@ -37,7 +39,9 @@ const TheHeaderDropdown = () => {
 
         if (docSnap.exists() && !checkIfAdmin) {
           setAdmin({ isAdmin: true });
-          document.cookie = "admin=True";
+          // document.cookie = "admin=True";
+          setCookie("admin", true, 1);
+
           console.log("User is admin!");
           checkIfAdmin = true;
         }
@@ -52,9 +56,11 @@ const TheHeaderDropdown = () => {
 
         if (docSnap.exists()) {
           setUserFirebase(docSnap.data())
-          setAvatar(userFirebase.picture);
+
           checkIfUser = true;
         }
+        setCookie("userPicture", userFirebase.picture, 7);
+        setAvatar(userFirebase.picture);
       }
       getUser(firebaseDB);
     }

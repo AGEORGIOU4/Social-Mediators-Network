@@ -9,29 +9,16 @@ import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { getCookie } from "src/reusable/reusables";
 
 const Profile = props => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
   const [userFirebase, setUserFirebase] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [firebaseLoading, setFirebaseLoading] = useState(true);
-
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
 
   function removeUser() {
     Swal.fire({
@@ -99,8 +86,10 @@ const Profile = props => {
           }, 1000)
           console.log("No such document!");
         }
+        console.log(getCookie("userPicture"));
       }
       getUser(firebaseDB);
+
     }
 
     return (
