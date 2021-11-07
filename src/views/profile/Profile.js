@@ -9,12 +9,10 @@ import { getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import { getCookie } from "src/reusable/reusables";
 
 const Profile = props => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
   const [userFirebase, setUserFirebase] = useState([]);
   const [firebaseFlag, setFirebaseFlag] = useState(false);

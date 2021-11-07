@@ -6,15 +6,11 @@ import {
   CHeaderNav,
   CHeaderNavItem,
   CHeaderNavLink,
-  CSubheader,
   CToggler,
-  CBreadcrumbRouter,
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { TheHeaderDropdown } from '.'
-// routes config
-import routes from '../routes'
 import { cidSignalCellularNoInternet0 } from '@coreui/icons-pro'
 import { SwalMixing } from 'src/reusable/SwalMixin'
 
@@ -102,9 +98,9 @@ const TheHeader = () => {
         </CHeaderNav>
       </div>
 
-      <CSubheader className="px-3 justify-content-between" style={{ position: "initial" }}>
+      {/* <CSubheader className="px-3 justify-content-between" style={{ position: "initial" }}>
         <CBreadcrumbRouter className="border-0 c-subheader-nav m-0 px-0 px-md-3" routes={routes} />
-      </CSubheader>
+      </CSubheader> */}
     </CHeader >
   )
 }

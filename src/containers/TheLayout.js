@@ -11,6 +11,7 @@ import {
 
 import TheFloatingButton from './TheFloatingButton'
 import TheBottomNavigation from './TheBottomNavigation'
+import TheSubHeader from './TheSubHeader'
 
 const TheLayout = () => {
   const darkMode = useSelector(state => state.darkMode)
@@ -25,6 +26,8 @@ const TheLayout = () => {
       <TheAside />
       <div className="c-wrapper">
         <TheHeader />
+        <TheSubHeader />
+
         <div className="c-body">
           <TheContent />
         </div>
