@@ -36,7 +36,6 @@ export class ProposalsTable extends React.Component {
       const proposalList = proposalSnapshot.docs.map(doc => doc.data());
       this.setState({ proposals: proposalList });
       this.setState({ loading: false });
-      console.log(this.state.proposals);
     };
     getProposals(firebaseDB);
   }

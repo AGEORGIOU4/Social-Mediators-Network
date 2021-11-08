@@ -47,7 +47,6 @@ const Proposal = props => {
       } else {
         console.log("User does not exist is firebase!");
       }
-      console.log(userFirebase);
     }
 
     getUser(firebaseDB);
@@ -102,6 +101,9 @@ const Proposal = props => {
               icon: 'success',
               title: 'Comment added successfully'
             })
+
+            getComments(proposalID);
+
           } else {
             const Toast = Swal.mixin({
               toast: true,
