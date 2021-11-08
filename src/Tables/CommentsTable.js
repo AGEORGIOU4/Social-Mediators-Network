@@ -7,6 +7,7 @@ export const commentsFields = [
   { key: 'card', label: "", sorter: false, filter: false },
   { key: 'author' },
   { key: 'content' },
+  { key: 'createdAt' },
 ]
 
 export const CommentsTable = (props) => {
@@ -21,8 +22,9 @@ export const CommentsTable = (props) => {
           // tableFilter={{ 'placeholder': 'Search...' }}
           itemsPerPage={20}
           pagination
+          sorter
+          sorterValue={{ column: "createdAt", asc: false }}
           clickableRows
-          sorterValue="createdAt"
           scopedSlots={{
             'card':
               (item) => (
@@ -49,7 +51,7 @@ export const CommentsTable = (props) => {
                     </div>
 
                     <div style={{ width: "100%", fontSize: 'small' }}>
-                      <p>{item.commentContent}</p>
+                      <p>{item.content}</p>
                     </div>
                   </div>
 

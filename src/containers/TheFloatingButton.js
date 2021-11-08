@@ -11,14 +11,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { getCookie } from 'src/reusable/reusables';
 const TheFloatingButton = () => {
 
-
   var pic = getCookie("userPicture");
 
   var isConnected = false;
   isConnected = window.navigator.onLine;
 
   const { user, isAuthenticated } = useAuth0();
-  //const [userFirebase, setUserFirebase] = useState([]);
+
   var userFirebase = [];
 
   var enteredTitle = "";
@@ -31,7 +30,6 @@ const TheFloatingButton = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        //setUserFirebase = docSnap.data();
         userFirebase = docSnap.data();
       } else {
         console.log("User does not exist is firebase!");

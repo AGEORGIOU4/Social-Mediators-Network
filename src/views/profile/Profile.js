@@ -84,7 +84,6 @@ const Profile = props => {
           }, 1000)
           console.log("No such document!");
         }
-        console.log(getCookie("userPicture"));
       }
       getUser(firebaseDB);
 
