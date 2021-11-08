@@ -5,23 +5,143 @@ import CIcon from "@coreui/icons-react";
 import { CSpinner } from "@coreui/react";
 import { Route } from 'react-router';
 import { cilShare, cilCommentBubble } from "@coreui/icons-pro";
+import { CommentsTable } from "src/Tables/CommentsTable";
+import { collection, getDocs, setDoc, doc, Timestamp, getDoc } from 'firebase/firestore';
+import { firebaseDB } from "src/reusable/firebaseConfig";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
+import { getCookie } from "src/reusable/reusables";
+import { FormatTimestamp } from 'src/reusable/reusables';
 
 const Proposal = props => {
-  const { isAuthenticated } = useAuth0();
+  var pic = getCookie("userPicture");
+
+  const { user, isAuthenticated } = useAuth0();
+  var userFirebase = [];
 
   const [proposal, setProposal] = useState([]);
-  const [firebaseFlag, setFirebaseFlag] = useState(false);
-  const [loading] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [createdAtParam, setCreatedAtParam] = useState([]);
 
-  const { proposalID } =
+  const [firebaseFlag, setFirebaseFlag] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [commentsTrue, setCommentsTrue] = useState(false);
+
+  var enteredContent = "";
+
+  const { proposalID, createdAt } =
     (props.location.state) || {};
+
+  console.log(createdAt.seconds);
 
   if (!firebaseFlag && props.location.state) {
     setProposal(props.location.state);
     setFirebaseFlag(true);
+    getComments(proposalID);
   }
 
-  console.log(proposal);
+  const postComment = async () => {
+
+    const getUser = async (db) => {
+      const docRef = doc(db, "users", user.email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        userFirebase = docSnap.data();
+      } else {
+        console.log("User does not exist is firebase!");
+      }
+      console.log(userFirebase);
+    }
+
+    getUser(firebaseDB);
+
+    const addComment = async (db) => {
+
+      var commentID = uuidv4();
+
+      await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
+        commentID: commentID,
+        author: userFirebase.firstName + ' ' + userFirebase.lastName,
+        createdAt: Timestamp.now(),
+        content: enteredContent,
+        picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
+        visibility: "active",
+
+      });
+    }
+
+    Swal.fire({
+      customClass: {
+        image: 'proposalSwal'
+      },
+
+      input: "text",
+      inputPlaceholder: "What do you have in mind?",
+      imageUrl: pic,
+      imageWidth: 80,
+      showConfirmButton: true,
+      confirmButtonText: "Comment",
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        } else {
+          if (userFirebase.picture && userFirebase.firstName && userFirebase.lastName !== undefined) {
+            enteredContent = value;
+            addComment(firebaseDB);
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: false,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Comment added successfully'
+            })
+          } else {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: false,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: 'Oops, something went wrong. Please try again'
+            })
+          }
+        }
+      }
+    })
+  }
+
+  function getComments(proposalID) {
+    setLoading(true);
+
+    const fetchComments = async (db) => {
+      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
+      const commentsSnapshot = await getDocs(commentsCol);
+      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
+      setComments(commentsList);
+      setLoading(false);
+      setCommentsTrue(commentsList.length > 0 ? true : false);
+    };
+    fetchComments(firebaseDB);
+  }
 
   if (!isAuthenticated) {
     return (
@@ -39,47 +159,26 @@ const Proposal = props => {
     )
   }
 
-  // else if (isAuthenticated) {
-  //   if (!firebaseFlag) {
-
-  //     const getProposal = async (db) => {
-  //       const docRef = doc(db, "proposals", proposalID);
-  //       const docSnap = await getDoc(docRef);
-
-  //       if (docSnap.exists()) {
-  //         setProposal(docSnap.data())
-  //         setFirebaseFlag(true);
-  //         setFirebaseLoading(false);
-  //         console.log(proposal);
-  //       } else {
-  //         console.log("No such document!");
-  //       }
-  //     }
-  //     getProposal(firebaseDB);
-  //   }
-
   return (
     <CRow>
       <CCol>
         <CCard>
           <CCardBody>
-
-            <CRow>
-              <CCol xs="4" md="2" lg="2" style={{ textAlign: 'center' }}>
+            <div style={{ width: '100%' }}>
+              <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                 <CImg src={(proposal.picture) ? proposal.picture : "avatar.png"}
-                  width="60" height="60"
+                  width="44" height="44"
                   shape="rounded-circle" />
-              </CCol>
+              </div>
 
-              <CCol xs="8" md="10" lg="10" style={{ textAlign: 'left', paddingLeft: '0', marginTop: '16px' }}>
+              <div style={{ width: "80%", float: 'left' }}>
                 <strong style={{ fontSize: 'medium' }}> {proposal.author}</strong>
-              </CCol>
+              </div>
+            </div>
 
-
-              <CCol xs="12" md="10" lg="10" style={{ textAlign: 'end' }}>
-                {/* <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={proposal.createdAt.seconds} />}</p> */}
-              </CCol>
-            </CRow>
+            <div style={{ width: "80%" }}>
+              <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={createdAt.seconds} />}</p>
+            </div>
 
             <div style={{ width: "100%" }}>
               <hr></hr>
@@ -102,32 +201,39 @@ const Proposal = props => {
             </div>
 
 
-            <div style={{ width: "100%", textAlign: 'center' }}>
-              <div style={{ width: '50%', float: 'left' }} >
-                <CButton
-                  style={{ margin: '0 2px', fontSize: 'smaller' }}
-                  size="sm"
-                  color="dark"
-                  variant="ghost"
-                >Share <CIcon size={"sm"} content={cilShare} /></CButton>
-              </div>
+            <CCol>
+              <div style={{ width: "100%", textAlign: 'center' }}>
+                <div style={{ width: '50%', float: 'left' }} >
+                  <CButton
+                    style={{ margin: '0 2px', fontSize: 'smaller' }}
+                    size="sm"
+                    color="dark"
+                    variant="ghost"
+                  >Share <CIcon size={"sm"} content={cilShare} /></CButton>
+                </div>
 
-              <div style={{ width: '50%', float: 'left' }} >
-                <CButton
-                  style={{ margin: '0 2px', fontSize: 'smaller' }}
-                  size="sm"
-                  color="dark"
-                  variant="ghost"
-                  onClick={() => { this.postComment(proposal.proposalID) }}
-                >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
-              </div>
-            </div>
+                <div style={{ width: '50%', float: 'left' }} >
+                  <CButton
+                    style={{ margin: '0 2px', fontSize: 'smaller' }}
+                    size="sm"
+                    color="dark"
+                    variant="ghost"
+                    onClick={() => { postComment(proposal.proposalID) }}
+                  >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
+                </div>
 
+              </div>
+            </CCol>
           </CCardBody>
+
+          <div style={{ display: (commentsTrue) ? 'block' : 'none' }}>
+            <CommentsTable comments={comments} />
+          </div>
 
           <CCardBody style={{ textAlign: 'center', display: (loading) ? "block" : "none" }}>
             <CSpinner color='primary' grow />
           </CCardBody>
+
         </CCard>
       </CCol>
     </CRow >

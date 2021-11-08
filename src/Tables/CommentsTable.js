@@ -19,6 +19,7 @@ export const CommentsTable = (props) => {
           loading={props.loading}
           header={false}
           // tableFilter={{ 'placeholder': 'Search...' }}
+          sorterValue={{ column: "createdAt", asc: false }}
           itemsPerPage={20}
           pagination
           clickableRows
@@ -49,7 +50,7 @@ export const CommentsTable = (props) => {
                     </div>
 
                     <div style={{ width: "100%", fontSize: 'small' }}>
-                      <p>{item.commentContent}</p>
+                      <p>{item.content}</p>
                     </div>
                   </div>
 
