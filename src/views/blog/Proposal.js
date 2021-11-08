@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CButton, CCardBody, CRow, CCard, CCol, CImg } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { CSpinner } from "@coreui/react";
 import { Route } from 'react-router';
 import { cilShare, cilCommentBubble } from "@coreui/icons-pro";
 import { CommentsTable } from "src/Tables/CommentsTable";
@@ -21,7 +20,6 @@ const Proposal = props => {
 
   const [proposal, setProposal] = useState([]);
   const [comments, setComments] = useState([]);
-  const [createdAtParam, setCreatedAtParam] = useState([]);
 
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,8 +29,6 @@ const Proposal = props => {
 
   const { proposalID, createdAt } =
     (props.location.state) || {};
-
-  console.log(createdAt.seconds);
 
   if (!firebaseFlag && props.location.state) {
     setProposal(props.location.state);
@@ -226,13 +222,9 @@ const Proposal = props => {
             </CCol>
           </CCardBody>
 
-          <div style={{ display: (commentsTrue) ? 'block' : 'none' }}>
+          <div style={{ display: (!commentsTrue) ? 'none' : 'block' }}>
             <CommentsTable comments={comments} />
           </div>
-
-          <CCardBody style={{ textAlign: 'center', display: (loading) ? "block" : "none" }}>
-            <CSpinner color='primary' grow />
-          </CCardBody>
 
         </CCard>
       </CCol>

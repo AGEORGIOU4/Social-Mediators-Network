@@ -104,6 +104,7 @@ export class ProposalsTableAdmin extends React.Component {
               columnFilter
               tableFilter
               cleaner
+              responsive={true}
               sorter
               sorterValue={{ column: "createdAt", asc: false }}
               itemsPerPage={50}
