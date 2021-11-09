@@ -134,7 +134,16 @@ const Proposal = props => {
       const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
       const commentsSnapshot = await getDocs(commentsCol);
       const commentsList = commentsSnapshot.docs.map(doc => doc.data());
-      setComments(commentsList);
+
+      var visibleComments = [];
+
+      commentsList.forEach(comment => {
+        if (comment.status === true) {
+          visibleComments.push(comment);
+        }
+      });
+
+      setComments(visibleComments);
       setLoading(false);
       setCommentsTrue(commentsList.length > 0 ? true : false);
     };

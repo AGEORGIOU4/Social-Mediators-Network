@@ -13,7 +13,7 @@ const commentsFields = [
   { key: 'author' },
   { key: 'content' },
   { key: 'createdAt' },
-  { key: 'visibility' },
+  { key: 'status', filter: false },
   {
     key: 'switchVisibility',
     label: '',
@@ -25,7 +25,6 @@ const commentsFields = [
 ]
 
 export const CommentsTableAdmin = (props) => {
-
   return (
     <CCol xs="12">
       <Route render={({ history }) => (
