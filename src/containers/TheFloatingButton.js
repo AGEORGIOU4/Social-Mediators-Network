@@ -98,13 +98,17 @@ const TheFloatingButton = () => {
                     toast: true,
                     position: 'bottom-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: false,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
                       toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                   })
+                  setTimeout(() =>
+                    window.location.reload(false)
+                    , 1000)
+
                   Toast.fire({
                     icon: 'success',
                     title: 'Proposal added successfully'
