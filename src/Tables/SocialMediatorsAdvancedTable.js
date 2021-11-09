@@ -41,7 +41,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
       loading: false,
       details: [],
       openDetails: false,
-      items: [],
       status: true,
     };
   }

@@ -33,8 +33,18 @@ export class ProposalsTable extends React.Component {
     const getProposals = async (db) => {
       const proposalCol = collection(db, 'proposals/')
       const proposalSnapshot = await getDocs(proposalCol);
-      const proposalList = proposalSnapshot.docs.map(doc => doc.data());
-      this.setState({ proposals: proposalList });
+      const proposalsList = proposalSnapshot.docs.map(doc => doc.data());
+
+      var visibleProposals = [];
+
+      proposalsList.forEach(proposal => {
+        if (proposal.status === true) {
+          visibleProposals.push(proposal);
+        }
+      });
+
+      this.setState({ proposals: visibleProposals });
+
       this.setState({ loading: false });
     };
     getProposals(firebaseDB);
