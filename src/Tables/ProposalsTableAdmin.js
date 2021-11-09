@@ -1,7 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react';
 // Firebase
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import LinesEllipsis from 'react-lines-ellipsis'
@@ -10,13 +10,21 @@ import { getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 import Swal from 'sweetalert2';
 import { cilTrash } from '@coreui/icons';
+import Switch from "react-switch";
 
 const proposalFields = [
   { key: 'author' },
   { key: 'title', },
   { key: 'description' },
-  { key: 'createdAt', label: '', _style: { width: '0%' }, sorter: false, filter: false },
-  { key: 'visibility', label: '', _style: { width: '0%' }, sorter: false, filter: false },
+  { key: 'createdAt' },
+  { key: 'status' },
+  {
+    key: 'switchVisibility',
+    label: '',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  },
   { key: 'remove', label: '', _style: { width: '0%' }, sorter: false, filter: false },
 ]
 
@@ -27,8 +35,32 @@ export class ProposalsTableAdmin extends React.Component {
     this.state = {
       proposals: [],
       loading: false,
+      details: [],
+      openDetails: false,
+      status: true,
     };
   }
+
+  editProposal = async (item, db) => {
+    await setDoc(doc(db, "proposals", item.proposalID), {
+      proposalID: item.proposalID,
+      author: item.author,
+      createdAt: item.createdAt,
+      title: item.title,
+      description: item.description,
+      email: item.email,
+      picture: item.picture,
+      totalComments: item.totalComments,
+      status: this.state.status
+    });
+    this.componentDidMount();
+  }
+
+  handleChangeVisibility(item) {
+    this.setState({ status: !item.status });
+    this.editProposal(item, firebaseDB);
+  }
+
 
   removeProposal(proposalID) {
     console.log(proposalID);
@@ -156,10 +188,26 @@ export class ProposalsTableAdmin extends React.Component {
                         size="sm"><CIcon content={(item.status === "Active") ? cilEye : cilEyeSlash} /></CButton>
                     </td>
                   ),
+                'status':
+                  (item) => {
+                    return (
+                      <td className="py-2" style={{ verticalAlign: 'inherit' }}>
+                        <CBadge color={getStatusBadge(item.status)}>{(item.status) ? "Active" : "Banned"}</CBadge>
+                      </td>
+                    )
+                  },
+                'switchVisibility':
+                  (item) => {
+                    return (
+                      <td className="py-2" style={{ verticalAlign: 'inherit' }}>
+                        <Switch checked={item.status} onChange={() => this.handleChangeVisibility(item, firebaseDB)} />
+                      </td>
+                    )
+                  },
                 'remove':
                   (item, index) => {
                     return (
-                      <td className="py-2">
+                      <td className="py-2" style={{ verticalAlign: 'inherit' }}>
                         <CButton
                           size="sm"
                           style={{ color: "#e55353" }}

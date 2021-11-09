@@ -51,7 +51,7 @@ const TheFloatingButton = () => {
         picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
         proposalID: proposalID,
         totalComments: 0,
-        visibility: "active",
+        status: true,
       });
     }
 
@@ -73,9 +73,13 @@ const TheFloatingButton = () => {
           enteredTitle = value;
           console.log(enteredTitle);
           Swal.fire({
+            customClass: {
+              image: 'proposalSwal'
+            },
+
             input: "textarea",
             inputPlaceholder: "Enter your proposal's description...",
-            imageUrl: userFirebase.picture,
+            imageUrl: pic,
             imageWidth: 80,
             showConfirmButton: true,
             confirmButtonText: "Post",
@@ -101,7 +105,6 @@ const TheFloatingButton = () => {
                       toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                   })
-
                   Toast.fire({
                     icon: 'success',
                     title: 'Proposal added successfully'
@@ -134,8 +137,6 @@ const TheFloatingButton = () => {
   }
 
   return (
-
-
     <div className="custom-fab-container" style={{ display: (isAuthenticated && isConnected) ? "block" : "none" }}>
       <Button
         tooltip="Post a proposal"
@@ -143,7 +144,6 @@ const TheFloatingButton = () => {
         <CIcon content={cilNote} />
       </Button>
     </div>
-
   )
 }
 
