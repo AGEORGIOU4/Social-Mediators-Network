@@ -1,8 +1,8 @@
 import React from 'react'
-import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CImg, CButton, CCollapse } from '@coreui/react'
+import { CCardBody, CDataTable, CCol, CCard, CCardHeader, CImg, CButton, CCollapse, CBadge } from '@coreui/react'
 
 // Firebase
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
 import { Route } from 'react-router';
@@ -10,9 +10,19 @@ import CIcon from '@coreui/icons-react';
 import { cilEyeSlash } from '@coreui/icons-pro';
 import { cilTrash } from '@coreui/icons';
 import Swal from 'sweetalert2';
+import Switch from "react-switch";
+import { getStatusBadge } from 'src/reusable/reusables';
 
 const socialMediatorFields = [
   { key: 'email' },
+  { key: 'status' },
+  {
+    key: 'switchVisibility',
+    label: '',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  },
   {
     key: 'remove',
     label: '',
@@ -31,7 +41,8 @@ export class SocialMediatorsAdvancedTable extends React.Component {
       loading: false,
       details: [],
       openDetails: false,
-      items: []
+      items: [],
+      status: true,
     };
   }
 
@@ -45,6 +56,29 @@ export class SocialMediatorsAdvancedTable extends React.Component {
     }
     this.setState({ details: newDetails })
     this.setState({ openDetails: !this.state.openDetails })
+  }
+
+
+  editUser = async (item, db) => {
+    await setDoc(doc(db, "users", item.email), {
+      email: item.email,
+      nickname: item.nickname,
+      picture: item.picture,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      bio: item.bio,
+      qualifications: item.qualifications,
+      trainings: item.trainings,
+      areaOfInterest: item.areaOfInterest,
+      createdAt: item.createdAt,
+      status: this.state.status
+    });
+    this.componentDidMount();
+  }
+
+  handleChangeVisibility(item) {
+    this.setState({ status: !item.status });
+    this.editUser(item, firebaseDB);
   }
 
   removeUser(email) {
@@ -141,13 +175,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
 
                         <td className="py-2" onClick={() => { this.toggleDetails(index) }}>
                           {item.email}
-                          {/* <CButton
-                            size="sm"
-                            color="primary"
-                            variant="outline"
-                         
-
-                          ><CIcon content={cilEye} /></CButton> */}
                         </td>
                       )
                     },
@@ -191,6 +218,11 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                               </CCol>
 
                               <CCol style={{ padding: "10px" }}>
+                                <span><strong>Trainings:</strong></span> {
+                                  (item.trainings) ? item.trainings.map((training, index) => (index ? ', ' : ' ') + training) : ""}
+                              </CCol>
+
+                              <CCol style={{ padding: "10px" }}>
                                 <span><strong>About:</strong></span> {item.bio}
                               </CCol>
 
@@ -225,6 +257,22 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                             </div>
                           </CCardBody>
                         </CCollapse>
+                      )
+                    },
+                  'status':
+                    (item) => {
+                      return (
+                        <td className="py-2">
+                          <CBadge color={getStatusBadge(item.status)}>{(item.status) ? "Active" : "Banned"}</CBadge>
+                        </td>
+                      )
+                    },
+                  'switchVisibility':
+                    (item) => {
+                      return (
+                        <td className="py-2" style={{ verticalAlign: 'bottom' }}>
+                          <Switch checked={item.status} onChange={() => this.handleChangeVisibility(item, firebaseDB)} />
+                        </td>
                       )
                     },
                   'remove':

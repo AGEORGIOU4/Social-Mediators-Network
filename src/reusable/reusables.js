@@ -7,10 +7,8 @@ import { cisEye } from '@coreui/icons-pro';
 
 export const getStatusBadge = status => {
   switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
+    case true: return 'success'
+    case false: return 'danger'
     default: return 'primary'
   }
 }

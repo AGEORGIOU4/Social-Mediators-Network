@@ -46,6 +46,7 @@ class ProfileForm extends React.Component {
         bio: "",
         picture: "avatar.png",
         createdAt: "",
+        status: true,
       },
 
       loading: false,
@@ -60,7 +61,7 @@ class ProfileForm extends React.Component {
       bio: "",
       picture: "avatar.png",
       createdAt: "",
-
+      status: true,
       image: "",
       firebaseFlag: false
     };
@@ -78,6 +79,7 @@ class ProfileForm extends React.Component {
       this.state.selectedTrainings = this.state.initialValues.trainings;
       this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
       this.state.createdAt = this.state.initialValues.createdAt;
+      this.state.status = this.state.initialValues.status;
 
     } else { // fetch from firebase
 
@@ -98,6 +100,7 @@ class ProfileForm extends React.Component {
             this.state.selectedTrainings = this.state.initialValues.trainings;
             this.state.picture = (this.state.initialValues.picture) ? this.state.initialValues.picture : "avatar.png";
             this.state.createdAt = this.state.initialValues.createdAt;
+            this.state.status = this.state.initialValues.status;
 
             this.componentDidMount();
           }
@@ -231,7 +234,8 @@ class ProfileForm extends React.Component {
       trainings: this.state.selectedTrainings,
       bio: this.state.bio,
       picture: this.state.picture,
-      createdAt: this.state.createdAt
+      createdAt: this.state.createdAt,
+      status: this.state.status,
     });
   }
 

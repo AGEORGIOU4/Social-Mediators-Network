@@ -39,7 +39,16 @@ export class SocialMediatorsBasicTable extends React.Component {
       const userCol = collection(db, 'users');
       const userSnapshot = await getDocs(userCol);
       const usersList = userSnapshot.docs.map(doc => doc.data());
-      this.setState({ users: usersList });
+
+      var visibleUsers = [];
+
+      usersList.forEach(user => {
+        if (user.status === true) {
+          visibleUsers.push(user);
+        }
+      });
+
+      this.setState({ users: visibleUsers });
 
       this.setState({ loading: false })
     };
