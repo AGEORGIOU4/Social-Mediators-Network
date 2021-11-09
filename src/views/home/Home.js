@@ -93,6 +93,7 @@ const Home = () => {
       trainings: enteredTrainings,
       areaOfInterest: enteredInsterest,
       createdAt: createdAt,
+      status: true
     });
   }
 
