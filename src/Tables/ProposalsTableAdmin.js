@@ -4,12 +4,11 @@ import CIcon from '@coreui/icons-react';
 import { collection, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CCollapse, CLink, CImg, CRow } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CCollapse, CLink, CImg } from '@coreui/react'
 import { getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import Swal from 'sweetalert2';
 import { cilMinus, cilTrash } from '@coreui/icons';
 import Switch from "react-switch";
-import { CommentsTableAdmin } from './CommentsTableAdmin';
 import { Route } from 'react-router';
 
 const proposalFields = [
@@ -172,9 +171,6 @@ export class ProposalsTableAdmin extends React.Component {
 
   handleChangeCommentVisibility(item) {
     this.setState({ status: !item.status });
-
-    console.log(this.state.commentParentID);
-    console.log(item.commentID);
     this.editComment(item, firebaseDB);
   }
 
