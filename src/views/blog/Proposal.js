@@ -61,7 +61,7 @@ const Proposal = props => {
         createdAt: Timestamp.now(),
         content: enteredContent,
         picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
-        visibility: "active",
+        status: true,
 
       });
     }
@@ -71,8 +71,8 @@ const Proposal = props => {
         image: 'proposalSwal'
       },
 
-      input: "text",
-      inputPlaceholder: "What do you have in mind?",
+      input: "textarea",
+      inputPlaceholder: "Write your comment...",
       imageUrl: pic,
       imageWidth: 80,
       showConfirmButton: true,

@@ -4,13 +4,13 @@ import CIcon from '@coreui/icons-react';
 import { collection, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import LinesEllipsis from 'react-lines-ellipsis'
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CCollapse, CLink } from '@coreui/react'
 import { getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import { cilEye, cilEyeSlash } from '@coreui/icons-pro';
 import Swal from 'sweetalert2';
 import { cilTrash } from '@coreui/icons';
 import Switch from "react-switch";
+import { CommentsTableAdmin } from './CommentsTableAdmin';
 
 const proposalFields = [
   { key: 'author' },
@@ -18,6 +18,13 @@ const proposalFields = [
   { key: 'description' },
   { key: 'createdAt' },
   { key: 'status' },
+  {
+    key: 'totalComments',
+    label: 'Comments',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  },
   {
     key: 'switchVisibility',
     label: '',
@@ -34,12 +41,29 @@ export class ProposalsTableAdmin extends React.Component {
 
     this.state = {
       proposals: [],
+      comments: [],
       loading: false,
       details: [],
       openDetails: false,
       status: true,
+      commentsTrue: false,
     };
   }
+
+  toggleDetails = (item, index) => {
+    const position = this.state.details.indexOf(index)
+    let newDetails = this.state.details.slice()
+    if (position !== -1) {
+      newDetails.splice(position, 1)
+    } else {
+      newDetails = [...this.state.details, index]
+    }
+    this.setState({ details: newDetails })
+    this.setState({ openDetails: !this.state.openDetails })
+
+    this.getComments(item.proposalID);
+  }
+
 
   editProposal = async (item, db) => {
     await setDoc(doc(db, "proposals", item.proposalID), {
@@ -106,6 +130,19 @@ export class ProposalsTableAdmin extends React.Component {
       }
     })
   }
+  getComments(proposalID) {
+    this.setState({ loading: true });
+
+    const fetchComments = async (db) => {
+      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
+      const commentsSnapshot = await getDocs(commentsCol);
+      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
+      this.setState({ comments: commentsList });
+      this.setState({ loading: false });
+      this.setState({ commentsTrue: (commentsList.length > 0 ? true : false) });
+    };
+    fetchComments(firebaseDB);
+  }
 
   componentDidMount() {
     this.setState({ loading: true })
@@ -114,6 +151,7 @@ export class ProposalsTableAdmin extends React.Component {
       const proposalCol = collection(db, 'proposals');
       const proposalSnapshot = await getDocs(proposalCol);
       const proposalList = proposalSnapshot.docs.map(doc => doc.data());
+
       this.setState({ proposals: proposalList });
 
       this.setState({ loading: false })
@@ -134,37 +172,37 @@ export class ProposalsTableAdmin extends React.Component {
               fields={proposalFields}
               loading={this.state.loading}
               columnFilter
-              tableFilter
               cleaner
               responsive={true}
+              tableFilter={{ 'placeholder': 'Search a proposal...' }}
               sorter
               sorterValue={{ column: "createdAt", asc: false }}
               itemsPerPage={50}
               hover
-
               pagination
               clickableRows
-              // onRowClick={(item, index, col, e) => this.toggleDetails(item.id)}
-              // onPageChange={(val) => console.log('new page:', val)}
-              // onPagesChange={(val) => console.log('new pages:', val)}
-              // onPaginationChange={(val) => console.log('new pagination:', val)}
-              // onFilteredItemsChange={(val) => console.log('new filtered items:', val)}
-              // onSorterValueChange={(val) => console.log('new sorter value:', val)}
-              // onTableFilterChange={(val) => console.log('new table filter:', val)}
-              // onColumnFilterChange={(val) => console.log('new column filter:', val)}
               scopedSlots={{
-                'content':
-                  (item) => (
-                    <td>
-                      <LinesEllipsis
-                        text={item.content}
-                        maxLine='2'
-                        ellipsis='...'
-                        trimRight
-                        basedOn='letters'
-                      />
-                    </td>
-                  ),
+                'totalComments':
+                  (item, index) => {
+                    return (
+
+                      <td className="py-2" onClick={() => { this.toggleDetails(item, index) }}>
+                        <CLink>{item.totalComments}</CLink>
+                      </td>
+                    )
+                  },
+                'details':
+                  (item, index) => {
+                    return (
+                      <CCollapse show={this.state.details.includes(index)}>
+                        <CCardBody style={{ display: (this.state.loading) ? "none" : "block", backgroundColor: '#f0f3f5' }}>
+                          {/* <div style={{ display: (!commentsTrue) ? 'none' : 'block' }}> */}
+                          <CommentsTableAdmin comments={this.state.comments} />
+                          {/* </div> */}
+                        </CCardBody>
+                      </CCollapse>
+                    )
+                  },
                 'createdAt':
                   (item) => (
                     <td>
@@ -191,7 +229,7 @@ export class ProposalsTableAdmin extends React.Component {
                 'status':
                   (item) => {
                     return (
-                      <td className="py-2" style={{ verticalAlign: 'inherit' }}>
+                      <td className="py-2">
                         <CBadge color={getStatusBadge(item.status)}>{(item.status) ? "Active" : "Banned"}</CBadge>
                       </td>
                     )

@@ -61,7 +61,7 @@ const TheFloatingButton = () => {
       },
 
       input: "text",
-      inputPlaceholder: "Enter your proposal's title...",
+      inputPlaceholder: "What do you have in mind?",
       imageUrl: pic,
       imageWidth: 80,
       showConfirmButton: true,
@@ -78,7 +78,7 @@ const TheFloatingButton = () => {
             },
 
             input: "textarea",
-            inputPlaceholder: "Enter your proposal's description...",
+            inputPlaceholder: "Tell us more...",
             imageUrl: pic,
             imageWidth: 80,
             showConfirmButton: true,
