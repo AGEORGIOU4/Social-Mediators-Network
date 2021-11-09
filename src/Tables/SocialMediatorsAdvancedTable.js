@@ -141,13 +141,6 @@ export class SocialMediatorsAdvancedTable extends React.Component {
 
                         <td className="py-2" onClick={() => { this.toggleDetails(index) }}>
                           {item.email}
-                          {/* <CButton
-                            size="sm"
-                            color="primary"
-                            variant="outline"
-                         
-
-                          ><CIcon content={cilEye} /></CButton> */}
                         </td>
                       )
                     },
@@ -188,6 +181,11 @@ export class SocialMediatorsAdvancedTable extends React.Component {
 
                               <CCol style={{ padding: "10px" }}>
                                 <span><strong>Qualifications/Experiences:</strong></span> {item.qualifications}
+                              </CCol>
+
+                              <CCol style={{ padding: "10px" }}>
+                                <span><strong>Trainings:</strong></span> {
+                                  (item.trainings) ? item.trainings.map((training, index) => (index ? ', ' : ' ') + training) : ""}
                               </CCol>
 
                               <CCol style={{ padding: "10px" }}>
