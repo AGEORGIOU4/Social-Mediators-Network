@@ -17,7 +17,7 @@ import { SwalMixing } from 'src/reusable/SwalMixin';
 
 const Proposal = props => {
 
-  const url = window.location.href
+  const url = window.location.href;
   var pic = getCookie("userPicture");
 
   const { user, isAuthenticated } = useAuth0();

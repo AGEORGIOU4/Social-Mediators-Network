@@ -9,10 +9,12 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { getDoc, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { getCookie } from 'src/reusable/reusables';
+
 const TheFloatingButton = () => {
 
   var pic = getCookie("userPicture");
 
+  const url = window.location.href;
   var isConnected = false;
   isConnected = window.navigator.onLine;
 
@@ -106,9 +108,12 @@ const TheFloatingButton = () => {
                       toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                   })
-                  setTimeout(() =>
-                    window.location.reload(false)
-                    , 1000)
+
+                  if (url === "https://socialmediatorsnetwork.netlify.app/#/blog" || url === "http://localhost:3000/#/Blog") {
+                    setTimeout(() =>
+                      window.location.reload(false)
+                      , 1000)
+                  }
 
                   Toast.fire({
                     icon: 'success',
