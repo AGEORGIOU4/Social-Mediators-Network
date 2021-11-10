@@ -190,7 +190,7 @@ export class ProposalsTableAdmin extends React.Component {
 
   editComment = async (item, db) => {
 
-    var enabledCommentsCounter = (this.state.status) ? this.state.totalEnabledComments + 1 : this.state.totalEnabledComments - 1;
+    var enabledCommentsCounter = (!item.status) ? this.state.totalEnabledComments + 1 : this.state.totalEnabledComments - 1;
     this.setState({ totalEnabledComments: enabledCommentsCounter });
 
     await setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
@@ -201,7 +201,7 @@ export class ProposalsTableAdmin extends React.Component {
       email: this.state.proposal.email,
       picture: this.state.proposal.picture,
       proposalID: this.state.proposal.proposalID,
-      totalComments: this.state.proposal.totalComments,
+      totalComments: this.state.totalComments,
       totalEnabledComments: enabledCommentsCounter,
       status: this.state.proposal.status,
     });
@@ -219,7 +219,7 @@ export class ProposalsTableAdmin extends React.Component {
     this.getProposals(firebaseDB);
   }
 
-  removeComment(commentID, proposalID, db) {
+  removeComment(commentID, proposalID, commentStatus, db) {
     Swal.fire({
 
       text: 'Delete this from comments?',
@@ -237,23 +237,10 @@ export class ProposalsTableAdmin extends React.Component {
           }
           deleteComment(firebaseDB);
 
-
-          // await setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
-          //   author: this.state.proposal.author,
-          //   title: this.state.proposal.title,
-          //   description: this.state.proposal.description,
-          //   createdAt: this.state.proposal.createdAt,
-          //   email: this.state.proposal.email,
-          //   picture: this.state.proposal.picture,
-          //   proposalID: this.state.proposal.proposalID,
-          //   totalComments: this.state.proposal.totalComments,
-          //   totalEnabledComments: enabledCommentsCounter,
-          //   status: this.state.proposal.status,
-          // });
           var commentsCounter = this.state.totalComments - 1;
           this.setState({ totalComments: commentsCounter });
 
-          var enabledCommentsCounter = this.state.totalEnabledComments - 1;
+          var enabledCommentsCounter = (!commentStatus) ? this.state.totalEnabledComments : this.state.totalEnabledComments - 1;
           this.setState({ totalEnabledComments: enabledCommentsCounter });
 
           setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
@@ -401,7 +388,7 @@ export class ProposalsTableAdmin extends React.Component {
                                     (item) => {
                                       return (
                                         <td className="py-2" style={{ verticalAlign: 'inherit' }}>
-                                          <CSwitch variant="3d" size="sm" color="success" checked={item.status} onClick={() => this.handleChangeCommentVisibility(item, firebaseDB)} />
+                                          <CSwitch variant="3d" size="sm" color="success" checked={item.status} onChange={() => this.handleChangeCommentVisibility(item, firebaseDB)} />
                                         </td>
                                       )
                                     },
@@ -414,7 +401,7 @@ export class ProposalsTableAdmin extends React.Component {
                                             style={{ color: "#e55353" }}
                                             variant="outline"
                                             onClick={() => {
-                                              this.removeComment(item.commentID, this.state.commentParentID, firebaseDB);
+                                              this.removeComment(item.commentID, this.state.commentParentID, item.status, firebaseDB);
                                             }}
 
                                           ><CIcon content={cilTrash} /></CButton>

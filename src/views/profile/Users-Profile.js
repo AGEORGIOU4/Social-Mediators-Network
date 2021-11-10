@@ -9,6 +9,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { cilMail } from "@coreui/icons-pro";
 import { LoginCard } from "src/containers/common";
+import { SwalMixing } from "src/reusable/SwalMixin";
 
 const UsersProfile = props => {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -121,10 +122,11 @@ const UsersProfile = props => {
       </CRow >
     )
   } else {
+    SwalMixing("warning", "Only members can view a member's personal info");
     return (
-      <div>
+      <CCol>
         <LoginCard />
-      </div>
+      </CCol>
     )
   }
 }

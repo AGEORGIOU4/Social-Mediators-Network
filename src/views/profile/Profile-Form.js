@@ -83,7 +83,7 @@ class ProfileForm extends React.Component {
 
     } else { // fetch from firebase
 
-      if (!this.state.firebaseFlag) {
+      if (!this.state.firebaseFlag && this.getCookie("session")) {
         const getUser = async (db) => {
           const docRef = doc(db, "users", this.getCookie("userEmail"));
           const docSnap = await getDoc(docRef);
@@ -179,7 +179,6 @@ class ProfileForm extends React.Component {
       });
     }
   }
-
 
   handleSubmit(event) {
 
