@@ -11,8 +11,13 @@ import Swal from "sweetalert2";
 import { v4 as uuidv4 } from 'uuid';
 import { getCookie } from "src/reusable/reusables";
 import { FormatTimestamp } from 'src/reusable/reusables';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { LoginCard } from 'src/containers/common';
+import { SwalMixing } from 'src/reusable/SwalMixin';
 
 const Proposal = props => {
+
+  const url = window.location.href
   var pic = getCookie("userPicture");
 
   const { user, isAuthenticated } = useAuth0();
@@ -172,10 +177,10 @@ const Proposal = props => {
   }
 
   if (!isAuthenticated) {
+    SwalMixing("warning", "Only members can view proposals. Sign up now!")
     return (
-      <Route render={({ history }) => (
-        history.push("/")
-      )} />
+
+      <LoginCard />
     )
   }
 
@@ -229,15 +234,20 @@ const Proposal = props => {
             </div>
 
 
+
             <CCol>
               <div style={{ width: "100%", textAlign: 'center' }}>
                 <div style={{ width: '50%', float: 'left' }} >
-                  <CButton
-                    style={{ margin: '0 2px', fontSize: 'smaller' }}
-                    size="sm"
-                    color="dark"
-                    variant="ghost"
-                  >Share <CIcon size={"sm"} content={cilShare} /></CButton>
+                  <CopyToClipboard text={url}>
+
+                    <CButton
+                      style={{ margin: '0 2px', fontSize: 'smaller' }}
+                      size="sm"
+                      color="dark"
+                      variant="ghost"
+                      onClick={() => SwalMixing("success", "Link copied to clipboard")}
+                    >Share <CIcon size={"sm"} content={cilShare} /></CButton>
+                  </CopyToClipboard>
                 </div>
 
                 <div style={{ width: '50%', float: 'left' }} >
