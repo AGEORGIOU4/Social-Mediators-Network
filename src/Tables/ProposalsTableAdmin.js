@@ -4,7 +4,7 @@ import CIcon from '@coreui/icons-react';
 import { collection, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from 'src/reusable/firebaseConfig';
 
-import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CCollapse, CLink, CImg } from '@coreui/react'
+import { CCardBody, CButton, CDataTable, CCol, CCard, CCardHeader, CBadge, CCardFooter, CCollapse, CLink, CImg, CSwitch } from '@coreui/react'
 import { getStatusBadge, FormatTimestamp } from 'src/reusable/reusables';
 import Swal from 'sweetalert2';
 import { cilMinus, cilTrash } from '@coreui/icons';
@@ -56,6 +56,9 @@ export class ProposalsTableAdmin extends React.Component {
 
     this.state = {
       proposals: [],
+      proposal: [],
+      totalComments: 0,
+      totalEnabledComments: 0,
       comments: [],
       loading: false,
       details: [],
@@ -77,8 +80,24 @@ export class ProposalsTableAdmin extends React.Component {
     this.setState({ details: newDetails })
     this.setState({ openDetails: !this.state.openDetails })
 
+    this.setState({ proposal: item });
+    this.setState({ totalComments: item.totalComments });
+    this.setState({ totalEnabledComments: item.totalEnabledComments });
+
     this.getComments(item.proposalID);
   }
+
+  getProposals = async (db) => {
+    this.setState({ loading: true });
+
+    const proposalCol = collection(db, 'proposals');
+    const proposalSnapshot = await getDocs(proposalCol);
+    const proposalList = proposalSnapshot.docs.map(doc => doc.data());
+
+    this.setState({ proposals: proposalList });
+
+    this.setState({ loading: false })
+  };
 
   editProposal = async (item, db) => {
     await setDoc(doc(db, "proposals", item.proposalID), {
@@ -96,6 +115,7 @@ export class ProposalsTableAdmin extends React.Component {
   }
 
   handleChangeProposalVisibility(item) {
+    this.state.status = !item.status;
     this.setState({ status: !item.status });
     this.editProposal(item, firebaseDB);
   }
@@ -145,19 +165,48 @@ export class ProposalsTableAdmin extends React.Component {
     })
   }
 
-  getProposals = async (db) => {
+  getComments(proposalID) {
     this.setState({ loading: true });
 
-    const proposalCol = collection(db, 'proposals');
-    const proposalSnapshot = await getDocs(proposalCol);
-    const proposalList = proposalSnapshot.docs.map(doc => doc.data());
+    const fetchComments = async (db) => {
+      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
+      const commentsSnapshot = await getDocs(commentsCol);
+      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
 
-    this.setState({ proposals: proposalList });
+      this.setState({ commentParentID: proposalID });
 
-    this.setState({ loading: false })
-  };
+      this.setState({ comments: commentsList });
+      this.setState({ loading: false });
+      this.setState({ commentsTrue: (commentsList.length > 0 ? true : false) });
+    };
+    fetchComments(firebaseDB);
+  }
+
+  handleChangeCommentVisibility(item) {
+    this.state.status = !item.status;
+    this.setState({ status: !item.status });
+    this.editComment(item, firebaseDB);
+  }
 
   editComment = async (item, db) => {
+
+    var enabledCommentsCounter = (this.state.status) ? this.state.totalEnabledComments + 1 : this.state.totalEnabledComments - 1;
+    this.setState({ totalEnabledComments: enabledCommentsCounter });
+
+    await setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
+      author: this.state.proposal.author,
+      title: this.state.proposal.title,
+      description: this.state.proposal.description,
+      createdAt: this.state.proposal.createdAt,
+      email: this.state.proposal.email,
+      picture: this.state.proposal.picture,
+      proposalID: this.state.proposal.proposalID,
+      totalComments: this.state.proposal.totalComments,
+      totalEnabledComments: enabledCommentsCounter,
+      status: this.state.proposal.status,
+    });
+
+
     await setDoc(doc(db, 'proposals/'.concat(this.state.commentParentID).concat('/comments'), item.commentID), {
       commentID: item.commentID,
       author: item.author,
@@ -167,14 +216,10 @@ export class ProposalsTableAdmin extends React.Component {
       status: this.state.status
     });
     this.getComments(this.state.commentParentID);
+    this.getProposals(firebaseDB);
   }
 
-  handleChangeCommentVisibility(item) {
-    this.setState({ status: !item.status });
-    this.editComment(item, firebaseDB);
-  }
-
-  removeComment(commentID, proposalID) {
+  removeComment(commentID, proposalID, db) {
     Swal.fire({
 
       text: 'Delete this from comments?',
@@ -192,6 +237,38 @@ export class ProposalsTableAdmin extends React.Component {
           }
           deleteComment(firebaseDB);
 
+
+          // await setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
+          //   author: this.state.proposal.author,
+          //   title: this.state.proposal.title,
+          //   description: this.state.proposal.description,
+          //   createdAt: this.state.proposal.createdAt,
+          //   email: this.state.proposal.email,
+          //   picture: this.state.proposal.picture,
+          //   proposalID: this.state.proposal.proposalID,
+          //   totalComments: this.state.proposal.totalComments,
+          //   totalEnabledComments: enabledCommentsCounter,
+          //   status: this.state.proposal.status,
+          // });
+          var commentsCounter = this.state.totalComments - 1;
+          this.setState({ totalComments: commentsCounter });
+
+          var enabledCommentsCounter = this.state.totalEnabledComments - 1;
+          this.setState({ totalEnabledComments: enabledCommentsCounter });
+
+          setDoc(doc(db, "proposals", this.state.proposal.proposalID), {
+            author: this.state.proposal.author,
+            title: this.state.proposal.title,
+            description: this.state.proposal.description,
+            createdAt: this.state.proposal.createdAt,
+            email: this.state.proposal.email,
+            picture: this.state.proposal.picture,
+            proposalID: this.state.proposal.proposalID,
+            totalComments: commentsCounter,
+            totalEnabledComments: enabledCommentsCounter,
+            status: this.state.proposal.status,
+          });
+
           const Toast = Swal.mixin({
             toast: true,
             position: 'bottom-end',
@@ -208,30 +285,13 @@ export class ProposalsTableAdmin extends React.Component {
             icon: 'success',
             title: 'Deleted successfully'
           })
-
+          this.getProposals(firebaseDB);
           this.getComments(proposalID);
         } catch (error) {
           console.log(error);
         }
       }
     })
-  }
-
-  getComments(proposalID) {
-    this.setState({ loading: true });
-
-    const fetchComments = async (db) => {
-      const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
-      const commentsSnapshot = await getDocs(commentsCol);
-      const commentsList = commentsSnapshot.docs.map(doc => doc.data());
-
-      this.setState({ commentParentID: proposalID });
-
-      this.setState({ comments: commentsList });
-      this.setState({ loading: false });
-      this.setState({ commentsTrue: (commentsList.length > 0 ? true : false) });
-    };
-    fetchComments(firebaseDB);
   }
 
   componentDidMount() {
@@ -293,6 +353,8 @@ export class ProposalsTableAdmin extends React.Component {
                             <CCol style={{ textAlign: "end" }}>
                               <CButton onClick={() => { this.toggleDetails(item, index) }} color={"info"}>Hide <CIcon content={cilMinus} /></CButton>
                             </CCol>
+
+                            {/* Comments Sub-table */}
                             <Route render={({ history }) => (
                               <CDataTable
                                 items={this.state.comments}
@@ -339,7 +401,7 @@ export class ProposalsTableAdmin extends React.Component {
                                     (item) => {
                                       return (
                                         <td className="py-2" style={{ verticalAlign: 'inherit' }}>
-                                          <Switch checked={item.status} onChange={() => this.handleChangeCommentVisibility(item, firebaseDB)} />
+                                          <CSwitch variant="3d" size="sm" color="success" checked={item.status} onClick={() => this.handleChangeCommentVisibility(item, firebaseDB)} />
                                         </td>
                                       )
                                     },
@@ -352,7 +414,7 @@ export class ProposalsTableAdmin extends React.Component {
                                             style={{ color: "#e55353" }}
                                             variant="outline"
                                             onClick={() => {
-                                              this.removeComment(item.commentID, this.state.commentParentID);
+                                              this.removeComment(item.commentID, this.state.commentParentID, firebaseDB);
                                             }}
 
                                           ><CIcon content={cilTrash} /></CButton>
