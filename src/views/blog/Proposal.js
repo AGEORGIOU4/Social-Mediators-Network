@@ -24,74 +24,70 @@ const Proposal = props => {
   const [firebaseFlag, setFirebaseFlag] = useState(false);
   const [commentsTrue, setCommentsTrue] = useState(false);
   const [totalCommentsCounter, setTotalCommentsCounter] = useState(0);
+  const [totalEnabledCommentsCounter, setTotalEnabledCommentsCounter] = useState(0);
 
   var enteredContent = "";
 
-  const { proposalID, createdAt, totalComments } =
+  const { proposalID, createdAt, totalComments, totalEnabledComments } =
     (props.location.state) || {};
 
   if (!firebaseFlag && props.location.state) {
     setProposal(props.location.state);
+
     setTotalCommentsCounter(totalComments);
+    setTotalEnabledCommentsCounter(totalEnabledComments);
+
     getComments(proposalID);
 
     setFirebaseFlag(true);
   }
 
+  const getUser = async (db) => {
+    const docRef = doc(db, "users", user.email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      userFirebase = docSnap.data();
+    } else {
+      console.log("User does not exist is firebase!");
+    }
+  }
+
+  const addComment = async (db) => {
+    var commentID = uuidv4();
+
+    await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
+      commentID: commentID,
+      author: userFirebase.firstName + ' ' + userFirebase.lastName,
+      createdAt: Timestamp.now(),
+      content: enteredContent,
+      picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
+      status: true,
+
+    });
+
+    var commentsCounter = totalCommentsCounter + 1;
+    var enabledCommentsCounter = totalEnabledCommentsCounter + 1;
+
+    setTotalCommentsCounter(commentsCounter);
+    setTotalEnabledCommentsCounter(enabledCommentsCounter);
+
+    await setDoc(doc(db, "proposals", proposalID), {
+      author: proposal.author,
+      title: proposal.title,
+      description: proposal.description,
+      createdAt: proposal.createdAt,
+      email: proposal.email,
+      picture: proposal.picture,
+      proposalID: proposal.proposalID,
+      totalComments: commentsCounter,
+      totalEnabledComments: enabledCommentsCounter,
+      status: proposal.status,
+    });
+  }
+
   const postComment = async () => {
-    const getUser = async (db) => {
-      const docRef = doc(db, "users", user.email);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        userFirebase = docSnap.data();
-      } else {
-        console.log("User does not exist is firebase!");
-      }
-    }
-
-    // const getProposal = async (db) => {
-    //   const docRef = doc(db, "proposal", proposalID);
-    //   const docSnap = await getDoc(docRef);
-
-    //   if (docSnap.exists()) {
-    //     setProposal(docSnap.data());
-    //   } else {
-    //     console.log("User does not exist is firebase!");
-    //   }
-    // }
-
     getUser(firebaseDB);
-
-    const addComment = async (db) => {
-
-      var commentID = uuidv4();
-
-      await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
-        commentID: commentID,
-        author: userFirebase.firstName + ' ' + userFirebase.lastName,
-        createdAt: Timestamp.now(),
-        content: enteredContent,
-        picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
-        status: true,
-
-      });
-
-      var num = totalCommentsCounter + 1;
-      setTotalCommentsCounter(num);
-
-      await setDoc(doc(db, "proposals", proposalID), {
-        author: proposal.author,
-        title: proposal.title,
-        description: proposal.description,
-        createdAt: proposal.createdAt,
-        email: proposal.email,
-        picture: proposal.picture,
-        proposalID: proposal.proposalID,
-        totalComments: num,
-        status: proposal.status,
-      });
-    }
 
     Swal.fire({
       customClass: {
@@ -225,7 +221,7 @@ const Proposal = props => {
             </div>
 
             <div style={{ width: "100%", textAlign: "end" }}>
-              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalCommentsCounter} comments</a>
+              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalEnabledCommentsCounter} comments</a>
             </div>
 
             <div style={{ width: "100%" }}>

@@ -51,6 +51,7 @@ const TheFloatingButton = () => {
         picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
         proposalID: proposalID,
         totalComments: 0,
+        totalEnabledComments: 0,
         status: true,
       });
     }

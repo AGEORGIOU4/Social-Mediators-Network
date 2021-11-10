@@ -114,7 +114,7 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <CLink style={{ fontSize: 'smaller', marginBottom: '4px' }}>{item.totalComments} comments</CLink>
+                              <CLink style={{ fontSize: 'smaller', marginBottom: '4px' }}>{(item.totalEnabledComments > 0) ? item.totalEnabledComments : 0} comments</CLink>
                             </div>
 
                             <div style={{ width: "100%" }}>
