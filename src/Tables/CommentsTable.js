@@ -3,7 +3,7 @@ import { CCol, CDataTable, CImg } from '@coreui/react'
 import { Route } from "react-router-dom";
 import { FormatTimestamp } from 'src/reusable/reusables';
 
-export const commentsFields = [
+const commentsFields = [
   { key: 'card', label: "", sorter: false, filter: false },
   { key: 'author' },
   { key: 'content' },
@@ -19,7 +19,6 @@ export const CommentsTable = (props) => {
           fields={commentsFields}
           loading={props.loading}
           header={false}
-          // tableFilter={{ 'placeholder': 'Search...' }}
           itemsPerPage={20}
           pagination
           sorter
@@ -29,7 +28,7 @@ export const CommentsTable = (props) => {
             'card':
               (item) => (
                 <td>
-                  <div style={{ backgroundColor: "#f2f2f2", borderRadius: "5px", padding: '10px 10px 40px' }}>
+                  <div style={{ backgroundColor: "#f0f3f5", borderRadius: "5px", padding: '10px 10px 40px' }}>
                     <div style={{ width: '100%' }}>
                       <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                         <CImg src={(item.picture) ? item.picture : "avatar.png"}

@@ -22,22 +22,23 @@ const Proposal = props => {
   const [comments, setComments] = useState([]);
 
   const [firebaseFlag, setFirebaseFlag] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [commentsTrue, setCommentsTrue] = useState(false);
+  const [totalCommentsCounter, setTotalCommentsCounter] = useState(0);
 
   var enteredContent = "";
 
-  const { proposalID, createdAt } =
+  const { proposalID, createdAt, totalComments } =
     (props.location.state) || {};
 
   if (!firebaseFlag && props.location.state) {
     setProposal(props.location.state);
-    setFirebaseFlag(true);
+    setTotalCommentsCounter(totalComments);
     getComments(proposalID);
+
+    setFirebaseFlag(true);
   }
 
   const postComment = async () => {
-
     const getUser = async (db) => {
       const docRef = doc(db, "users", user.email);
       const docSnap = await getDoc(docRef);
@@ -48,6 +49,17 @@ const Proposal = props => {
         console.log("User does not exist is firebase!");
       }
     }
+
+    // const getProposal = async (db) => {
+    //   const docRef = doc(db, "proposal", proposalID);
+    //   const docSnap = await getDoc(docRef);
+
+    //   if (docSnap.exists()) {
+    //     setProposal(docSnap.data());
+    //   } else {
+    //     console.log("User does not exist is firebase!");
+    //   }
+    // }
 
     getUser(firebaseDB);
 
@@ -61,8 +73,23 @@ const Proposal = props => {
         createdAt: Timestamp.now(),
         content: enteredContent,
         picture: (userFirebase.picture) ? userFirebase.picture : 'avatar.png',
-        visibility: "active",
+        status: true,
 
+      });
+
+      var num = totalCommentsCounter + 1;
+      setTotalCommentsCounter(num);
+
+      await setDoc(doc(db, "proposals", proposalID), {
+        author: proposal.author,
+        title: proposal.title,
+        description: proposal.description,
+        createdAt: proposal.createdAt,
+        email: proposal.email,
+        picture: proposal.picture,
+        proposalID: proposal.proposalID,
+        totalComments: num,
+        status: proposal.status,
       });
     }
 
@@ -71,8 +98,8 @@ const Proposal = props => {
         image: 'proposalSwal'
       },
 
-      input: "text",
-      inputPlaceholder: "What do you have in mind?",
+      input: "textarea",
+      inputPlaceholder: "Write your comment...",
       imageUrl: pic,
       imageWidth: 80,
       showConfirmButton: true,
@@ -128,14 +155,21 @@ const Proposal = props => {
   }
 
   function getComments(proposalID) {
-    setLoading(true);
 
     const fetchComments = async (db) => {
       const commentsCol = collection(db, 'proposals/'.concat(proposalID).concat('/comments'))
       const commentsSnapshot = await getDocs(commentsCol);
       const commentsList = commentsSnapshot.docs.map(doc => doc.data());
-      setComments(commentsList);
-      setLoading(false);
+
+      var visibleComments = [];
+
+      commentsList.forEach(comment => {
+        if (comment.status === true) {
+          visibleComments.push(comment);
+        }
+      });
+
+      setComments(visibleComments);
       setCommentsTrue(commentsList.length > 0 ? true : false);
     };
     fetchComments(firebaseDB);
@@ -191,7 +225,7 @@ const Proposal = props => {
             </div>
 
             <div style={{ width: "100%", textAlign: "end" }}>
-              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{proposal.totalComments} comments</a>
+              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalCommentsCounter} comments</a>
             </div>
 
             <div style={{ width: "100%" }}>
