@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Firebase
@@ -11,7 +11,8 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
+  CImg,
+  CSpinner
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked } from '@coreui/icons';
@@ -22,13 +23,23 @@ import { useCookies } from 'react-cookie';
 var checkIfAdmin = false;
 var checkIfUser = false;
 
+
 const TheHeaderDropdown = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
+
   const [isAdmin, setAdmin] = useState("");
+  const [flag, setFlag] = useState(false);
   const [userFirebase, setUserFirebase] = useState([]);
   const [avatar, setAvatar] = useState("avatar.png");
+
+  useEffect(() => {
+    setTimeout(() =>
+      setFlag(true)
+      , 2000)
+  });
+
 
   if (isAuthenticated) {
 
@@ -68,40 +79,47 @@ const TheHeaderDropdown = () => {
 
   return (
     <div>
-      <CButton onClick={() => loginWithRedirect()} color="primary" style={{ marginRight: '10px', color: 'white', display: (isAuthenticated) ? "none" : "block" }}>Login</CButton>
+      <div style={{ display: flag ? "none" : "block", padding: "0 1.13rem" }}>
+        <CSpinner color="primary" size="lg" />
+      </div>
 
-      <CDropdown
-        inNav
-        className="c-header-nav-items mx-2"
-        direction="down"
-        style={{ display: (isAuthenticated) ? "block" : "none" }}
-      >
-        <CDropdownToggle className="c-header-nav-link" caret={false}>
-          <div className="c-avatar">
-            <CImg
-              src={avatar ? avatar : "avatar.png"}
-              className="c-avatar-img profile-photo"
-              alt="iclaim-avatar"
-              style={{ maxHeight: '2.5em' }}
-            />
-          </div>
-        </CDropdownToggle>
-        <CDropdownMenu className="pt-0" placement="bottom-end">
-          <CDropdownItem
-            header
-            tag="div"
-            color="light"
-            className="text-center"
-          >
-            <strong>Account</strong>
-          </CDropdownItem>
+      <div style={{ display: flag ? "block" : "none" }}>
+        <CButton onClick={() => loginWithRedirect()} color="primary" style={{ marginRight: '10px', color: 'white', display: (isAuthenticated) ? "none" : "block" }}>Login</CButton>
 
-          <CDropdownItem to="/profile">
-            <CIcon content={cilUser} className="mfe-2" />
-            Profile
-          </CDropdownItem>
 
-          {/* <CDropdownItem
+
+        <CDropdown
+          inNav
+          className="c-header-nav-items mx-2"
+          direction="down"
+          style={{ display: (isAuthenticated) ? "block" : "none" }}
+        >
+          <CDropdownToggle className="c-header-nav-link" caret={false}>
+            <div className="c-avatar">
+              <CImg
+                src={avatar ? avatar : "avatar.png"}
+                className="c-avatar-img profile-photo"
+                alt="iclaim-avatar"
+                style={{ maxHeight: '2.5em' }}
+              />
+            </div>
+          </CDropdownToggle>
+          <CDropdownMenu className="pt-0" placement="bottom-end">
+            <CDropdownItem
+              header
+              tag="div"
+              color="light"
+              className="text-center"
+            >
+              <strong>Account</strong>
+            </CDropdownItem>
+
+            <CDropdownItem to="/profile">
+              <CIcon content={cilUser} className="mfe-2" />
+              Profile
+            </CDropdownItem>
+
+            {/* <CDropdownItem
             header
             tag="div"
             color="light"
@@ -121,7 +139,7 @@ const TheHeaderDropdown = () => {
             Blog
           </CDropdownItem> */}
 
-          {/* <CDropdownItem
+            {/* <CDropdownItem
             header
             tag="div"
             color="light"
@@ -130,32 +148,33 @@ const TheHeaderDropdown = () => {
             <strong>Authentication</strong>
           </CDropdownItem> */}
 
-          <CDropdownItem to="/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
-            <CIcon content={cilArrowCircleRight} className="mfe-2" />
-            Login
-          </CDropdownItem>
+            <CDropdownItem to="/login" style={isAuthenticated ? { display: 'none' } : { display: 'block' }}  >
+              <CIcon content={cilArrowCircleRight} className="mfe-2" />
+              Login
+            </CDropdownItem>
 
-          <CDropdownItem to="/logout" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
-            <CIcon content={cilArrowCircleLeft} className="mfe-2" />
-            Logout
-          </CDropdownItem>
+            <CDropdownItem to="/logout" style={isAuthenticated ? { display: 'block' } : { display: 'none' }} >
+              <CIcon content={cilArrowCircleLeft} className="mfe-2" />
+              Logout
+            </CDropdownItem>
 
-          <CDropdownItem style={isAdmin ? { display: 'block' } : { display: 'none' }}
-            header
-            tag="div"
-            color="light"
-            className="text-center"
-          >
-            <strong>Admin</strong>
-          </CDropdownItem>
+            <CDropdownItem style={isAdmin ? { display: 'block' } : { display: 'none' }}
+              header
+              tag="div"
+              color="light"
+              className="text-center"
+            >
+              <strong>Admin</strong>
+            </CDropdownItem>
 
-          <CDropdownItem to="/settings" style={isAdmin ? { display: 'block' } : { display: 'none' }}>
-            <CIcon content={cilLockLocked} className="mfe-2" />
-            Admin Settings
-          </CDropdownItem>
+            <CDropdownItem to="/settings" style={isAdmin ? { display: 'block' } : { display: 'none' }}>
+              <CIcon content={cilLockLocked} className="mfe-2" />
+              Admin Settings
+            </CDropdownItem>
 
-        </CDropdownMenu>
-      </CDropdown >
+          </CDropdownMenu>
+        </CDropdown >
+      </div>
     </div>
   )
 }
