@@ -18,26 +18,25 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked } from '@coreui/icons';
 import { cilArrowCircleLeft, cilArrowCircleRight, cilUser } from '@coreui/icons'
 import { useCookies } from 'react-cookie';
+import { getCookie } from 'src/reusable/reusables';
 
 // Check if Admin to display admin option
 var checkIfAdmin = false;
 var checkIfUser = false;
 
-
 const TheHeaderDropdown = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 
-
   const [isAdmin, setAdmin] = useState("");
   const [flag, setFlag] = useState(false);
   const [userFirebase, setUserFirebase] = useState([]);
-  const [avatar, setAvatar] = useState("avatar.png");
+  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
     setTimeout(() =>
       setFlag(true)
-      , 2000)
+      , 1000)
   });
 
 
@@ -50,30 +49,36 @@ const TheHeaderDropdown = () => {
 
         if (docSnap.exists() && !checkIfAdmin) {
           setAdmin({ isAdmin: true });
-          // document.cookie = "admin=True";
           setCookie("admin", true, 1);
-
-          console.log("User is admin!");
           checkIfAdmin = true;
         }
       }
       getAdmin(firebaseDB);
     }
+  }
 
+  if (isAuthenticated) {
     if (!checkIfUser) {
-      const getUser = async (db) => {
-        const docRef = doc(db, "users", user.email);
-        const docSnap = await getDoc(docRef);
+      if (getCookie("userPicture")) {
+        setAvatar(getCookie("userPicture"));
+        checkIfUser = true;
 
-        if (docSnap.exists()) {
-          setUserFirebase(docSnap.data())
+      } else {
 
-          checkIfUser = true;
+        const getUser = async (db) => {
+          const docRef = doc(db, "users", user.email);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            setUserFirebase(docSnap.data())
+
+            checkIfUser = true;
+          }
+          setCookie("userPicture", userFirebase.picture, 7);
+          setAvatar(userFirebase.picture);
         }
-        setCookie("userPicture", userFirebase.picture, 7);
-        setAvatar(userFirebase.picture);
+        getUser(firebaseDB);
       }
-      getUser(firebaseDB);
     }
   }
 
@@ -97,7 +102,7 @@ const TheHeaderDropdown = () => {
           <CDropdownToggle className="c-header-nav-link" caret={false}>
             <div className="c-avatar">
               <CImg
-                src={avatar ? avatar : "avatar.png"}
+                src={avatar}
                 className="c-avatar-img profile-photo"
                 alt="iclaim-avatar"
                 style={{ maxHeight: '2.5em' }}
