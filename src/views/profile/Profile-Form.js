@@ -212,10 +212,10 @@ class ProfileForm extends React.Component {
           title: 'Updated successfully'
         })
 
-//         setTimeout(() =>
-//           // this.props.history.push('/profile')
-//           window.location.href = "/"
-//           , 1000)
+        setTimeout(() =>
+          // this.props.history.push('/profile')
+          window.location.href = "/"
+          , 1000)
       }
     })
 
