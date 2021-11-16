@@ -212,6 +212,8 @@ class ProfileForm extends React.Component {
           title: 'Updated successfully'
         })
 
+        document.cookie = "userPicture=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
         setTimeout(() =>
           // this.props.history.push('/profile')
           window.location.href = "/"

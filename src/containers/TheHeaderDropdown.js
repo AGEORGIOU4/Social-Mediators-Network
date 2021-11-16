@@ -33,10 +33,11 @@ const TheHeaderDropdown = () => {
   const [userFirebase, setUserFirebase] = useState([]);
   const [avatar, setAvatar] = useState("");
 
+
   useEffect(() => {
     setTimeout(() =>
       setFlag(true)
-      , 1000)
+      , 10000)
   });
 
 
@@ -51,6 +52,7 @@ const TheHeaderDropdown = () => {
           setAdmin({ isAdmin: true });
           setCookie("admin", true, 1);
           checkIfAdmin = true;
+
         }
       }
       getAdmin(firebaseDB);
@@ -59,10 +61,11 @@ const TheHeaderDropdown = () => {
 
   if (isAuthenticated) {
     if (!checkIfUser) {
+
       if (getCookie("userPicture")) {
         setAvatar(getCookie("userPicture"));
         checkIfUser = true;
-
+        setFlag(true);
       } else {
 
         const getUser = async (db) => {
@@ -71,8 +74,9 @@ const TheHeaderDropdown = () => {
 
           if (docSnap.exists()) {
             setUserFirebase(docSnap.data())
-
+            console.log("hello");
             checkIfUser = true;
+            setFlag(true);
           }
           setCookie("userPicture", userFirebase.picture, 7);
           setAvatar(userFirebase.picture);

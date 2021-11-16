@@ -226,7 +226,7 @@ const Proposal = props => {
             </div>
 
             <div style={{ width: "100%", textAlign: "end" }}>
-              <a style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalEnabledCommentsCounter} comments</a>
+              <p style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalEnabledCommentsCounter} comments</p>
             </div>
 
             <div style={{ width: "100%" }}>
