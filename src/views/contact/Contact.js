@@ -1,10 +1,10 @@
-import { cilLocationPin, cilPhone } from '@coreui/icons'
+import { cilLan, cilLocationPin, cilPhone } from '@coreui/icons'
 import { cilMail } from '@coreui/icons-pro'
 import CIcon from '@coreui/icons-react'
-import { CButton, CLink } from '@coreui/react'
+import { CLink } from '@coreui/react'
 import React from 'react'
 
-const phone = 35724694096;
+const phone = +35724694096;
 const email = "info@iclaimcentre.org";
 
 const Contact = () => {
