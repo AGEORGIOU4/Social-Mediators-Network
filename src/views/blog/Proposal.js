@@ -15,6 +15,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { LoginCard } from 'src/containers/common';
 import { SwalMixing } from 'src/reusable/SwalMixin';
 
+var swalFlag = false;
+
 const Proposal = props => {
 
   const url = window.location.href;
@@ -177,7 +179,11 @@ const Proposal = props => {
   }
 
   if (!isAuthenticated) {
-    SwalMixing("warning", "Only members can view proposals. Sign up now!")
+    if (!swalFlag) {
+      SwalMixing("warning", "Only members can view proposals. Login now!")
+      swalFlag = true;
+
+    }
     return (
 
       <LoginCard />

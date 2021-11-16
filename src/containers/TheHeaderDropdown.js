@@ -48,8 +48,6 @@ const TheHeaderDropdown = () => {
     }
   }
 
-  console.log(isAuthenticated);
-
   if (isAuthenticated) {
 
     if (!checkIfAdmin) {
