@@ -151,6 +151,7 @@ export class AdminsTable extends React.Component {
                     <td>
                       <CButton
                         size="sm"
+                        className="trash-btn"
                         style={{ color: "#e55353" }}
                         variant="outline"
                         onClick={() => {

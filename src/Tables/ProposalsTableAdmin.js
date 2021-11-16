@@ -421,6 +421,7 @@ export class ProposalsTableAdmin extends React.Component {
                                       return (
                                         <td className="py-2" style={{ verticalAlign: 'inherit' }}>
                                           <CButton
+                                            className="trash-btn"
                                             size="sm"
                                             style={{ color: "#e55353" }}
                                             variant="outline"
@@ -455,6 +456,7 @@ export class ProposalsTableAdmin extends React.Component {
                       <td className="py-2" style={{ verticalAlign: 'inherit' }}>
                         <CButton
                           size="sm"
+                          className="trash-btn"
                           style={{ color: "#e55353" }}
                           variant="outline"
                           onClick={() => {

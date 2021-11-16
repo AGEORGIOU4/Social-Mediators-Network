@@ -280,6 +280,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
                         <td className="py-2">
                           <CButton
                             size="sm"
+                            className="trash-btn"
                             style={{ color: "#e55353" }}
                             variant="outline"
                             onClick={() => {
