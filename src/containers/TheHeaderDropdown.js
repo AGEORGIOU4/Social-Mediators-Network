@@ -23,6 +23,7 @@ import { getCookie } from 'src/reusable/reusables';
 // Check if Admin to display admin option
 var checkIfAdmin = false;
 var checkIfUser = false;
+var check = false;
 
 const TheHeaderDropdown = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
@@ -37,9 +38,15 @@ const TheHeaderDropdown = () => {
   useEffect(() => {
     setTimeout(() =>
       setFlag(true)
-      , 10000)
+      , 6000)
   });
 
+  if (!isAuthenticated) {
+    if (!check) {
+      setFlag(true);
+      check = true;
+    }
+  }
 
   if (isAuthenticated) {
 
@@ -74,7 +81,6 @@ const TheHeaderDropdown = () => {
 
           if (docSnap.exists()) {
             setUserFirebase(docSnap.data())
-            console.log("hello");
             checkIfUser = true;
             setFlag(true);
           }
