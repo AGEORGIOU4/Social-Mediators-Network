@@ -41,12 +41,14 @@ const TheHeaderDropdown = () => {
       , 6000)
   });
 
-  if (!isAuthenticated) {
+  if (!getCookie("session")) {
     if (!check) {
       setFlag(true);
       check = true;
     }
   }
+
+  console.log(isAuthenticated);
 
   if (isAuthenticated) {
 
