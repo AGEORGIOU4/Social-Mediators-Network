@@ -1,4 +1,4 @@
-import { cilLan, cilLocationPin, cilPhone } from '@coreui/icons'
+import { cilLocationPin, cilPhone } from '@coreui/icons'
 import { cilMail } from '@coreui/icons-pro'
 import CIcon from '@coreui/icons-react'
 import { CLink } from '@coreui/react'
