@@ -145,7 +145,7 @@ export class SocialMediatorsAdvancedTable extends React.Component {
 
   render() {
     return (
-      <CCol xs="12">
+      <CCol xs="12" style={{ padding: 0 }}>
         <CCard className="advanced-table">
           <CCardHeader>
             <h4 style={{ margin: '0' }}><strong>Users</strong></h4>

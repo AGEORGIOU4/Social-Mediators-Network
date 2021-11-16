@@ -10,17 +10,17 @@ import Swal from 'sweetalert2';
 import { cilMinus, cilTrash } from '@coreui/icons';
 import Switch from "react-switch";
 import { Route } from 'react-router';
+import LinesEllipsis from 'react-lines-ellipsis';
 
 const proposalFields = [
   { key: 'author' },
-  { key: 'title', },
-  { key: 'description' },
+  { key: 'title', _style: { width: '30%' } },
+  { key: 'description', _style: { width: '30%' } },
   { key: 'createdAt' },
   {
     key: 'totalComments',
     label: 'Comments',
     _style: { width: '1%' },
-    sorter: false,
     filter: false
   },
   { key: 'status', filter: false },
@@ -287,7 +287,7 @@ export class ProposalsTableAdmin extends React.Component {
 
   render() {
     return (
-      <CCol xs={12}>
+      <CCol xs="12" style={{ padding: 0 }}>
         <CCard>
           <CCardHeader>
             <h4 style={{ margin: '0' }}><strong>Proposals</strong></h4>
@@ -307,6 +307,30 @@ export class ProposalsTableAdmin extends React.Component {
               pagination
               clickableRows
               scopedSlots={{
+                'title':
+                  (item) => (
+                    <td>
+                      <LinesEllipsis
+                        text={item.title}
+                        maxLine='4'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                      />
+                    </td>
+                  ),
+                'description':
+                  (item) => (
+                    <td>
+                      <LinesEllipsis
+                        text={item.description}
+                        maxLine='4'
+                        ellipsis='...'
+                        trimRight
+                        basedOn='letters'
+                      />
+                    </td>
+                  ),
                 'createdAt':
                   (item) => (
                     <td>
