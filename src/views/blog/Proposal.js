@@ -194,10 +194,10 @@ const Proposal = props => {
 
   return (
     <CRow>
-      <CCol>
-        <CCard>
+      <CCol style={{ padding: "0" }}>
+        <CCard className="proposal-card">
           <CCardBody>
-            <div style={{ width: '100%' }}>
+            <div>
               <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                 <CImg src={(proposal.picture) ? proposal.picture : "avatar.png"}
                   width="44" height="44"

@@ -78,7 +78,7 @@ export class SocialMediatorsBasicTable extends React.Component {
 
       <CRow className="basic-table">
         <CCol xs="12" style={{ textAlign: 'center' }}>
-          <h2 style={{ marginBottom: '20px' }}><strong>Social Mediators</strong></h2>
+          <h2 style={{ margin: '20px 5px 30px' }}><strong>Social Mediators</strong></h2>
         </CCol>
 
         <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block" }}>

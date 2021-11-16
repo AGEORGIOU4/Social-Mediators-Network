@@ -53,13 +53,13 @@ export class ProposalsTable extends React.Component {
   render() {
     return (
 
-      <CRow className="basic-table">
+      <CRow className="basic-table proposals-table">
         <CCol xs="12" style={{ textAlign: 'center' }}>
-          <h2 style={{ marginBottom: '20px' }}><strong>Proposals</strong></h2>
+          <h2 style={{ margin: '20px 5px 30px' }}><strong>Proposals</strong></h2>
         </CCol>
 
 
-        <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block" }}>
+        <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block", padding: "0" }}>
           <Route render={({ history }) => (
             <CDataTable
               items={this.state.proposals}
@@ -83,7 +83,7 @@ export class ProposalsTable extends React.Component {
                 'card':
                   (item, index) => (
                     <td>
-                      <CCard style={{ padding: "0", margin: "0" }}>
+                      <CCard className="proposals-card" style={{ padding: "0", margin: "0" }}>
                         <CCardBody>
                           <div>
                             <div style={{ width: '100%' }}>

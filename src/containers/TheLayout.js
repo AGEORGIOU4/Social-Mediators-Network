@@ -26,7 +26,7 @@ const TheLayout = () => {
       <TheAside />
       <div className="c-wrapper">
         <TheHeader />
-        <TheSubHeader />
+        {/* <TheSubHeader /> */}
 
         <div className="c-body">
           <TheContent />

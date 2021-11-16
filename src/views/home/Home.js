@@ -229,7 +229,7 @@ const Home = () => {
     <CRow >
 
       <CCol xs="12" id="homeCarousel" style={{ display: (isConnected) ? "block" : "none" }}>
-        <CCarousel animate autoSlide={3000}>
+        <CCarousel animate autoSlide={5000}>
           <CCarouselIndicators style={{ color: 'grey' }} />
           <CCarouselInner>
 
