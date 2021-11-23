@@ -1,9 +1,14 @@
 import React from 'react'
+import TheFloatingButton from 'src/containers/TheFloatingButton'
 import { ProposalsTable } from 'src/Tables/ProposalsTable'
 
 const Blog = () => {
   return (
-    <ProposalsTable />
+    <div>
+      <ProposalsTable />
+      <TheFloatingButton />
+
+    </div>
   )
 }
 
