@@ -83,9 +83,12 @@ const TheHeaderDropdown = () => {
             setUserFirebase(docSnap.data())
             checkIfUser = true;
             setFlag(true);
+            setCookie("userPicture", userFirebase.picture, 7);
+            setAvatar(userFirebase.picture);
+          } else {
+            setAvatar("avatar.png")
           }
-          setCookie("userPicture", userFirebase.picture, 7);
-          setAvatar(userFirebase.picture);
+
         }
         getUser(firebaseDB);
       }
