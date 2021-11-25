@@ -112,7 +112,7 @@ const TheHeaderDropdown = () => {
           <CDropdownToggle className="c-header-nav-link" caret={false}>
             <div className="c-avatar">
               <CImg
-                src={avatar}
+                src={(avatar === 'undefined') ? "avatar.png" : avatar}
                 className="c-avatar-img profile-photo"
                 alt="iclaim-avatar"
                 style={{ maxHeight: '2.5em' }}
