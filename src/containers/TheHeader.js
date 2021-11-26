@@ -36,7 +36,7 @@ const TheHeader = () => {
     <CHeader withSubheader>
       <CToggler
         inHeader
-        className="ml-md-3 d-lg-none"
+        className="ml-md-3 d-lg-none hamburger-menu"
         onClick={toggleSidebarMobile}
       />
       <CToggler

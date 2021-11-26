@@ -10,7 +10,8 @@
 }
 
 .c-sidebar-nav-link {
-  margin: 20px;
+  padding: 12px;
+  margin: 20px 4px;
 }
 
 .c-sidebar :hover {
@@ -202,14 +203,14 @@ padding-right: 0;
   }
 
   .bottom-nav {
-    height: 50px !important;
+    height: 70px !important;
     background-color: #353535 !important;
     color: #fff !important;
   }
 
   .c-footer {
-    margin-bottom: 50px;
-    padding-bottom: 50px;
+    margin-bottom: 70px;
+    padding-bottom: 10px;
   }
 
   // Common
@@ -238,6 +239,10 @@ padding-right: 0;
 
   .advanced-table {
     border-radius: 0;
+  }
+
+  .hamburger-menu {
+    display: none !important;
   }
 }
 

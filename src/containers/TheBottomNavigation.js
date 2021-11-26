@@ -9,28 +9,28 @@ const TheBottomNavigation = () => {
   const bottomNavItems = [
     {
       title: 'Home',
-      icon: <CIcon style={{ color: '#ffb6b6' }} size="sm" content={cilHome} />,
-      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="sm" content={cilHome} />
+      icon: <CIcon style={{ color: '#ffb6b6' }} size="md" content={cilHome} />,
+      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="md" content={cilHome} />
     },
     {
       title: 'About',
-      icon: <CIcon style={{ color: '#4cc0d9' }} size="sm" content={cilInfoCircle} />,
-      activeIcon: <CIcon style={{ color: '#4cc0d9' }} size="sm" content={cilInfoCircle} />
+      icon: <CIcon style={{ color: '#4cc0d9' }} size="lg" content={cilInfoCircle} />,
+      activeIcon: <CIcon style={{ color: '#4cc0d9' }} size="lg" content={cilInfoCircle} />
     },
     {
       title: 'Blog',
-      icon: <CIcon style={{ color: '#fcb040' }} size="sm" content={cilNotes} />,
-      activeIcon: <CIcon style={{ color: '#fcb040' }} size="sm" content={cilNotes} />,
+      icon: <CIcon style={{ color: '#fcb040' }} size="lg" content={cilNotes} />,
+      activeIcon: <CIcon style={{ color: '#fcb040' }} size="lg" content={cilNotes} />,
     },
     {
       title: 'Mediators',
-      icon: <CIcon style={{ color: '#39af49' }} size="sm" content={cilPeople} />,
-      activeIcon: <CIcon style={{ color: '#39af49' }} size="sm" content={cilPeople} />,
+      icon: <CIcon style={{ color: '#39af49' }} size="lg" content={cilPeople} />,
+      activeIcon: <CIcon style={{ color: '#39af49' }} size="lg" content={cilPeople} />,
     },
     {
       title: 'Contact',
-      icon: <CIcon style={{ color: '#ef4036' }} size="sm" content={cilPhone} />,
-      activeIcon: <CIcon style={{ color: '#ef4036' }} size="sm" content={cilPhone} />,
+      icon: <CIcon style={{ color: '#ef4036' }} size="lg" content={cilPhone} />,
+      activeIcon: <CIcon style={{ color: '#ef4036' }} size="lg" content={cilPhone} />,
       to: "/Home"
     },
 
@@ -39,7 +39,7 @@ const TheBottomNavigation = () => {
   return (
     <div className="custom-bottom-nav">
       <BottomNavigation
-        activeBgColor={"#d1676800"}
+        activeBgColor={"#635dff"}
         activeTextColor={"#fff"}
         items={bottomNavItems}
         // onItemClick={(item) => { setDefaultNav(item) }}
