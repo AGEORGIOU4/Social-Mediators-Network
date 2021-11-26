@@ -38,7 +38,7 @@ const TheHeaderDropdown = () => {
   useEffect(() => {
     setTimeout(() =>
       setFlag(true)
-      , 6000)
+      , 4000)
   });
 
   if (!getCookie("session")) {
