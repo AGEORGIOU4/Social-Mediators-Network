@@ -77,9 +77,9 @@ export class SocialMediatorsBasicTable extends React.Component {
     return (
 
       <CRow className="basic-table">
-        <CCol xs="12" style={{ textAlign: 'center' }}>
+        {/* <CCol xs="12" style={{ textAlign: 'center' }}>
           <h2 style={{ margin: '20px 5px 30px' }}><strong>Social Mediators</strong></h2>
-        </CCol>
+        </CCol> */}
 
         <CCol xs="12" style={{ display: (this.state.loading) ? "none" : "block" }}>
           <Route render={({ history }) => (
@@ -88,7 +88,7 @@ export class SocialMediatorsBasicTable extends React.Component {
               fields={socialMediatorFields}
               loading={this.state.loading}
               header={false}
-              tableFilter={{ 'placeholder': 'Search...' }}
+              tableFilter={{ 'placeholder': 'Search for a social mediator...' }}
               itemsPerPage={20}
               pagination
               clickableRows

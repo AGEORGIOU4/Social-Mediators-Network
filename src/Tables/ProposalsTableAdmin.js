@@ -300,7 +300,7 @@ export class ProposalsTableAdmin extends React.Component {
               columnFilter
               cleaner
               responsive={true}
-              tableFilter={{ 'placeholder': 'Search a proposal...' }}
+              tableFilter={{ 'placeholder': 'Search for a proposal...' }}
               sorter
               sorterValue={{ column: "createdAt", asc: false }}
               itemsPerPage={20}
