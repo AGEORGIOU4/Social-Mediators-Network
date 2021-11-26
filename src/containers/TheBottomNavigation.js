@@ -6,16 +6,46 @@ import 'reactjs-bottom-navigation/dist/index.css'
 import { cilHome, cilInfoCircle, cilPhone } from '@coreui/icons-pro'
 
 const TheBottomNavigation = () => {
+  var activeTab = 0;
+
+  const consoleOnChange = () => {
+    const path = window.location.hash;
+
+    switch (path) {
+      case "#/Home":
+        activeTab = 0;
+        break;
+      case "#/About":
+        activeTab = 1;
+        break;
+      case "#/Blog":
+        activeTab = 2;
+        break;
+      case "#/social-mediators":
+        activeTab = 3;
+        break;
+      case "#/Contact":
+        activeTab = 4;
+        break;
+      default:
+        activeTab = 0;
+        break
+    }
+    console.log(activeTab);
+  }
+
+  consoleOnChange();
+
   const bottomNavItems = [
     {
       title: 'Home',
       icon: <CIcon style={{ color: '#ffb6b6' }} size="lg" content={cilHome} />,
-      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="lg" content={cilHome} />
+      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="lg" content={cilHome} />,
     },
     {
       title: 'About',
       icon: <CIcon style={{ color: '#4cc0d9' }} size="lg" content={cilInfoCircle} />,
-      activeIcon: <CIcon style={{ color: '#4cc0d9' }} size="lg" content={cilInfoCircle} />
+      activeIcon: <CIcon style={{ color: '#4cc0d9' }} size="lg" content={cilInfoCircle} />,
     },
     {
       title: 'Blog',
@@ -31,7 +61,6 @@ const TheBottomNavigation = () => {
       title: 'Contact',
       icon: <CIcon style={{ color: '#ef4036' }} size="lg" content={cilPhone} />,
       activeIcon: <CIcon style={{ color: '#ef4036' }} size="lg" content={cilPhone} />,
-      to: "/Home"
     },
 
   ]
@@ -39,13 +68,15 @@ const TheBottomNavigation = () => {
   return (
     <div className="custom-bottom-nav">
       <BottomNavigation
+        defaultSelected={activeTab}
         activeBgColor={"#635dff"}
         activeTextColor={"#fff"}
         items={bottomNavItems}
         // onItemClick={(item) => { setDefaultNav(item) }}
         onItemClick={item => (item.title === "Mediators") ?
           window.location.href = '/#/social-mediators' :
-          window.location.href = '/#/'.concat(item.title)}
+          window.location.href = '/#/'.concat(item.title)
+        }
       >
       </BottomNavigation>
     </div>
