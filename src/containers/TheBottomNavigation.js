@@ -9,8 +9,8 @@ const TheBottomNavigation = () => {
   const bottomNavItems = [
     {
       title: 'Home',
-      icon: <CIcon style={{ color: '#ffb6b6' }} size="md" content={cilHome} />,
-      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="md" content={cilHome} />
+      icon: <CIcon style={{ color: '#ffb6b6' }} size="lg" content={cilHome} />,
+      activeIcon: <CIcon style={{ color: '#ffb6b6' }} size="lg" content={cilHome} />
     },
     {
       title: 'About',
