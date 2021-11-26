@@ -453,7 +453,7 @@ class ProfileForm extends React.Component {
                 </div>
 
                 <div style={{ textAlign: 'end' }}>
-                  <CButton color='dark' variant="outline" onClick={this.handleSubmit}><CIcon content={cilSave} /> Update</CButton>
+                  <CButton color='dark' variant="outline" onClick={this.handleSubmit}>Update <CIcon content={cilSave} /></CButton>
                 </div>
               </CCardBody>
 

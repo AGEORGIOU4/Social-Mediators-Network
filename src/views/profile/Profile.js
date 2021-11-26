@@ -149,7 +149,7 @@ const Profile = props => {
               </div>
 
               <div style={{ textAlign: 'end' }}>
-                <Route render={({ history }) => (<CButton color='dark' variant='outline' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} ><CIcon content={cilPencil} /> Edit</CButton>)} />
+                <Route render={({ history }) => (<CButton color='dark' variant='outline' onClick={() => { history.push({ pathname: "/profile-form", state: userFirebase }) }} >Edit <CIcon content={cilPencil} /></CButton>)} />
               </div>
             </CCardBody>
 

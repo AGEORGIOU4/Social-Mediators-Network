@@ -109,7 +109,7 @@ const UsersProfile = props => {
 
               <Route render={({ history }) => (
                 <div style={{ textAlign: 'end' }}>
-                  <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}><CButton color={"dark"} variant="outline"><CIcon size="md" content={cilMail} /> Message</CButton></a>
+                  <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}><CButton color={"dark"} variant="outline">Message <CIcon size="md" content={cilMail} /></CButton></a>
                 </div>
               )} />
             </CCardBody>
