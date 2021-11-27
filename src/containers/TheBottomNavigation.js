@@ -8,7 +8,7 @@ import { cilHome, cilInfoCircle, cilPhone } from '@coreui/icons-pro'
 const TheBottomNavigation = () => {
   var activeTab = 0;
 
-  const consoleOnChange = () => {
+  const setTabOnReload = () => {
     const path = window.location.hash;
 
     switch (path) {
@@ -31,10 +31,9 @@ const TheBottomNavigation = () => {
         activeTab = 0;
         break
     }
-    console.log(activeTab);
   }
 
-  consoleOnChange();
+  setTabOnReload();
 
   const bottomNavItems = [
     {
