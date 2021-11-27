@@ -14,6 +14,8 @@ import Switch from "react-switch";
 import { getStatusBadge } from 'src/reusable/reusables';
 
 const socialMediatorFields = [
+  { key: 'firstName' },
+  { key: 'lastName' },
   { key: 'email' },
   { key: 'status' },
   {
