@@ -56,7 +56,7 @@ export class ProposalsTable extends React.Component {
       <CRow className="basic-table proposals-table">
         <CCol xs="12" style={{ textAlign: 'center' }}>
           <h2 style={{ margin: '20px 5px 30px' }}><strong>Proposals</strong></h2>
-          <p style={{ fontWeight: 500, fontStyle: "italic", color: "#635dff" }}>Let's use this page for brainstorming and proposals for future collaboration</p>
+          <p style={{ fontWeight: 500, fontStyle: "italic", color: "#e55353" }}>Let's use this page for brainstorming and proposals for future collaboration!</p>
         </CCol>
 
 

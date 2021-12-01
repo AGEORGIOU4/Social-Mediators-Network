@@ -14,7 +14,8 @@ const TheFloatingButton = () => {
 
   var pic = getCookie("userPicture");
 
-  const url = window.location.href;
+  const url = window.location.hash;
+  console.log(url);
   var isConnected = false;
   isConnected = window.navigator.onLine;
 
@@ -102,14 +103,14 @@ const TheFloatingButton = () => {
                     position: 'bottom-end',
                     showConfirmButton: false,
                     timer: 1000,
-                    timerProgressBar: false,
+                    timerProgressBar: true,
                     didOpen: (toast) => {
                       toast.addEventListener('mouseenter', Swal.stopTimer)
                       toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
                   })
 
-                  if (url === "https://socialmediatorsnetwork.netlify.app/#/blog" || url === "http://localhost:3000/#/Blog") {
+                  if (url === "#/Blog" || url === "#/blog") {
                     setTimeout(() =>
                       window.location.reload(false)
                       , 1000)
