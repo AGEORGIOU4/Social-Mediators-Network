@@ -2,6 +2,7 @@ import React from 'react'
 import { CCol, CDataTable, CImg } from '@coreui/react'
 import { Route } from "react-router-dom";
 import { FormatTimestamp } from 'src/reusable/reusables';
+import { getCookie } from 'src/reusable/reusables';
 
 const commentsFields = [
   { key: 'card', label: "", sorter: false, filter: false },
@@ -33,7 +34,21 @@ export const CommentsTable = (props) => {
                       <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                         <CImg src={(item.picture) ? item.picture : "avatar.png"}
                           width="36" height="36"
-                          shape="rounded-circle" />
+                          shape="rounded-circle"
+                          onClick={() => {
+                            if (getCookie("userEmail") === item.email) {
+
+                              history.push("/profile")
+
+                            } else {
+                              history.push({
+                                pathname: "/users-profile",
+                                state: item
+                              })
+                            }
+                          }
+                          }
+                        />
                       </div>
 
                       <div style={{ width: "80%", float: 'left' }}>

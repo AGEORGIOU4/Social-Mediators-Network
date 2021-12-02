@@ -65,6 +65,7 @@ const Proposal = props => {
 
     await setDoc(doc(db, 'proposals/'.concat(proposalID).concat('/comments'), commentID), {
       commentID: commentID,
+      email: userFirebase.email,
       author: userFirebase.firstName + ' ' + userFirebase.lastName,
       createdAt: Timestamp.now(),
       content: enteredContent,
@@ -201,80 +202,96 @@ const Proposal = props => {
   return (
     <CRow>
       <CCol style={{ padding: "0" }}>
-        <CCard className="proposal-card">
-          <CCardBody>
-            <div>
-              <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
-                <CImg src={(proposal.picture) ? proposal.picture : "avatar.png"}
-                  width="44" height="44"
-                  shape="rounded-circle" />
+        <Route render={({ history }) => (
+          <CCard className="proposal-card">
+            <CCardBody>
+              <div>
+                <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
+                  <CImg src={(proposal.picture) ? proposal.picture : "avatar.png"}
+                    width="44" height="44"
+                    shape="rounded-circle"
+                    onClick={() => {
+                      if (getCookie("userEmail") === proposal.email) {
+
+                        history.push("/profile")
+
+                      } else {
+                        history.push({
+                          pathname: "/users-profile",
+                          state: proposal
+                        })
+                      }
+                    }
+                    }
+                  />
+                </div>
+
+                <div style={{ width: "80%", float: 'left' }}>
+                  <strong style={{ fontSize: 'medium' }}> {proposal.author}</strong>
+                </div>
               </div>
 
-              <div style={{ width: "80%", float: 'left' }}>
-                <strong style={{ fontSize: 'medium' }}> {proposal.author}</strong>
+              <div style={{ width: "80%" }}>
+                <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={createdAt.seconds} />}</p>
               </div>
-            </div>
 
-            <div style={{ width: "80%" }}>
-              <p style={{ color: "#00000066", fontSize: 'small', marginBottom: '4px' }}>{<FormatTimestamp seconds={createdAt.seconds} />}</p>
-            </div>
+              <div style={{ width: "100%" }}>
+                <hr></hr>
+              </div>
 
-            <div style={{ width: "100%" }}>
-              <hr></hr>
-            </div>
+              <div style={{ width: "100%" }}>
+                <h3 style={{ fontWeight: '900' }}>{proposal.title}</h3>
+              </div>
 
-            <div style={{ width: "100%" }}>
-              <h3 style={{ fontWeight: '900' }}>{proposal.title}</h3>
-            </div>
+              <div style={{ width: "100%" }}>
+                <p>{proposal.description}</p>
+              </div>
 
-            <div style={{ width: "100%" }}>
-              <p>{proposal.description}</p>
-            </div>
+              <div style={{ width: "100%", textAlign: "end" }}>
+                <p style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalEnabledCommentsCounter} comments</p>
+              </div>
 
-            <div style={{ width: "100%", textAlign: "end" }}>
-              <p style={{ fontSize: 'smaller', marginBottom: '4px' }}>{totalEnabledCommentsCounter} comments</p>
-            </div>
-
-            <div style={{ width: "100%" }}>
-              <hr></hr>
-            </div>
+              <div style={{ width: "100%" }}>
+                <hr></hr>
+              </div>
 
 
 
-            <CCol>
-              <div style={{ width: "100%", textAlign: 'center' }}>
-                <div style={{ width: '50%', float: 'left' }} >
-                  <CopyToClipboard text={url}>
+              <CCol>
+                <div style={{ width: "100%", textAlign: 'center' }}>
+                  <div style={{ width: '50%', float: 'left' }} >
+                    <CopyToClipboard text={url}>
 
+                      <CButton
+                        style={{ margin: '0 2px', fontSize: 'smaller' }}
+                        size="sm"
+                        color="dark"
+                        variant="ghost"
+                        onClick={() => SwalMixing("success", "Link copied to clipboard")}
+                      >Share <CIcon size={"sm"} content={cilShare} /></CButton>
+                    </CopyToClipboard>
+                  </div>
+
+                  <div style={{ width: '50%', float: 'left' }} >
                     <CButton
                       style={{ margin: '0 2px', fontSize: 'smaller' }}
                       size="sm"
                       color="dark"
                       variant="ghost"
-                      onClick={() => SwalMixing("success", "Link copied to clipboard")}
-                    >Share <CIcon size={"sm"} content={cilShare} /></CButton>
-                  </CopyToClipboard>
+                      onClick={() => { postComment(proposal.proposalID) }}
+                    >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
+                  </div>
+
                 </div>
+              </CCol>
+            </CCardBody>
 
-                <div style={{ width: '50%', float: 'left' }} >
-                  <CButton
-                    style={{ margin: '0 2px', fontSize: 'smaller' }}
-                    size="sm"
-                    color="dark"
-                    variant="ghost"
-                    onClick={() => { postComment(proposal.proposalID) }}
-                  >Comment <CIcon size={"sm"} content={cilCommentBubble} /></CButton>
-                </div>
+            <div style={{ display: (!commentsTrue) ? 'none' : 'block' }}>
+              <CommentsTable comments={comments} />
+            </div>
 
-              </div>
-            </CCol>
-          </CCardBody>
-
-          <div style={{ display: (!commentsTrue) ? 'none' : 'block' }}>
-            <CommentsTable comments={comments} />
-          </div>
-
-        </CCard>
+          </CCard>
+        )} />
       </CCol>
     </CRow >
   )

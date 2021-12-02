@@ -7,6 +7,7 @@ import { firebaseDB } from 'src/reusable/firebaseConfig';
 import { CImg } from '@coreui/react';
 import { Route } from 'react-router';
 import { FormatTimestamp } from 'src/reusable/reusables';
+import { getCookie } from 'src/reusable/reusables';
 
 const proposalFields = [
   { key: 'card', label: "", sorter: false, filter: false },
@@ -74,10 +75,10 @@ export class ProposalsTable extends React.Component {
               sorterValue={{ column: "createdAt", asc: false }}
               clickableRows
               onRowClick={(item, index, col, e) => {
-                history.push({
-                  pathname: "/proposal",
-                  state: item
-                })
+                // history.push({
+                //   pathname: "/proposal",
+                //   state: item
+                // })
               }
               }
               scopedSlots={{
@@ -91,7 +92,21 @@ export class ProposalsTable extends React.Component {
                               <div style={{ width: "20%", float: 'left', textAlign: "center", marginLeft: '-6px', marginRight: '6px' }}>
                                 <CImg src={(item.picture) ? item.picture : "avatar.png"}
                                   width="44" height="44"
-                                  shape="rounded-circle" />
+                                  shape="rounded-circle"
+                                  onClick={() => {
+                                    if (getCookie("userEmail") === item.email) {
+
+                                      history.push("/profile")
+
+                                    } else {
+                                      history.push({
+                                        pathname: "/users-profile",
+                                        state: item
+                                      })
+                                    }
+                                  }
+                                  }
+                                />
                               </div>
 
                               <div style={{ width: "80%", float: 'left' }}>
@@ -107,7 +122,13 @@ export class ProposalsTable extends React.Component {
                               <hr></hr>
                             </div>
 
-                            <div style={{ width: "100%" }}>
+                            <div
+                              style={{ width: "100%" }}
+                              onClick={() => history.push({
+                                pathname: "/proposal",
+                                state: item
+                              })
+                              }>
                               <h3 style={{ fontWeight: '900' }}>{item.title}</h3>
                             </div>
                             <div style={{ width: "100%" }}>
@@ -115,7 +136,13 @@ export class ProposalsTable extends React.Component {
                             </div>
 
                             <div style={{ width: "100%", textAlign: "end" }}>
-                              <CLink style={{ fontSize: 'smaller', marginBottom: '4px' }}>{(item.totalEnabledComments > 0) ? item.totalEnabledComments : 0} comments</CLink>
+                              <CLink
+                                onClick={() => history.push({
+                                  pathname: "/proposal",
+                                  state: item
+                                })
+                                }
+                                style={{ fontSize: 'smaller', marginBottom: '4px' }}>{(item.totalEnabledComments > 0) ? item.totalEnabledComments : 0} comments</CLink>
                             </div>
 
                             <div style={{ width: "100%" }}>

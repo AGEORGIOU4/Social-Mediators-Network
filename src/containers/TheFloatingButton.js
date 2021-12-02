@@ -15,7 +15,6 @@ const TheFloatingButton = () => {
   var pic = getCookie("userPicture");
 
   const url = window.location.hash;
-  console.log(url);
   var isConnected = false;
   isConnected = window.navigator.onLine;
 
