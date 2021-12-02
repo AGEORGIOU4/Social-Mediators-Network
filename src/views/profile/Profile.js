@@ -104,7 +104,7 @@ const Profile = props => {
               </CCol>
 
 
-              <CCol xs="12" style={{ textAlign: 'center', margin: '6px 0' }}>
+              <CCol xs="12" style={{ textAlign: 'center', margin: '12px 0 6px' }}>
                 <strong style={{ fontSize: 'x-large' }}> {userFirebase.firstName} {userFirebase.lastName}</strong>
               </CCol>
 

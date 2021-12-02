@@ -64,7 +64,7 @@ export const CommentsTable = (props) => {
                       <hr></hr>
                     </div>
 
-                    <div style={{ width: "100%", fontSize: 'small' }}>
+                    <div style={{ width: "100%", fontSize: 'small', textAlign: "justify" }}>
                       <p>{item.content}</p>
                     </div>
                   </div>

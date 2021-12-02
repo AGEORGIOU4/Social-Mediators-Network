@@ -401,7 +401,7 @@ class ProfileForm extends React.Component {
                 </CCol>
 
 
-                <CCol xs="12" style={{ textAlign: 'center', margin: '6px 0' }}>
+                <CCol xs="12" style={{ textAlign: 'center', margin: '12px 0 6px' }}>
                   <strong style={{ fontSize: 'x-large' }}> {this.state.firstName} {this.state.lastName}</strong>
                 </CCol>
 
