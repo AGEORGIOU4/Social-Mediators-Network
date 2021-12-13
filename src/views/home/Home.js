@@ -221,8 +221,8 @@ const Home = () => {
 
   const slides = [
     'iclaim-slide1.jpg',
-    'iclaim-slide1.jpg',
-    'iclaim-slide1.jpg',
+    'iclaim-slide2.jpg',
+    'iclaim-slide3.jpg',
   ]
 
   return (
