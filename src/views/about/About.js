@@ -16,7 +16,7 @@ import {
 
 const About = () => {
 
-  const uclan = 'UCLan Cyprus is a Cypriot University and also the first overseas campus of a British University, the University of Central Lancashire (UCLan).It is the only university in Cyprus that can offer students the advantage of an honours or postgraduate degree recognised both in the UK and in Cyprus; truly international qualifications to enhance employability at home and overseas. What distinguishes UCLan Cyprus is its commitment to quality and standards. Students have to meet our entrance requirements in order to be admitted. Our teaching staff are required to have ‘Rolls Royce minds’ to enable the UCLan Group of Universities to continue climbing the QS World University Rankings, the most prestigious university rankings in the world.'
+  const uclan = 'UCLan Cyprus is a Cypriot University and also the first overseas campus of a British University, the University of Central Lancashire (UCLan). It is the only university in Cyprus that can offer students the advantage of an honours or postgraduate degree recognised both in the UK and in Cyprus; truly international qualifications to enhance employability at home and overseas. What distinguishes UCLan Cyprus is its commitment to quality and standards. Students have to meet our entrance requirements in order to be admitted. Our teaching staff are required to have ‘Rolls Royce minds’ to enable the UCLan Group of Universities to continue climbing the QS World University Rankings, the most prestigious university rankings in the world.'
   const iclaim = 'ICLAIM is an interdisciplinary Centre, which closely works with UCLan Cyprus on law in the real world, socio-legal issues and disputes arising in a transnational and interdisciplinary context, at all levels of the legal order and multi-level governance (international, European and national), utilising alternative and innovative methods.'
 
   return (
@@ -32,17 +32,17 @@ const About = () => {
             <CTabs>
               <CNav variant="tabs">
                 <CNavItem>
-                  <CNavLink>
+                  <CNavLink style={{ fontSize: "12px" }}>
                     UCLan Cyprus
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>
+                  <CNavLink style={{ fontSize: "12px" }}>
                     ICLAIM
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>
+                  <CNavLink style={{ fontSize: "12px" }}>
                     Supporters
                   </CNavLink>
                 </CNavItem>
@@ -50,7 +50,7 @@ const About = () => {
               <CTabContent>
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{uclan}</p>
-                  <CCol xs={12} style={{ textAlign: "end" }}>
+                  <CCol xs={12} style={{ textAlign: "center" }}>
                     <CLink href="https://www.uclancyprus.ac.cy/">
                       <CImg src={"About/uclan-logo.png"}
                         width="200" height="200"
@@ -61,7 +61,7 @@ const About = () => {
 
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{iclaim}</p>
-                  <CCol xs={12} style={{ textAlign: "end" }}>
+                  <CCol xs={12} style={{ textAlign: "center" }}>
                     <CLink href="https://www.iclaimcentre.org/">
                       <CImg src={"About/iclaim-logo.png"}
                         width="200" height="200"
