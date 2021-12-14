@@ -154,14 +154,14 @@ const Home = () => {
       })
 
       await swalQueue.fire({
-        title: "Any qualifications or attendee trainings as a social mediator?",
+        title: "Any qualifications or attended trainings as a social mediator?",
         currentProgressStep: 2,
         html:
           '<textarea id="qualifications-input1" class="swal-custom-input swal-custom-input-textarea" style="width: 100%" rows="4" placeholder="Enter your qualifications and experiences. Leave empty if none..."></textarea>' +
           '<br><br>' +
-          '<select style="width: 100%" class="swal-custom-input swal-custom-input-select" name="trainings-input2-select" id="trainings-input2" value="N/A"><option value="N/A">First training attendee if any</option>  <option value="SM1">SM1</option>  <option value="SM2">SM2</option>  <option value="SM3">SM3</option>  <option value="SM4">SM4</option> <option value="SM5">SM5</option> <option value="SM6">SM6</option> <option value="SM7">SM7</option> <option value="SM8">SM8</option><option value="SM9">SM9</option> <option value="SM10">SM10</option> <option value="SM11">SM11</option></select>' +
+          '<select style="width: 100%" class="swal-custom-input swal-custom-input-select" name="trainings-input2-select" id="trainings-input2" value="N/A"><option value="N/A">First training attended if any</option>  <option value="Social Mediation Training, July 2018">Social Mediation Training, July 2018</option>  <option value="Social Mediation in Practice, Dheryneia 2019">Social Mediation in Practice, Dheryneia 2019</option>  <option value="Social Mediation in Practice, Nicosia 2019-2020">Social Mediation in Practice, Nicosia 2019-2020</option>  <option value="Social Mediation in Practice, Pyla, 2020">Social Mediation in Practice, Pyla, 2020</option> <option value="Social Mediation for Social Transitions, online, 2021">Social Mediation for Social Transitions, online, 2021</option> <option value="Identity, Culture, and Social Mediation, Pyla, 2021">Identity, Culture, and Social Mediation, Pyla, 2021</option></select>' +
           '<br>' +
-          '<p style="color: #e55353; font-style: italic; font-size: small; margin-top:5px;" >*You can add more trainings attendee later</p>',
+          '<p style="color: #e55353; font-style: italic; font-size: small; margin-top:5px;" >*You can add more trainings attended later</p>',
         focusConfirm: false,
         preConfirm: () => {
           return [

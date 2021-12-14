@@ -1,16 +1,18 @@
 export const interests =
 {
-  Computing: 'Computing',
-  Volunteering: 'Volunteering',
-  Photography: 'Photography',
-  Music: 'Music',
+  Education: 'Education',
   Law: 'Law',
-  Physics: 'Physics',
-  Mathematics: 'Mathematics',
-  Technology: 'Technology',
-  Business: 'Business',
-  Blogging: 'Blogging',
-  Sports: 'Sports',
+  HumanRights: 'Human rights',
+  YouthRights: 'Youth rights',
+  Research: 'Research',
+  Gender: 'Gender',
+  Peace: 'Peace',
+  Volunteering: 'Volunteering',
+  Politics: 'Politics',
+  Computing: 'Computing',
+  Photography: 'Photography',
+  Architecture: 'Architecture',
+  Environment: 'Environment',
   Other: 'Other',
 }
 export default interests

@@ -1,36 +1,42 @@
 export const interestOptions = [
   {
-    label: "Computing", value: 'Computing',
-  },
-  {
-    label: "Volunteering", value: 'Volunteering',
-  },
-  {
-    label: "Photography", value: 'Photography',
-  },
-  {
-    label: "Music", value: 'Music',
+    label: "Education", value: 'Education',
   },
   {
     label: "Law", value: 'Law',
   },
   {
-    label: "Physics", value: 'Physics',
+    label: "Human rights", value: 'Human rights',
   },
   {
-    label: "Mathematics", value: 'Mathematics',
+    label: "Youth rights", value: 'Youth rights',
   },
   {
-    label: "Technology", value: 'Technology',
+    label: "Research", value: 'Research',
   },
   {
-    label: "Business", value: 'Business',
+    label: "Gender", value: 'Gender',
   },
   {
-    label: "Blogging", value: 'Blogging',
+    label: "Peace", value: 'Peace',
   },
   {
-    label: "Sports", value: 'Sports',
+    label: "Volunteering", value: 'Volunteering',
+  },
+  {
+    label: "Politics", value: 'Politics',
+  },
+  {
+    label: "Computing", value: 'Computing',
+  },
+  {
+    label: "Photography", value: 'Photography',
+  },
+  {
+    label: "Architecture", value: 'Architecture',
+  },
+  {
+    label: "Environment", value: 'Environment',
   },
   {
     label: "Other", value: 'Other',
