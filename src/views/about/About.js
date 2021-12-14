@@ -70,12 +70,12 @@ const About = () => {
                   </CCol>
                 </CTabPane>
 
-                <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
-                  <p> ⚫ Lancashire Research Institute of Citizenship, Society and Change</p>
-                  <p> ⚫ British High Commission, Nicosia</p>
-                  <p> ⚫ Centre for Sustainable Transitions, University of Central Lancashire</p>
+                <CTabPane style={{ padding: "10px" }}>
+                  <p>⚫ Lancashire Research Institute of Citizenship, Society and Change</p>
+                  <p>⚫ British High Commission, Nicosia</p>
+                  <p>⚫ Centre for Sustainable Transitions, University of Central Lancashire</p>
 
-                  <CRow>
+                  <CRow style={{ textAlign: "justify" }}>
                     <CCol xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
                       <CLink href="https://www.uclancyprus.ac.cy/">
                         <CImg src={"About/uclan-logo.png"}
