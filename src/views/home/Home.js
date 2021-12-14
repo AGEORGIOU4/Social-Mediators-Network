@@ -102,7 +102,7 @@ const Home = () => {
     Swal.fire({
       title: 'Welcome',
       text: 'to Social Mediators Network',
-      imageUrl: 'SMN-logo-square.png',
+      imageUrl: 'icon-192x192.png',
       imageWidth: 80,
       imageAlt: 'Social Mediators Network',
       showConfirmButton: true,
@@ -197,6 +197,16 @@ const Home = () => {
             return 'You need to select something!'
           } else {
             enteredInsterest = value;
+
+            console.log(enteredInsterest);
+            if (value === "YouthRights") {
+              enteredInsterest = "Youth rights";
+            }
+            if (value === "HumanRights") {
+              enteredInsterest = "Human rights";
+            }
+            console.log(enteredInsterest);
+
             addUser(firebaseDB);
             console.log("User ".concat(user.nickname).concat(" is added!"));
 

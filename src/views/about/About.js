@@ -10,14 +10,14 @@ import {
   CCard,
   CCardBody,
   CTabs,
-  CButton
+  CImg,
+  CLink
 } from '@coreui/react'
 
 const About = () => {
 
   const uclan = 'UCLan Cyprus is a Cypriot University and also the first overseas campus of a British University, the University of Central Lancashire (UCLan).It is the only university in Cyprus that can offer students the advantage of an honours or postgraduate degree recognised both in the UK and in Cyprus; truly international qualifications to enhance employability at home and overseas. What distinguishes UCLan Cyprus is its commitment to quality and standards. Students have to meet our entrance requirements in order to be admitted. Our teaching staff are required to have ‘Rolls Royce minds’ to enable the UCLan Group of Universities to continue climbing the QS World University Rankings, the most prestigious university rankings in the world.'
   const iclaim = 'ICLAIM is an interdisciplinary Centre, which closely works with UCLan Cyprus on law in the real world, socio-legal issues and disputes arising in a transnational and interdisciplinary context, at all levels of the legal order and multi-level governance (international, European and national), utilising alternative and innovative methods.'
-  const icsc = 'The Lancashire Research Institute of Citizenship, Society and Change brings together powerful research strands from four UCLan Faculties into a critical mass capable of extensive transdisciplinary work, well placed to respond to urgent and profound questions concerning a sustainable future, relationships among individuals and communities, arts and culture, public institutions of health, welfare and security. The Directors of the Institute are Professor Nicky Stanley, Dr John Whitton, Professor Ulrike Zeshan and Professor Lynn Froggett with research backgrounds that reflect the cross disciplinary nature of the Institute.'
 
   return (
     <CRow>
@@ -43,22 +43,56 @@ const About = () => {
                 </CNavItem>
                 <CNavItem>
                   <CNavLink>
-                    ICSC
+                    Supporters
                   </CNavLink>
                 </CNavItem>
               </CNav>
               <CTabContent>
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{uclan}</p>
-                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
+                  <CCol xs={12} style={{ textAlign: "end" }}>
+                    <CLink href="https://www.uclancyprus.ac.cy/">
+                      <CImg src={"About/uclan-logo.png"}
+                        width="200" height="200"
+                      />
+                    </CLink>
+                  </CCol>
                 </CTabPane>
+
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
                   <p>{iclaim}</p>
-                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
+                  <CCol xs={12} style={{ textAlign: "end" }}>
+                    <CLink href="https://www.iclaimcentre.org/">
+                      <CImg src={"About/iclaim-logo.png"}
+                        width="200" height="200"
+                      />
+                    </CLink>
+                  </CCol>
                 </CTabPane>
+
                 <CTabPane style={{ padding: "10px", textAlign: "justify" }}>
-                  <p>{icsc}</p>
-                  <CButton color="dark" variant='outline' style={{ float: "right" }} href="https://www.social-mediation.org/about-us/" >More</CButton>
+                  <p> ⚫ Lancashire Research Institute of Citizenship, Society and Change</p>
+                  <p> ⚫ British High Commission, Nicosia</p>
+                  <p> ⚫ Centre for Sustainable Transitions, University of Central Lancashire</p>
+
+                  <CRow>
+                    <CCol xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
+                      <CLink href="https://www.uclancyprus.ac.cy/">
+                        <CImg src={"About/uclan-logo.png"}
+                          width="200" height="200"
+                        />
+                      </CLink>
+                    </CCol>
+
+                    <CCol xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
+                      <CLink href="https://www.iclaimcentre.org/">
+                        <CImg src={"About/iclaim-logo.png"}
+                          width="200" height="200"
+                        />
+                      </CLink>
+                    </CCol>
+                  </CRow>
+
                 </CTabPane>
               </CTabContent>
             </CTabs>
