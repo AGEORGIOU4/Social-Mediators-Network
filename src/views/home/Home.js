@@ -269,15 +269,16 @@ const Home = () => {
       <CCol xs="12">
         <CCol style={{ background: '#0000' }}>
 
-          <p className="backgroundP" style={{ textAlign: "justify", fontSize: 'medium' }}>
+          <p style={{ textAlign: "justify", fontSize: 'medium' }}>
             This app provides a forum for the members of the Social Mediators' Network, where they can discuss future collaborations and joint action on Social Mediation. The app features the bios, profiles and completed trainings of each member and lets all users to familiarise with the other members of the Network and complement one another's work through their individual interests and expertise.
           </p>
 
-          <p className="backgroundP" style={{ textAlign: "justify", fontSize: 'medium' }}>
+          <p style={{ textAlign: "justify", fontSize: 'medium' }}>
             The Social Mediators' Network developed through the Social Mediation initiative ran by ICLAIM in a series of consecutive trainings since 2018. Supporters of the Social Mediation initiative and the Social Mediators' Network include the University of Central Lancashire, UCLan Cyprus, the Centre for Sustainable Transitions, and the British High Commission. The initiative was awarded the 2020 European Citizens' Award by the European Parliament.
           </p>
 
-          <p className="backgroundP" style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
+          <p style={{ textAlign: "justify", fontStyle: 'italic', fontSize: 'small' }}>This platform is designed and developed as a social mediators network and can be used as a proposals tool where any member is able to post and comment.</p>
+
           <p style={{ textAlign: 'center', marginTop: '30px', marginBottom: '0px' }}>
             <CButton href='https://www.social-mediation.org/' color="dark" variant="outline" size="lg">Learn More</CButton>
           </p>
@@ -288,11 +289,11 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h2><strong>News</strong></h2>
+      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px', display: (isConnected) ? "block" : "none" }}>
+        <h2><strong>Highlights</strong></h2>
       </CCol>
 
-      <CCol xs="12" sm="4" md="4">
+      <CCol xs="12" sm="4" md="4" style={{ display: (isConnected) ? "block" : "none" }}>
         <CCard>
           <CCardHeader>
             <LinesEllipsis
@@ -322,7 +323,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" sm="4" md="4">
+      <CCol xs="12" sm="4" md="4" style={{ display: (isConnected) ? "block" : "none" }}>
         <CCard>
           <CCardHeader>
             <LinesEllipsis
@@ -351,7 +352,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" sm="4" md="4">
+      <CCol xs="12" sm="4" md="4" style={{ display: (isConnected) ? "block" : "none" }}>
         <CCard>
           <CCardHeader>
             <LinesEllipsis
@@ -376,7 +377,7 @@ const Home = () => {
         </CCard>
       </CCol>
 
-      <CCol xs="12" style={{ margin: "30px 0 45px" }}>
+      <CCol xs="12" style={{ margin: "30px 0 45px", display: (isConnected) ? "block" : "none" }}>
         <hr style={{ width: "70%" }} />
       </CCol>
 
