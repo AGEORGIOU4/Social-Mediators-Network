@@ -88,7 +88,7 @@ export class SocialMediatorsBasicTable extends React.Component {
               fields={socialMediatorFields}
               loading={this.state.loading}
               header={false}
-              tableFilter={{ 'placeholder': 'Search for a social mediator...' }}
+              tableFilter={{ 'placeholder': 'Search...' }}
               itemsPerPage={20}
               pagination
               clickableRows

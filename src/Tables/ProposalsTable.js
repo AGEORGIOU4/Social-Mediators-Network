@@ -68,7 +68,7 @@ export class ProposalsTable extends React.Component {
               fields={proposalFields}
               loading={this.state.loading}
               header={false}
-              tableFilter={{ 'placeholder': 'Search a proposal...' }}
+              tableFilter={{ 'placeholder': 'Search...' }}
               itemsPerPage={20}
               pagination
               sorter
