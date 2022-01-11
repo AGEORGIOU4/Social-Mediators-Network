@@ -289,7 +289,7 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px', display: (isConnected) ? "block" : "none" }}>
+      {/* <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px', display: (isConnected) ? "block" : "none" }}>
         <h2><strong>Highlights</strong></h2>
       </CCol>
 
@@ -379,7 +379,7 @@ const Home = () => {
 
       <CCol xs="12" style={{ margin: "30px 0 45px", display: (isConnected) ? "block" : "none" }}>
         <hr style={{ width: "70%" }} />
-      </CCol>
+      </CCol> */}
 
     </CRow >
 
