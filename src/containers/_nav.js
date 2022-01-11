@@ -21,10 +21,10 @@ const _nav = [
     name: 'Blog',
     to: '/blog',
     icon: <CIcon style={{ color: "#fcb040" }} content={cilNotes} customClasses="c-sidebar-nav-icon" />,
-    badge: {
-      color: 'success',
-      text: 'NEW',
-    }
+    // badge: {
+    //   color: 'success',
+    //   text: 'NEW',
+    // }
   },
   {
     _tag: 'CSidebarNavItem',
