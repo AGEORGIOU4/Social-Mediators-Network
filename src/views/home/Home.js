@@ -289,7 +289,7 @@ const Home = () => {
         <hr style={{ width: "70%" }} />
       </CCol>
 
-      {/* <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px', display: (isConnected) ? "block" : "none" }}>
+      <CCol xs="12" style={{ textAlign: 'center', marginBottom: '40px', display: (isConnected) ? "block" : "none" }}>
         <h2><strong>Highlights</strong></h2>
       </CCol>
 
@@ -297,8 +297,8 @@ const Home = () => {
         <CCard>
           <CCardHeader>
             <LinesEllipsis
-              text='ICLAIM’S ‘SOCIAL MEDIATION IN PRACTICE’ PROJECT RECEIVES THE EUROPEAN CITIZEN PRIZE 2020 FROM THE EUROPEAN PARLIAMENT'
-              maxLine='1'
+              text='Social Mediator Joya Lahoud takes social mediation to Lebanon'
+              maxLine='5'
               ellipsis='...'
               trimRight
               basedOn='letters'
@@ -306,18 +306,14 @@ const Home = () => {
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='The Interdisciplinary Centre for Law, Alternative and Innovative Methods (ICLAIM), an independent non-profit organisation working in close association with the School of Law at the University of Central Lancashire in Cyprus (UCLan Cyprus), is proud to announce that out of the 30 laureates of the European Parliament’s European Citizen Prize 2020 from 25 countries of the EU, ICLAIM is one of the two recipients from Cyprus! The laureates for Cyprus were announced by the European Parliament Office in Cyprus on 12 February 2021, being ICLAIM Founder, Prof. Stéphanie Laulhé Shaelou, on behalf of ICLAIM for its ‘Social Mediation in Practice’ programme, and Mr Costas Vichas for his long-term humanitarian assistance to those in need. Since 2008, the European Parliament awards the European Citizen’s Prize every year to projects and initiatives that facilitate cross-border cooperation or promote mutual understanding within the EU. The prize, which has symbolic value, is also intended to acknowledge the work of those who through their day-to-day activities promote European values.
-              ICLAIM is a non-profit organisation registered and established in Cyprus since 2017, whose primary objective is to serve communities. It is a social enterprise vehicle which benefits from the expertise of a pool of all-female resident experts, researchers and interns, from diverse backgrounds, primarily (but not exclusively) from the UCLan Cyprus School of Law. The organisation envisions a society where citizens are empowered and enjoy access to social justice, through alternative and innovative approaches in the application of the law to societal issues.
-              The ‘Social Mediation in Practice’ project, whose broader objective is to spread the use of social mediation as a tool for the resolution of conflicts in the Cypriot society and beyond, is one of ICLAIM’s long-term projects, under the overall coordination of Prof. Stéphanie Laulhé Shaelou. In 2018, Dr Natalie Alkiviadou supervised a group of UCLan Cyprus law students, interns at ICLAIM, to draft the first ‘Handbook for Professionals on Social Mediation’. Since July 2018, the Handbook and ICLAIM expertise have been disseminated in a series of training and workshops promoting the use of social mediation among individuals primarily from the education, the NGO and the law enforcement sectors, across communities. This ‘train the trainers’ approach was initially piloted through the Social Mediation project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Institute of Citizenship, Society and Change (UCLan ICSC). This was followed by a workshop series entitled ‘Social Mediation in Practice’ delivered in 2019 and 2020 by ICLAIM and supported by UCLan Cyprus, with a grant from the British High Commission in Nicosia. These workshops involved ICLAIM social mediation trainers Dr Katerina Antoniou and Ms Nadia Kornioti, with input from Dr Pinar Zubaroğlu-Ioannides, and facilitation by community members and students. All workshops encouraged the participation of a diverse group of individuals from all communities of Cyprus, and of varying professional or other background. The workshops led to the establishment of the Social Mediators Network in September 2020. Amid the pandemic, the ‘Social Mediation in Practice’ project swiftly reacted to the situation by offering collective and active reflection on the impact of COVID-19 on communities in Cyprus, and on the role that social mediation could play in this setting. The Prize therefore recognizes the active citizenship of almost 100 individuals across the island and beyond, as well as the trust showed by all institutions mentioned above. ICLAIM would like to thank them all.              
-              The next step in the programme’s development is a forthcoming workshop, part of a new ‘Social Mediation for Social Transitions’ project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Centre for Sustainable Transitions (UCLan CST). The workshop will take place on 26-27 February 2021 and more information is available on our www.social-mediation.org.  
-              Our congratulations to everyone involved in ICLAIM’s ‘Social Mediation in Practice’ programme and to the Laureates for the much-deserved recognition!'
-              maxLine='3'
+              text='During the summer of 2021, Joya organized a series of three webinars to explain more about social mediation and its importance and efficiency in solving small-scale and large-scale conflicts for Lebanese participants. Participants of all ages joined the webinars and seemed deeply interested to learn more about this effective tool and how it may contribute to solving issues in Lebanon and globally in a civil and diplomatic way. Joya highlights: "I was really so happy that we could expand our network and share social mediation in the Middle East and particularly in Lebanon, a country facing major difficulties and conflicts nowadays. Not only we explained the role of a social mediator and the mechanisms of social mediation but also we discussed small and large-scale issues by applying the theory to the Lebanese reality and how this significant tool could help the Lebanese reach their long-term goals".'
+              maxLine='10'
               ellipsis='...'
               trimRight
               basedOn='letters'
             />
 
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
+            {/* <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div> */}
           </CCardBody>
 
         </CCard>
@@ -327,8 +323,8 @@ const Home = () => {
         <CCard>
           <CCardHeader>
             <LinesEllipsis
-              text='Upcoming Workshop on Social Mediation for Social Transitions'
-              maxLine='1'
+              text='Stavros Frangoudes and Maria Atalioti deliver Equality Fairness and Diversity Awareness Workshop'
+              maxLine='5'
               ellipsis='...'
               trimRight
               basedOn='letters'
@@ -336,17 +332,13 @@ const Home = () => {
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='The COVID19 pandemic in 2020 reinforced the political polarisation and social uncertainty observed in the last decade. Within this context of weakening social cohesion and growing hostility in our societies, we hereby announce the delivery of an innovative Social Mediation training, under the ‘Social Mediation for Social Transitions’ project delivered by ICLAIM with the support of UCLan Cyprus and a grant from the University of Central Lancashire Centre for Sustainable Transitions (UCLan CST).
-              Building on previous experience, the activities will train individuals interested in the implementation of Social Mediation as a conflict resolution tool, through a two-day online workshop on 26-27 February. Participants   will then have the opportunity to join previously trained Social Mediators through an online Roundtable Discussion, scheduled on 6 March, to set priorities and identify useful approaches in using Social Mediation in societies characterised by continuous social, political, economic and technological transitions.
-              The project aims to contribute towards the publication of a new Manual on Social Mediation for Social Transitions, which envisages to expand the contexts within which Social Mediation can be employed as a conflict resolution tool.               
-              For more information address any further questions to social-mediation@iclaimcentre.org
-              For all details regarding the workshop and roundtable meeting, please refer to the poster attached to the present announcement. Availability is limited and registration is compulsory through the following link: here'
-              maxLine='3'
+              text='Network members had the opportunity to enjoy peer-to-peer training on equality, diversity, and fairness by social mediators Stavros and Maria. The workshop was delivered on December 11th for both in person and remote attendance, engaging the network members that could attend in a vibrant and interactive session. The workshop included a crisis simulation that participants had to address in an ethical manner. Comments from participants indicated that the workshop was captivating and informative.'
+              maxLine='10'
               ellipsis='...'
               trimRight
               basedOn='letters'
             />
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
+            {/* <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div> */}
           </CCardBody>
 
         </CCard>
@@ -356,8 +348,8 @@ const Home = () => {
         <CCard>
           <CCardHeader>
             <LinesEllipsis
-              text='Watch! Social Mediation Conference – Public Session'
-              maxLine='1'
+              text='Social mediation and social work'
+              maxLine='5'
               ellipsis='...'
               trimRight
               basedOn='letters'
@@ -365,21 +357,20 @@ const Home = () => {
           </CCardHeader>
           <CCardBody>
             <LinesEllipsis
-              text='On 12 September 2020, ICLAIM organised the Social Mediation Conference and launched the Social Mediators Network. Participants included trained Social Mediators from both Cyprus communities, who had participated in the workshops mentioned above. Based on the feedback, the ideas and the areas prioritised by the workshop participants, we produced a report summarising the main points on the conference.
-              You can now watch online the public session of the Social Mediation Conference in the video below and access the Conference Report here'
-              maxLine='3'
+              text='On 7 November 2021, Network member, Dr Eleni Athanasiou invited ICLAIM to present at the 34th International Conference of The Council of International Fellowship, organised by the European University Cyprus. There we had the opportunity to present before an international audience of Social Workers from Southeast Asia to Latin America the Social Mediation project and participate in a lively discussion on how Social Mediation can be used effectively in the provision of social services. Some countries have already been implementing similar projects publicly and the results have been very positive.'
+              maxLine='10'
               ellipsis='...'
               trimRight
               basedOn='letters'
             />
-            <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div>
+            {/* <div style={{ textAlign: 'end', marginTop: '15px' }}><CButton variant="outline" color="dark">Read</CButton></div> */}
           </CCardBody>
         </CCard>
       </CCol>
 
       <CCol xs="12" style={{ margin: "30px 0 45px", display: (isConnected) ? "block" : "none" }}>
         <hr style={{ width: "70%" }} />
-      </CCol> */}
+      </CCol>
 
     </CRow >
 
