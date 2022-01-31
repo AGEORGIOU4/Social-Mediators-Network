@@ -6,7 +6,7 @@ import 'reactjs-bottom-navigation/dist/index.css'
 import { cilHome, cilInfoCircle, cilPhone } from '@coreui/icons-pro'
 
 const TheBottomNavigation = () => {
-  var activeTab = 2;
+  var activeTab = 0;
 
   const setTabOnReload = () => {
     const path = window.location.hash;
