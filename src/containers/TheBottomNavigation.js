@@ -28,7 +28,7 @@ const TheBottomNavigation = () => {
         activeTab = 4;
         break;
       default:
-        activeTab = 2;
+        activeTab = 0;
         break
     }
   }
