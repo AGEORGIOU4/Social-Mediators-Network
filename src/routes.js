@@ -2,6 +2,7 @@ import React from 'react'
 
 const Home = React.lazy(() => import('./views/home/Home'))
 const About = React.lazy(() => import('./views/about/About'))
+
 const SocialMediators = React.lazy(() => import('./views/social-mediators/Social-Mediators'))
 const Posts = React.lazy(() => import('./views/posts/Posts'))
 const Blog = React.lazy(() => import('./views/blog/Blog'))
@@ -14,6 +15,7 @@ const ProfileForm = React.lazy(() => import('./views/profile/Profile-Form'))
 const UsersProfile = React.lazy(() => import('./views/profile/Users-Profile'))
 const Settings = React.lazy(() => import('./views/settings/Settings'))
 
+const Policy = React.lazy(() => import('./views/policy/Policy'))
 
 const Draggable = React.lazy(() => import('./views/draggable/Draggable'))
 
@@ -34,6 +36,8 @@ const routes = [
   { path: '/profile-form', name: 'Profile Form', component: ProfileForm },
   { path: '/users-profile', name: 'Users Profile', component: UsersProfile },
   { path: '/settings', name: 'Settings', component: Settings },
+
+  { path: '/policy', name: 'Policy', component: Policy },
 
   { path: '/draggable', name: 'Draggable', component: Draggable },
 ]
