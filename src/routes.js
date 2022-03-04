@@ -16,6 +16,7 @@ const UsersProfile = React.lazy(() => import('./views/profile/Users-Profile'))
 const Settings = React.lazy(() => import('./views/settings/Settings'))
 
 const Policy = React.lazy(() => import('./views/policy/Policy'))
+const Terms = React.lazy(() => import('./views/terms/Terms'))
 
 const Draggable = React.lazy(() => import('./views/draggable/Draggable'))
 
@@ -38,6 +39,7 @@ const routes = [
   { path: '/settings', name: 'Settings', component: Settings },
 
   { path: '/policy', name: 'Policy', component: Policy },
+  { path: '/terms', name: 'Terms', component: Terms },
 
   { path: '/draggable', name: 'Draggable', component: Draggable },
 ]
