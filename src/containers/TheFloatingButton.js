@@ -112,7 +112,7 @@ const TheFloatingButton = () => {
                   if (url === "#/Blog" || url === "#/blog") {
                     setTimeout(() =>
                       window.location.reload(false)
-                      , 1000)
+                      , 4000)
                   }
 
                   Toast.fire({
